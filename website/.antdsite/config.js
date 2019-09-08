@@ -1,5 +1,5 @@
 module.exports = {
-  base: 'concent-doc',
+  base: '/concent-doc/',
   title: 'concent',
   description: '一个可预测、0入侵、渐进式、高性能的增强型状态管理方案，power your react！',
   logo: '/favicon.png',
