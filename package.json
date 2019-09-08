@@ -1,0 +1,15 @@
+{
+  "name": "cc-doc-antd",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "yarn clean && gatsby build",
+    "start": "yarn clean && gatsby develop",
+    "eject": "antdsite-cli --eject",
+    "clean": "gatsby clean"
+  },
+  "devDependencies": {
+    "antdsite": "0.12.9",
+    "gatsby": "^2.13.45"
+  }
+}
