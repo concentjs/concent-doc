@@ -214,10 +214,10 @@ function CounterHookComp() {
 
 <div style="padding:2px 15%;text-align:center">
   <h2 style="color:#0094bd">Hello Concent</h2>
-  <img style="width:100%;maxWidth:720px" src="/img/blockHeader.png" />
+  <img style="width:100%;maxWidth:720px" src="img/blockHeader.png" />
   <br/>
   <video muted style="width:100%;maxWidth:720px;transform:translateY(-6px)" controls="controls" autoPlay="none">
-    <source src="/video/cc-zero-cost.mov" type="video/mp4" />
+    <source src="video/cc-zero-cost.mov" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
   <br/>
