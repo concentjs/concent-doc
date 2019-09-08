@@ -1,2 +1,2 @@
-node_modules
-.cache
+website/node_modules
+website/.cache
