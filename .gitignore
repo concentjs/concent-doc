@@ -1,2 +1,4 @@
 website/node_modules
 website/.cache
+website/public
+.help.md
