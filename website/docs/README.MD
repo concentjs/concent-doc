@@ -127,7 +127,7 @@ showStar: true
 
   <div style="width:25%; padding:0 10px; text-align:center">
     <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/09.png);"></div>
-    <h2>支持扩展中间件与插件</h2>
+    <h2>扩展中间件与插件</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
       允许用户定义中间件拦截所有的数据变更提交记录，做额外处理，也可以自定义插件，接收运行时的发出的各种信号，按需增强concent自身的能力。
     </p>
@@ -135,7 +135,7 @@ showStar: true
 
   <div style="width:25%; padding:0 10px; text-align:center">
     <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/11.png);"></div>
-    <h2>去中心化的动态配置模块</h2>
+    <h2>去中心化配置模块</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
       启动concent后还支持任意地方调用configure接口动态配置模块，方便用户将组件和其模块定义放置在同一个文件夹并打包发布npm，方便别人直接引入你的concent组件
     </p>
