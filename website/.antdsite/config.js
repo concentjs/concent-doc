@@ -1,5 +1,5 @@
 module.exports = {
-  // base: '/concent-doc/',
+  base: '/concent-doc/',
 
   locales: {
     '/': {
