@@ -1,0 +1,23 @@
+.banner-wrapper {
+  /* padding-top: 280px;
+  background-image: url(/img/bg1.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 0 0; */
+  /* background-size: 100% 330px; */
+}
+
+.home-wrapper {
+  max-width: 1200px;
+}
+
+.my-banner {
+  /* position: fixed;
+  top: 66px;
+  left: 0;
+  right: 0;
+  height: 280px;
+  background-image: url(/img/bg1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat */
+}
