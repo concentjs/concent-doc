@@ -84,10 +84,5 @@
 }
 
 .videoHeader{
-  width: 100%;
-  max-width: 720px;
-  height: 23px;
-  background-image: url(/img/blockHeader.png);
-  background-size: contain;
-  margin: 0 auto;
+  width: 100%;max-width: 720px;height: 23px;background-image: url(/concent-doc/img/blockHeader.png); background-size: contain; margin: 0 auto;
 }

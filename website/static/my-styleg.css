@@ -29,10 +29,7 @@
 }
 
 .featureImgBase {
-  height: 80px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat
+  height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/01.png);
 }
 
 .featureImg1{
