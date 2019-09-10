@@ -36,58 +36,49 @@
 }
 
 .featureImg1{
-  background-image: url(/icon/01.png);
+  background-image: url(/concent-doc/icon/01.png);
 }
 
 .featureImg2{
-  background-image: url(/icon/00.png);
+  background-image: url(/concent-doc/icon/00.png);
 }
 
 .featureImg3{
-  background-image: url(/icon/02.png);
+  background-image: url(/concent-doc/icon/02.png);
 }
 
 .featureImg4{
-  background-image: url(/icon/03.png);
+  background-image: url(/concent-doc/icon/03.png);
 }
 
 .featureImg5{
-  background-image: url(/icon/04.png);
+  background-image: url(/concent-doc/icon/04.png);
 }
 
 .featureImg6{
-  background-image: url(/icon/05.png);
+  background-image: url(/concent-doc/icon/05.png);
 }
 
 .featureImg7{
-  background-image: url(/icon/06.png);
+  background-image: url(/concent-doc/icon/06.png);
 }
 
 .featureImg8{
-  background-image: url(/icon/07.png);
+  background-image: url(/concent-doc/icon/07.png);
 }
 
 .featureImg9{
-  background-image: url(/icon/08.png);
+  background-image: url(/concent-doc/icon/08.png);
 }
 
 .featureImg10{
-  background-image: url(/icon/09.png);
+  background-image: url(/concent-doc/icon/09.png);
 }
 
 .featureImg11{
-  background-image: url(/icon/11.png);
+  background-image: url(/concent-doc/icon/11.png);
 }
 
 .featureImg12{
-  background-image: url(/icon/10.png);
-}
-
-.videoHeader{
-  width: 100%;
-  max-width: 720px;
-  height: 23px;
-  background-image: url(/img/blockHeader.png);
-  background-size: contain;
-  margin: 0 auto;
+  background-image: url(/concent-doc/icon/10.png);
 }

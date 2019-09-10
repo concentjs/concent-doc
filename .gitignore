@@ -1,4 +1,6 @@
 website/node_modules
 website/.cache
 website/public
+website/static/concent-doc
+concent-doc
 .help.md
