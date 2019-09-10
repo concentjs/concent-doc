@@ -17,7 +17,7 @@ showStar: true
 
 <div class="my-banner"></div>
 
-<div style="display:flex; flex-wrap: wrap; justify-content: center; margin-bottom:64px;">
+<div style="display:flex; flex-wrap: wrap; justify-content: center;">
 
   <a href='https://www.npmjs.com/package/concent' style='margin: 0 0.5rem;'>
   <img src='https://img.shields.io/github/package-json/v/concentjs/concent/master.svg?label=npm%20version' alt='npm version' height='22px' style="max-width:200px;"/>
@@ -42,15 +42,15 @@ showStar: true
   <a href='#' style='margin: 0 0.5rem;'>
   <img src='https://img.shields.io/npm/l/concent.svg' alt='license:MIT' height='22px' style="max-width:200px;" />
   </a>
+</div>
 
+<div style="display:flex; flex-wrap: wrap; justify-content: center; margin-bottom:64px;">
   <a href='#' style='margin: 0 0.5rem;'>
   <img src='https://img.shields.io/github/followers/fantasticsoul.svg?style=social' alt='followers' height='22px' style="max-width:200px;" />
   </a>
-
   <a href='https://github.com/concentjs/concent' target="blink" style='margin: 0 0.5rem;'>
   <img src='https://img.shields.io/github/stars/concentjs/concent.svg?style=social' alt='concent star' height='22px' style="max-width:200px;"/>
   </a>
-
 </div>
 
 <div style="display:flex; justify-content:flex-start; flex-flow: row wrap;">
@@ -253,3 +253,4 @@ function CounterHookComp() {
   <br/>
   <a href="https://stackblitz.com/@fantasticsoul" target="blink" >更多示例列表</a>
 </div>
+
