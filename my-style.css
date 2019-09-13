@@ -1,3 +1,9 @@
+
+/** 重写右侧导航的宽度 */
+.toc-affix{
+  max-width: 280px;
+}
+
 .banner-wrapper {
   /* padding-top: 280px;
   background-image: url(/img/bg1.jpg);

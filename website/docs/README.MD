@@ -1,7 +1,7 @@
 ---
 heroImage: /favicon.png
 actionText: Get Started →
-actionLink: /guide/
+actionLink: /guide/quick-start
 home: true
 showStar: true
 # features:
@@ -51,24 +51,24 @@ showStar: true
 
 <div style="display:flex; justify-content:flex-start; flex-flow: row wrap;">
 
-  <div style="width:25%; padding:0 10px; text-align:center">
-    <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/01.png);"></div>
+  <div class="featureWrap">
+    <div class="featureImgBase featureImg1"></div>
     <h2>极简的核心api</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
       run负责载入模块配置，register负责注册你的react组件为concent组件
     </p>
   </div>
 
-  <div style="width:25%; padding:0 10px; text-align:center">
-    <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/00.png);"></div>
+  <div class="featureWrap">
+    <div class="featureImgBase featureImg2"></div>
     <h2>0入侵成本接入</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
       无需Provider包裹，原始react组件被注册后，其setState就被赋予了接通store的能力。
     </p>
   </div>
 
-  <div style="width:25%; padding:0 10px; text-align:center">
-    <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/02.png);"></div>
+  <div class="featureWrap">
+    <div class="featureImgBase featureImg3"></div>
     <h2>贴心的模块配置</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
       模块定义提供state、reducer、watch、computed和init 5个选项，支持按需定义，覆盖你所有的业务场景。
@@ -238,14 +238,12 @@ function CounterHookComp() {
 }
 ```
 
-<div style="padding:2px 15%;text-align:center">
+<div style="text-align:center;">
   <h2 style="color:#0094bd">Hello Concent</h2>
-  <div style="width: 100%;max-width: 720px;height: 23px;background-image: url(/concent-doc/img/blockHeader.png); background-size: contain; margin: 0 auto;"></div>
-  <video muted style="width:100%;maxWidth:720px;transform:translateY(-6px)" controls="controls" autoPlay="none">
-    <source src="/concent-doc/video/cc-zero-cost.mov" type="video/mp4" />
-    Your browser does not support the video tag.
+  <img style="width:100%;max-width:740px" src="/concent-doc/img/blockHeader.png" /><br />
+  <video muted="" style="width:100%;max-width:740px;transform:translateY(-6px)" controls="controls" autoPlay="none">
+    <source src="/concent-doc/video/cc-zero-cost.mov" type="video/mp4" />Your browser does not support the video tag.
   </video>
-  <br/>
-  <a href="https://stackblitz.com/@fantasticsoul" target="blink" >更多示例列表</a>
+  <br />
 </div>
 

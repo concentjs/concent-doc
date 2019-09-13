@@ -1,3 +1,14 @@
+const localeSource = require('./locale-source');
+
+function getLocaleThemeConf(localeKey) {
+  const confItemKeys = ['selectText', 'label', 'editLinkText', 'serviceWorker', 'algolia', 'nav', 'sidebar'];
+  const sidebar = {};
+  confItemKeys.forEach(k => {
+    sidebar[k] = localeSource[k][localeKey]
+  });
+  return sidebar;
+}
+
 module.exports = {
   base: '/concent-doc/',
 
@@ -16,108 +27,16 @@ module.exports = {
 
   logo: '/favicon.png',
   footer: 'MIT Licensed | Copyright © concentjs (author: fantasticsoul)',
-  head: [['link', { rel: 'icon', href: '/favicon.png' }]],
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.png' }],
+    ['link', { rel:'stylesheet', type: 'text/css', href: '/my-style.css' }],
+  ],
   themeConfig: {
     logo: '/favicon.png',
 
     locales: {
-      '/': {
-        // 多语言下拉菜单的标题
-        selectText: '选择语言',
-        // 该语言在下拉菜单中的标签
-        label: '简体中文',
-        // 编辑链接文字
-        editLinkText: '在 GitHub 上编辑此页',
-        // Service Worker 的配置
-        serviceWorker: {
-          updatePopup: {
-            message: "发现新内容可用.",
-            buttonText: "刷新"
-          }
-        },
-        // 当前 locale 的 algolia docsearch 选项
-        algolia: {},
-        nav: [
-          {
-            text: 'Guide',
-            link: '/guide'
-          },
-          {
-            text: 'GitHub',
-            link: 'https://github.com/concentjs/concent',
-            important: true
-          }
-        ],
-        sidebar: {
-          '/guide/': [
-            'introduction',
-            {
-              title: 'page-collapsed',
-              children: ['page-collapsed']
-            },
-            {
-              title: 'page-group-exapmle',
-              collapsable: false,
-              children: [
-                {
-                  title: 'group-1',
-                  children: ['group-1-item']
-                },
-                {
-                  title: 'group-2',
-                  children: ['group-2-item']
-                }
-              ]
-            }
-          ]
-        }
-      },
-      '/en/': {
-        selectText: 'Languages',
-        label: 'English',
-        editLinkText: 'Edit this page on GitHub',
-        serviceWorker: {
-          updatePopup: {
-            message: "New content is available.",
-            buttonText: "Refresh"
-          }
-        },
-        algolia: {},
-        nav: [
-          {
-            text: 'Guide',
-            link: '/guide'
-          },
-          {
-            text: 'GitHub',
-            link: 'https://github.com/concentjs/concent',
-            important: true
-          }
-        ],
-        sidebar: {
-          '/guide/': [
-            'introduction',
-            {
-              title: 'page-collapsed',
-              children: ['page-collapsed']
-            },
-            {
-              title: 'page-group-exapmle',
-              collapsable: false,
-              children: [
-                {
-                  title: 'group-1',
-                  children: ['group-1-item']
-                },
-                {
-                  title: 'group-2',
-                  children: ['group-2-item']
-                }
-              ]
-            }
-          ]
-        }
-      }
+      '/': getLocaleThemeConf('cn'),
+      '/en/': getLocaleThemeConf('en'),
     },
 
 
@@ -130,3 +49,4 @@ module.exports = {
 
   }
 };
+
