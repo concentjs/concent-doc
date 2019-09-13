@@ -1,7 +1,7 @@
 # 快速了解和体验concent
 
 ## 模块初览
-![cc-module](/img/cc-module.png)
+![cc-module](/concent-doc/img/cc-module.png)
 在concent里，提供一个全局唯一的`store`，而`store`是由多个模块一起组成的，**模块**是一个非常重要的概念，每个模块又分别由`state`、`reducer`、`computed`、`watch`、`init`组成。
 
 ::: tip | 注意
@@ -328,7 +328,7 @@ export default async()=>{
 ::: tip | 注意
 属于和连接是两个不同的概念，组件dispatch行为在没有指定目标模块时，都自动的修改的是自己模块数据，同时数据是诸如到this.state里的，而且一个组件只能属于一个模块，但是可以连接多个其他模块，连击的模块其数据是注入到this.connectedState.{moduleName}下的
 :::
-![connect](/img/cc-class-and-instance-state.png)
+![connect](/concent-doc/img/cc-class-and-instance-state.png)
 
 如下我们将定义一个`BarComp`，指定其属于`bar`模块，同时连接`foo`和`baz`模块，观察`foo`和`baz`模块下所有key变化
 ```js

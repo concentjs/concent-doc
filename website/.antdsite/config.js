@@ -29,6 +29,7 @@ module.exports = {
   footer: 'MIT Licensed | Copyright © concentjs (author: fantasticsoul)',
   head: [
     ['link', { rel: 'icon', href: '/favicon.png' }],
+    ['link', { rel:'stylesheet', type: 'text/css', href: '/concent-doc/my-style.css' }],
     ['link', { rel:'stylesheet', type: 'text/css', href: '/my-style.css' }],
   ],
   themeConfig: {
