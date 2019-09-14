@@ -326,7 +326,7 @@ export default async()=>{
 ```
 如果我们的组件还要消费其他模块的数据，则需要注册是定义`connect`来**连接**其他模块，以便达到消费其他模块数据的目的。
 ::: tip | 注意
-属于和连接是两个不同的概念，组件dispatch行为在没有指定目标模块时，都自动的修改的是自己模块数据，同时数据是诸如到this.state里的，而且一个组件只能属于一个模块，但是可以连接多个其他模块，连击的模块其数据是注入到this.connectedState.{moduleName}下的
+属于和连接是两个不同的概念，组件dispatch行为在没有指定目标模块时，都自动的修改的是自己模块数据，同时数据是诸如到this.state里的，而且一个组件只能属于一个模块，但是可以连接多个其他模块，连击的模块其数据是注入到this.ctx.connectedState.{moduleName}下的
 :::
 ![connect](/concent-doc/img/cc-class-and-instance-state.png)
 
@@ -337,9 +337,9 @@ class BarComp extends Component {
   render() {
     const bazState = this.state;
     //获得连接模块的状态
-    const { foo:fooState, bar:bazState } = this.connectedState;
+    const { foo:fooState, bar:bazState } = this.ctx.connectedState;
     //获得连接模块的计算结果
-    const { foo:fooCu, baz:bazCu } = this.connectedComputed;
+    const { foo:fooCu, baz:bazCu } = this.ctx.connectedComputed;
   }
 }
 ```
@@ -347,6 +347,9 @@ class BarComp extends Component {
 `js>>>@register({ module: 'bar', connect: {foo:'*', baz:'*'} })`    
 如果我们只需要挑选`foo`模块的部分key做观察，则可以写为    
 `js>>>@register({ module: 'bar', connect: {foo:['key1', 'key2'], baz:'*'} })`   
+当然你也可以不指定属于某个模块，只是单纯的连接其他多个模块    
+`js>>>@register({ connect: {foo:['key1', 'key2'], baz:'*'} })`   
+> 此时组件会被concent指定属于内置模块`$$default`，这是一个空模块，除非你显式地去重定义该模块相关配置项，在没有对`$$default`模块重定义前，组件里的`this.state`和`模块state`将不再有关联，组件的`this.setState`也不再能够触发修改`模块state`的数据，组件自定义的`state`相当于变成完全私有的了。
 
 ## 定义setup
 `setup`定义是针对实例的，触发时机是组件构造器函数执行结束后，组件将要首次渲染前，所以只会被执行一次，其返回结果将搜集到`js>>>this.ctx.settings`里，配合上线文对象提供的`effect`api，还可以达到在类里**消灭生命周期函数**的效果  

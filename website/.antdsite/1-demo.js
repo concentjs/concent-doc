@@ -171,3 +171,14 @@ function HelloHookComp() {
   } = ctx;
   // return ui
 }
+
+docs
+├─ README.md
+├─ foo.md
+├─ nested
+│  └─ README.md
+└─ zh
+   ├─ README.md
+   ├─ foo.md
+   └─ nested
+      └─ README.md

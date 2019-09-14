@@ -2,11 +2,11 @@ const localeSource = require('./locale-source');
 
 function getLocaleThemeConf(localeKey) {
   const confItemKeys = ['selectText', 'label', 'editLinkText', 'serviceWorker', 'algolia', 'nav', 'sidebar'];
-  const sidebar = {};
+  const localeThemeConf = {};
   confItemKeys.forEach(k => {
-    sidebar[k] = localeSource[k][localeKey]
+    localeThemeConf[k] = localeSource[k][localeKey]
   });
-  return sidebar;
+  return localeThemeConf;
 }
 
 module.exports = {
