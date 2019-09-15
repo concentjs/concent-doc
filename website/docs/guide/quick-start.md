@@ -14,7 +14,7 @@
 * `init`可以对`state`完成一次异步的初始化过程，如果模块的`state`是需要异步的被赋值的时候，可以对其定义`init`函数，返回的状态将被合并到`state`里，如果此时此模块下已经实例化了一些组件，init返回的状态也会被分发到各个实例上，[了解更多关于init](/guide/feature-init)。
 
 ::: tip | 温馨提示
-对于仅有一定react基础的用户，可以快速浏览以下内容，以便第一时间上手concent，而对于使用过redux，mobx等状态管理框架的用户，可以查看左侧教程&实战了解更多相关的内容，强烈推荐到stackblitz、codesandbox等在线IDE上编写代码以意思对api的理解
+对于仅有一定react基础的用户，可以快速浏览以下内容，以便第一时间上手concent，而对于使用过redux，mobx等状态管理框架的用户，可以查看左侧教程&实战了解更多相关的内容，强烈推荐到stackblitz、codesandbox等在线IDE上编写代码以加深对api的理解
 :::
 [stackblitz：一个相对复杂的例子](https://stackblitz.com/edit/cc-multi-ways-to-wirte-code)   
 [codesandbox：一个相对简单的例子](https://codesandbox.io/s/hook-setup-1wpl8)
