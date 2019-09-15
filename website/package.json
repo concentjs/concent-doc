@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "yarn clean && rm -rf ../*.js && rm -rf ../*.map && rm -rf ../*.png && rm -rf ../*.html && rm -rf ../404 && rm -rf ../guide && rm -rf ../icon && rm -rf ../img && rm -rf ../page-data && rm -rf ../static && rm -rf ../video && gatsby build --prefix-paths && cp -r ./public/* ../",
+    "build": "yarn clean && rm -rf ../*.js && rm -rf ../*.map && rm -rf ../*.png && rm -rf ../*.html && rm -rf ../404 && rm -rf ../guide && rm -rf ../icon && rm -rf ../img && rm -rf ../page-data && rm -rf ../static && rm -rf ../video && gatsby build --prefix-paths && cp -r ./public/* ../ && cp -r ./missed-page-data/* ../page-data",
+    "cp":"cp ./page-data.json ../",
     "b": "yarn clean && gatsby build --prefix-paths",
     "start": "yarn clean && gatsby develop",
     "eject": "antdsite-cli --eject",
