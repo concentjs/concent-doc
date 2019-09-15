@@ -41,6 +41,7 @@ module.exports = {
     cn: [
       { text: '指引', link: '/guide/quick-start' },
       { text: 'Api', link: '/api' },
+      { text: '生态系统', link: '/eco-sys' },
       { text: '发布日志', link: '/release-log' },
       { text: '实验室', link: '/lab' },
       { text: 'GitHub', link: 'https://github.com/concentjs/concent', important: true }
@@ -48,6 +49,7 @@ module.exports = {
     en: [
       { text: 'Guide', link: '/guide/quick-start' },
       { text: 'Api', link: '/api' },
+      { text: 'EcoSys', link: '/eco-sys' },
       { text: 'ReleaseLog', link: '/release-log' },
       { text: 'Lab', link: '/lab' },
       { text: 'GitHub', link: 'https://github.com/concentjs/concent', important: true }
