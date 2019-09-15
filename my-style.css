@@ -6,12 +6,12 @@
 /** 重写blockquote左侧颜色 */
 .markdown blockquote {
   border-left: 4px solid #0e96b9;
+  background-color: #f8f8f8;
+  padding: 0 12px;
 }
 
 .markdown blockquote:before {
   content: url(/concent-doc/favicon-small.png);
-  background-color: #f8f8f8;
-  padding: 0 12px;
 }
 
 /* .banner-wrapper {
@@ -36,6 +36,17 @@
   /* color: burlywood; */
   color: white;
   opacity: .8;
+}
+
+/** 重写首页的markdown区域宽度 */
+.home-page .gatsby-highlight {
+  max-width: 780px;
+  margin: auto;
+}
+
+footer{
+  background-color: #0e96b9;
+  color: white;
 }
 
 /** 重写antd导航的高度 */

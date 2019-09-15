@@ -187,6 +187,7 @@ run({
 })
 ```
 
+
 <h3 style="height:28px; line-height:28px; border-left:3px solid #0094bd;border-bottom:1px solid #0094bd; width:290px; padding-left:19px; margin-left:19px; color:#0094bd">定义类组件</h3>
 
 ```javascript
@@ -240,8 +241,8 @@ function CounterHookComp() {
 
 <div style="text-align:center;">
   <h2 style="color:#0094bd">Hello Concent</h2>
-  <img style="width:100%;max-width:740px" src="/concent-doc/img/blockHeader.png" /><br />
-  <video muted="" style="width:100%;max-width:740px;transform:translateY(-6px)" controls="controls" autoPlay="none">
+  <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />
+  <video muted="" style="width:100%;max-width:780px;transform:translateY(-6px)" controls="controls" autoPlay="none">
     <source src="/concent-doc/video/cc-zero-cost.mov" type="video/mp4" />Your browser does not support the video tag.
   </video>
   <br />
