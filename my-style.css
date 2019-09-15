@@ -1,17 +1,54 @@
-
 /** 重写右侧导航的宽度 */
-.toc-affix{
+.toc-affix {
   max-width: 280px;
 }
 
-.banner-wrapper {
-  /* padding-top: 280px;
+/** 重写blockquote左侧颜色 */
+.markdown blockquote {
+  border-left: 4px solid #0e96b9;
+}
+
+.markdown blockquote:before {
+  content: url(/concent-doc/favicon-small.png);
+  background-color: #f8f8f8;
+  padding: 0 12px;
+}
+
+/* .banner-wrapper {
+  padding-top: 280px;
   background-image: url(/img/bg1.jpg);
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: 0 0; */
-  /* background-size: 100% 330px; */
+  background-position: 0 0;
+  background-size: 100% 330px;
+} */
+
+.banner-wrapper {
+  background-image: url(/concent-doc/img/bg1.jpg);
+  /* background-size: cover; */
 }
+
+.banner-wrapper h1 {
+  color: white;
+}
+
+.banner-wrapper .banner-title-wrapper p {
+  /* color: burlywood; */
+  color: white;
+  opacity: .8;
+}
+
+/** 重写antd导航的高度 */
+.ant-menu-sub.ant-menu-inline>.ant-menu-item,
+.ant-menu-sub.ant-menu-inline>.ant-menu-item,
+.ant-menu-sub.ant-menu-inline>.ant-menu-submenu>.ant-menu-submenu-title {
+  height: 28px;
+  line-height: 28px;
+  list-style-position: inside;
+  list-style-type: disc;
+}
+
+
 
 .home-wrapper {
   max-width: 1200px;
@@ -41,54 +78,59 @@
   background-repeat: no-repeat
 }
 
-.featureImg1{
+.featureImg1 {
   background-image: url(/concent-doc/icon/01.png);
 }
 
-.featureImg2{
+.featureImg2 {
   background-image: url(/concent-doc/icon/00.png);
 }
 
-.featureImg3{
+.featureImg3 {
   background-image: url(/concent-doc/icon/02.png);
 }
 
-.featureImg4{
+.featureImg4 {
   background-image: url(/concent-doc/icon/03.png);
 }
 
-.featureImg5{
+.featureImg5 {
   background-image: url(/concent-doc/icon/04.png);
 }
 
-.featureImg6{
+.featureImg6 {
   background-image: url(/concent-doc/icon/05.png);
 }
 
-.featureImg7{
+.featureImg7 {
   background-image: url(/concent-doc/icon/06.png);
 }
 
-.featureImg8{
+.featureImg8 {
   background-image: url(/concent-doc/icon/07.png);
 }
 
-.featureImg9{
+.featureImg9 {
   background-image: url(/concent-doc/icon/08.png);
 }
 
-.featureImg10{
+.featureImg10 {
   background-image: url(/concent-doc/icon/09.png);
 }
 
-.featureImg11{
+.featureImg11 {
   background-image: url(/concent-doc/icon/11.png);
 }
 
-.featureImg12{
+.featureImg12 {
   background-image: url(/concent-doc/icon/10.png);
 }
 
-.videoHeader{
-  width: 100%;max-width: 720px;height: 23px;background-image: url(/concent-doc/img/blockHeader.png); background-size: contain; margin: 0 auto;
+.videoHeader {
+  width: 100%;
+  max-width: 720px;
+  height: 23px;
+  background-image: url(/concent-doc/img/blockHeader.png);
+  background-size: contain;
+  margin: 0 auto;
 }
