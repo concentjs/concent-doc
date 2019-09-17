@@ -89,8 +89,8 @@ src
       ├─ model.js
       └─ index.js
 ```
-推荐进一步将model.js写为文件夹，在内部定义`state`、`reducer`、`computed`、`watch`、`init`,在导出合成在一起组成一个完整的model定义，这样不仅显得各自的职责分明，防止代码膨胀看变成一个巨大的`model`对象，同时`reducer`独立定义后，内部函数相互`dispatch`调用时可以直接基于引用而非字符串了。
-```js{4}
+推荐进一步将model.js写为文件夹，在内部定义`state`、`reducer`、`computed`、`watch`、`init`,在导出合成在一起组成一个完整的model定义，这样不仅显得各自的职责分明，防止代码膨胀看变成一个**巨大的`model`对象**，同时`reducer`独立定义后，内部函数相互`dispatch`调用时可以直接基于引用而非字符串了。
+```js{5}
 src
 ├─ ...
 └─ page

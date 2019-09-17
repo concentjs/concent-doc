@@ -8,10 +8,10 @@
 除了state是必需的，其他都是可选项，按需配置就好
 :::
 * `state`定义模块下的数据。
-* `reducer`定义模块修改数据的业务逻辑，因为对于concent来说，`setState`就可以修改模块的数据，所以`reducer`不是必需的，对于简单的业务逻辑你可以直接使用`setState`来完成数据修改，但是通常项目的功能会越来越复杂，而修改数据前的处理过程代码就对应着我们的业务逻辑，这时候为了解耦业务逻辑与ui渲染，建议将其抽离到`reducer`，[了解更多关于reducer](/guide/feature-reducer)。
-* `computed`定义各个`stateKey`的值发生变化时，要触发的计算函数，并将其结果缓存起来，仅当`stateKey`的值再次变化时，才会触发计算，[了解更多关于computed](/guide/feature-computed)。
-* `watch`定义各个`stateKey`的值发生变化时，要触发的回调函数，仅当`stateKey`的值再次变化时，才会触发，通常用于一些异步的任务处理，[了解更多关于watch](/guide/feature-watch)。
-* `init`可以对`state`完成一次异步的初始化过程，如果模块的`state`是需要异步的被赋值的时候，可以对其定义`init`函数，返回的状态将被合并到`state`里，如果此时此模块下已经实例化了一些组件，init返回的状态也会被分发到各个实例上，[了解更多关于init](/guide/feature-init)。
+* `reducer`定义模块修改数据的业务逻辑，因为对于concent来说，`setState`就可以修改模块的数据，所以`reducer`不是必需的，对于简单的业务逻辑你可以直接使用`setState`来完成数据修改，但是通常项目的功能会越来越复杂，而修改数据前的处理过程代码就对应着我们的业务逻辑，这时候为了解耦业务逻辑与ui渲染，建议将其抽离到`reducer`，[了解更多关于reducer](/guide/concept-reducer)。
+* `computed`定义各个`stateKey`的值发生变化时，要触发的计算函数，并将其结果缓存起来，仅当`stateKey`的值再次变化时，才会触发计算，[了解更多关于computed](/guide/concept-computed)。
+* `watch`定义各个`stateKey`的值发生变化时，要触发的回调函数，仅当`stateKey`的值再次变化时，才会触发，通常用于一些异步的任务处理，[了解更多关于watch](/guide/concept-watch)。
+* `init`可以对`state`完成一次异步的初始化过程，如果模块的`state`是需要异步的被赋值的时候，可以对其定义`init`函数，返回的状态将被合并到`state`里，如果此时此模块下已经实例化了一些组件，init返回的状态也会被分发到各个实例上，[了解更多关于init](/guide/concept-init)。
 
 ::: tip | 温馨提示
 对于仅有一定react基础的用户，可以快速浏览以下内容，以便第一时间上手concent，而对于使用过redux，mobx等状态管理框架的用户，可以查看左侧教程&实战了解更多相关的内容，强烈推荐到stackblitz、codesandbox等在线IDE上编写代码以加深对api的理解
@@ -215,7 +215,7 @@ class HelloComp extends Component {
 
 ## 定义模块computed
 concent正确的修改数据行为是提交片段state，即变化了数据就提交什么，这与react的`setState`是一致的理念，真因为如此，concent可以精确的感知到哪些key的值发生了变化，所以允许你定义计算函数，concent会将其返回结果缓存起来。    
-[了解更多关于computed](/guide/feature-computed)
+[了解更多关于computed](/guide/concept-computed)
 ```js{18}
 // code in models/foo/computed.js
 

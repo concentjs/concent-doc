@@ -6,12 +6,19 @@
 /** 重写blockquote左侧颜色 */
 .markdown blockquote {
   border-left: 4px solid #0e96b9;
-  background-color: #f8f8f8;
-  padding: 0 12px;
+  /* background-color: #f8f8f8; */
+  /* background-color: #f5ffed; */
+  background-color: #f7f8f8;
+  padding: 0 12px 6px 12px;
 }
 
 .markdown blockquote:before {
   content: url(/concent-doc/favicon-small.png);
+}
+
+/** code块框颜色 */
+.markdown code {
+  border: 1px dashed #0e96b9;
 }
 
 /** 给代码区域加上圆角 */
@@ -53,6 +60,11 @@
 footer{
   background-color: #0e96b9;
   color: white;
+}
+
+/** 去掉主内容去的上线padding，防止左侧的导航栏在当前页向下滑动了一段距离后跳转其他页面时抖动 */
+.main-wrapper {
+  padding: 0;
 }
 
 /** 重写antd导航的高度 */
