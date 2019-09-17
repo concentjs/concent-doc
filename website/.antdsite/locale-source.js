@@ -80,6 +80,8 @@ module.exports = {
             'concept-action-ctx',
             'concept-fn-ctx',
             'concept-concent-ctx',
+            'concept-middleware',
+            'concept-plugin',
           ]
         },
         {
@@ -93,7 +95,23 @@ module.exports = {
         },
       ],
       '/api/': [
+        'explain',//对应api文件夹下的README.md
+        {
+          title: '实例api',
+          collapsable: false,
+          children: [
+            'ref-set-state',
+            'ref-dispatch',
+            'ref-setup',
+          ]
+        },
+        {
+          title: '全局api',
+          collapsable: false,
+          children: [
 
+          ]
+        },
       ]
     },
     en: {

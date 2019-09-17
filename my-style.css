@@ -16,7 +16,7 @@
 
 /** 给代码区域加上圆角 */
 .gatsby-highlight pre[class*=language-] {
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 
@@ -59,8 +59,8 @@ footer{
 .ant-menu-sub.ant-menu-inline>.ant-menu-item,
 .ant-menu-sub.ant-menu-inline>.ant-menu-item,
 .ant-menu-sub.ant-menu-inline>.ant-menu-submenu>.ant-menu-submenu-title {
-  height: 28px;
-  line-height: 28px;
+  height: 22px;
+  line-height: 22px;
   list-style-position: inside;
   list-style-type: disc;
 }
