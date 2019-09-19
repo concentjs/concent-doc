@@ -249,7 +249,7 @@ class HelloComp extends Component {
 ```
 ::: tip | 注意
 模块computed的初次计算在启动concent载入模块时就被触发了初次计算，和该模块下有没有相关的组件被实例化没有关系。   
-key对应的应该是primitive类型的（如number, string, boolean），如果是object型，则需要总是返回新的引用才能触发计算，或者设置compare为false，只要对这个key设了值就出发计算
+key对应的应该是primitive类型的（如number, string, boolean），如果是object型，则需要总是返回新的引用才能触发计算，或者设置compare为false，只要对这个key设了值就触发计算
 :::
 ```js{13}
 // code in models/foo/computed.js

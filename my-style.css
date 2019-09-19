@@ -26,7 +26,6 @@
   border-radius: 5px;
 }
 
-
 /* .banner-wrapper {
   padding-top: 280px;
   background-image: url(/img/bg1.jpg);
@@ -38,6 +37,8 @@
 
 .banner-wrapper {
   background-image: url(/concent-doc/img/bg1.jpg);
+  /* 因为main-wrapper去掉了padding，这里加上margin-top */
+  margin-top: 12px;
   /* background-size: cover; */
 }
 
@@ -71,13 +72,11 @@ footer{
 .ant-menu-sub.ant-menu-inline>.ant-menu-item,
 .ant-menu-sub.ant-menu-inline>.ant-menu-item,
 .ant-menu-sub.ant-menu-inline>.ant-menu-submenu>.ant-menu-submenu-title {
-  height: 22px;
-  line-height: 22px;
+  height: 28px;
+  line-height: 28px;
   list-style-position: inside;
   list-style-type: disc;
 }
-
-
 
 .home-wrapper {
   max-width: 1200px;
