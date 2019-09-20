@@ -62,8 +62,8 @@ function Bar(){
 function App(){
   return (
     <div>
-      <CcFoo>
-      <Bar>
+      <CcFoo />
+      <Bar />
     </div>
   );
 }

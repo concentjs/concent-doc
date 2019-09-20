@@ -255,8 +255,8 @@ key对应的应该是primitive类型的（如number, string, boolean），如果
 // code in models/foo/computed.js
 
 //hobbies是一个数组
-export function hobbies(newVal, oldVal) {
-  return newVal * 2;
+export function hobbies(hobbies, oldVal) {
+  return hobbies.length * 2;
 }
 
 // code in models/foo/reducer.js
@@ -268,11 +268,9 @@ export function addHobby(hobby, moduleState){
 }
 ```
 如果需要`js>>>return { hobbies }`能触发计算，则定义hobbies计算函数时，需要将其`compare`指定为`false`，表示只要设了`hobbies`的值，就触发计算
-```js{5}
+```js{3}
 export const hobbies = {
-  fn(newVal, oldVal) {
-    return newVal * 2;
-  },
+  fn: (hobbies) => hobbies.length * 2,
   compare: false,//不做比较，只要片段状态里对设了`hobbies`的值，就触发计算
 }
 ```
