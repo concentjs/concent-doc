@@ -18,7 +18,7 @@ type ComputedValueDef = ComputedFn | ComputedFnDesc;
 读者可fork此[在线示例](https://stackblitz.com/edit/cc-computed)做修改来加深理解。
 
 ## 定义computed
-我们可以在模块`computed`属性的对象里定义计算，key就是获取计算结果的`retKey`，value就是`computed函数`或`computed描述体`。
+我们可以在子模块配置`computed`属性的对象里定义计算，key就是获取计算结果的`retKey`，value就是`computed函数`或`computed描述体`。
 ```js
 import { run } from 'concent';
 
