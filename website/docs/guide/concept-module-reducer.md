@@ -1,13 +1,14 @@
 # 模块reducer
 
 ## 定义reducer函数
-`reducer`对象里是一个个`reducer函数`的集合，key就是函数名称，value就是`reducer函数`， 负责生成并返回新的**部分状态**，也可以不做任何返回动作，仅仅只是组合调用其他的`reducer函数`。
+`reducer`对象里是一个个`片段状态生成函数`的集合，key就是函数名称，value就是`片段状态生成函数`， 负责生成并返回新的**部分状态**，也可以不做任何返回动作，仅仅只是组合调用其他的`片段状态生成函数`。
+> 以下将`片段状态生成函数`称之为`reducer函数`
 
 类型定义：
 ```typescript
-type reducer = (
+type PartialStateFn = (
   payload: any, moduleState: ModuleState, actionCtx: ActionCtx
-) => Promise<any>
+) => Promise<object | undefined>
 ```
 > - `reducer函数`可以是纯函数，可以是`async`函数，也可以是生成器函数    
 > - 可以返回一个**部分状态**，可以调用其他`reducer函数`后再返回一个部分状态，也可以啥都不返回，   

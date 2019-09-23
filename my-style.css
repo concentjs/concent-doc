@@ -78,6 +78,16 @@ footer{
   list-style-type: disc;
 }
 
+/** 让左侧导航出滑块 */
+.ant-menu-root.ant-menu-inline, 
+.ant-menu-root.ant-menu-vertical, 
+.ant-menu-root.ant-menu-vertical-left, 
+.ant-menu-root.ant-menu-vertical-right {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
+}
+
 .home-wrapper {
   max-width: 1200px;
 }

@@ -98,7 +98,7 @@ module.exports = {
         'explain',//对应api文件夹下的README.md
         {
           title: '实例api',
-          collapsable: true,
+          collapsable: false,
           children: [
             'ref-set-state',
             'ref-force-update',
@@ -125,7 +125,7 @@ module.exports = {
         },
         {
           title: '全局api',
-          collapsable: true,
+          collapsable: false,
           children: [
             'g-run',
             'g-configure',

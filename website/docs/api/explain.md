@@ -3,7 +3,7 @@
 ## 实例api
 在**实例上下文**`ctx`里调用的api，[阅读更多关于实例上下文](/guide//concept-ref-ctx)
 
-## 全部api
+## 全局api
 从`concent`包里直接导出，可以在任何地方调用的api
 ```js
 import {
