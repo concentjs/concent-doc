@@ -15,7 +15,7 @@ function dispatch(
   payload?:any, 
   renderKey?:string
   delay?:number, 
-)=>Promise<any>
+): Promise<object | undefined>
 ```
 
 以下是`dispatch`的快速上手使用介绍，了解`reducer`相关请移步[这里](/guide/concept-reducer)
