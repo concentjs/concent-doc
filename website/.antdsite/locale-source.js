@@ -40,7 +40,7 @@ module.exports = {
   nav: {
     cn: [
       { text: '指引', link: '/guide/quick-start' },
-      { text: 'Api', link: '/api' },
+      { text: 'Api', link: '/api/explain' },
       { text: '生态系统', link: '/eco-sys' },
       { text: '发布日志', link: '/release-log' },
       { text: '实验室', link: '/lab' },
@@ -48,7 +48,7 @@ module.exports = {
     ],
     en: [
       { text: 'Guide', link: '/guide/quick-start' },
-      { text: 'Api', link: '/api' },
+      { text: 'Api', link: '/api/explain' },
       { text: 'EcoSys', link: '/eco-sys' },
       { text: 'ReleaseLog', link: '/release-log' },
       { text: 'Lab', link: '/lab' },
@@ -98,18 +98,56 @@ module.exports = {
         'explain',//对应api文件夹下的README.md
         {
           title: '实例api',
-          collapsable: false,
+          collapsable: true,
           children: [
             'ref-set-state',
+            'ref-force-update',
+            'ref-set-module-state',
+            'ref-set-global-state',
             'ref-dispatch',
+            'ref-lazy-dispatch',
+            'ref-invoke',
+            'ref-lazy-invoke',
+            'ref-sync',
+            'ref-sync-bool',
+            'ref-sync-int',
+            'ref-set',
+            'ref-set-bool',
+            'ref-emit',
+            'ref-on',
+            'ref-off',
             'ref-setup',
+            'ref-computed',
+            'ref-watch',
+            'ref-effect',
+            'ref-execute',
           ]
         },
         {
           title: '全局api',
-          collapsable: false,
+          collapsable: true,
           children: [
-
+            'g-run',
+            'g-configure',
+            'g-register',
+            'g-register-dumb',
+            'g-cc-fragment',
+            'g-use-concent',
+            'g-register-hook-comp',
+            'g-set-state',
+            'g-set-global-state',
+            'g-set',
+            'g-get-state',
+            'g-get-global-state',
+            'g-get-computed',
+            'g-get-global-computed',
+            'g-dispatch',
+            'g-lazy-dispatch',
+            'g-reducer',
+            'g-lazy-reducer',
+            'g-emit',
+            'g-execute',
+            'g-clear-context-if-hot',
           ]
         },
       ]
