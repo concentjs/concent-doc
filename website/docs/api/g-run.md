@@ -6,18 +6,25 @@
 ## 函数签名定义
 ```ts
 run(
-  [module:string]:{
-    state:object,
-    reducer?:{
-      [fnName:string]: PartialStateFn,
-    },
-    watch?:{
-      [stateKey:string]: WatchFn | WatchFnDesc,
-    },
-    computed?:{
-       [stateKey:string]: ComputedFn | ComputedFnDesc,
-    },
-    init?:()=>any
+  //模块配置
+  moduleConf: {
+    [module:string]:{
+      state:object,
+      reducer?:{
+        [fnName:string]: PartialStateFn,
+      },
+      watch?:{
+        [stateKey:string]: WatchFn | WatchFnDesc,
+      },
+      computed?:{
+        [stateKey:string]: ComputedFn | ComputedFnDesc,
+      },
+      init?:()=>any
+    }
+  },
+  //其他额外配置
+  option: {
+
   }
 );
 ```

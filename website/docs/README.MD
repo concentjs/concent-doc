@@ -1,7 +1,7 @@
 ---
 heroImage: /favicon.png
 actionText: Get Started →
-actionLink: /guide/quick-start
+actionLink: /guide/first-sight
 home: true
 showStar: true
 # features:
@@ -156,95 +156,17 @@ ___
   <h2 style="border-left:5px solid #0094bd;border-bottom:2px solid #0094bd; width:190px; padding-left:19px; color:#0094bd">如何安装</h2>
 </div>
 
-```bash
-npm i concent --save
-```
+<div style="text-align: center;">
+  <img src="/concent-doc/img/install-concent.png" width="740px" style="margin:0 auto"/>
+</div>
 
 <div>
-  <h2 style="border-left:5px solid #0094bd;border-bottom:2px solid #0094bd; width:190px; padding-left:19px; color:#0094bd">如何使用</h2>
+  <h2 style="border-left:5px solid #0094bd;border-bottom:2px solid #0094bd; width:190px; padding-left:19px; color:#0094bd">探索更多</h2>
 </div>
 
-<h3 style="height:28px; line-height:28px; border-left:3px solid #0094bd;border-bottom:1px solid #0094bd; width:290px; padding-left:19px; margin-left:19px; color:#0094bd">启动concent，载入模块配置</h3>
-
-```javascript
-import { run } from 'concent';
-run({
-  counter: {//定义counter模块
-    state: { count: 1 },//state定义，必需
-    reducer: {//reducer函数定义，可选
-      inc(payload, moduleState) {
-        return { count: moduleState.count + 1 }
-      },
-      dec(payload, moduleState) {
-        return { count: moduleState.count - 1 }
-      }
-    },
-    // compouted, watch, init 可选
-    //computed: { count:(newVal, oldVal)=> 10*newVal ) },
-    //watch: { count:(newVal, oldVal)=> aleter(`count change to ${newVal}`) },
-    //init: async ()=> { const newState = await api.getData(); return newState },
-  },
-})
-```
-
-
-<h3 style="height:28px; line-height:28px; border-left:3px solid #0094bd;border-bottom:1px solid #0094bd; width:290px; padding-left:19px; margin-left:19px; color:#0094bd">定义类组件</h3>
-
-```javascript
-import { register } from 'concent';
-//注册成为Concent Class组件，指定其属于counter模块
-@register('counter')
-class CounterComp extends Component {
-  render() {
-    //ctx是concent为所有组件注入的上下文对象，携带为react组件提供的各种新特性api
-    return (
-      <div>
-        count: {this.state.count}
-        <button onClick={() => this.ctx.dispatch('inc')}>inc</button>
-        <button onClick={() => this.ctx.dispatch('dec')}>dec</button>
-      </div>
-    );
-  }
-}
-```
-
-<h3 style="height:28px; line-height:28px; border-left:3px solid #0094bd;border-bottom:1px solid #0094bd; width:290px; padding-left:19px; margin-left:19px; color:#0094bd">定义RenderProps组件</h3>
-
-```javascript
-import { registerDumb } from 'concent';
-const CounterRenderPropsComp = registerDumb('counter')(ctx => {
-  return (
-    <div>
-      count: {ctx.state.count}
-      <button onClick={() => ctx.dispatch('inc')}>inc</button>
-      <button onClick={() => ctx.dispatch('dec')}>dec</button>
-    </div>
-  );
-})
-```
-
-<h3 style="height:28px; line-height:28px; border-left:3px solid #0094bd;border-bottom:1px solid #0094bd; width:290px; padding-left:19px; margin-left:19px; color:#0094bd">定义Hook组件</h3>
-
-```javascript
-import { useConcent } from 'concent';
-function CounterHookComp() {
-  const ctx = useConcent('counter');
-  return (
-    <div>
-      count: {ctx.state.count}
-      <button onClick={() => ctx.dispatch('inc')}>inc</button>
-      <button onClick={() => ctx.dispatch('dec')}>dec</button>
-    </div>
-  );
-}
-```
-
-<div style="text-align:center;">
-  <h2 style="color:#0094bd">Hello Concent</h2>
-  <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />
-  <video muted="" style="width:100%;max-width:780px;transform:translateY(-6px)" controls="controls" autoPlay="none">
-    <source src="/concent-doc/video/cc-zero-cost.mov" type="video/mp4" />Your browser does not support the video tag.
-  </video>
-  <br />
+<div style="text-align: center;">
+  <a href="./guide/first-sight" style="font-size:52px"> 🔥 🔥 🔥 🔥 🔥 🔥</a>
 </div>
+
+
 

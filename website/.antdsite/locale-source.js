@@ -39,7 +39,7 @@ module.exports = {
   // 顶部导航
   nav: {
     cn: [
-      { text: '指引', link: '/guide/quick-start' },
+      { text: '指引', link: '/guide/first-sight' },
       { text: 'Api', link: '/api/explain' },
       { text: '生态系统', link: '/eco-sys' },
       { text: '发布日志', link: '/release-log' },
@@ -47,7 +47,7 @@ module.exports = {
       { text: 'GitHub', link: 'https://github.com/concentjs/concent', important: true }
     ],
     en: [
-      { text: 'Guide', link: '/guide/quick-start' },
+      { text: 'Guide', link: '/guide/first-sight' },
       { text: 'Api', link: '/api/explain' },
       { text: 'EcoSys', link: '/eco-sys' },
       { text: 'ReleaseLog', link: '/release-log' },
@@ -59,7 +59,9 @@ module.exports = {
   sidebar: {
     cn: {
       '/guide/': [
-        'quick-start',//对应guide文件夹下的README.md
+        'first-sight',
+        'quick-start',
+        // '',//对应guide文件夹下的README.md
         {
           title: '核心概念',
           collapsable: false,

@@ -58,7 +58,7 @@
   margin: auto;
 }
 
-footer{
+footer {
   background-color: #0e96b9;
   color: white;
 }
@@ -79,9 +79,9 @@ footer{
 }
 
 /** 让左侧导航出滑块 */
-.ant-menu-root.ant-menu-inline, 
-.ant-menu-root.ant-menu-vertical, 
-.ant-menu-root.ant-menu-vertical-left, 
+.ant-menu-root.ant-menu-inline,
+.ant-menu-root.ant-menu-vertical,
+.ant-menu-root.ant-menu-vertical-left,
 .ant-menu-root.ant-menu-vertical-right {
   overflow-x: hidden;
   overflow-y: auto;
@@ -171,4 +171,25 @@ footer{
   background-image: url(/concent-doc/img/blockHeader.png);
   background-size: contain;
   margin: 0 auto;
+}
+
+.L2Title {
+  border-left: 5px solid #0094bd;
+  border-bottom: 2px solid #0094bd;
+  width: 190px;
+  padding-left: 19px;
+  color: #0094bd;
+  margin-left: -120px;
+}
+
+
+
+.L3Title {
+  height: 28px;
+  line-height: 28px;
+  border-left: 3px solid #0094bd;
+  border-bottom: 1px solid #0094bd;
+  width: 290px;
+  padding-left: 19px;
+  color: #0094bd
 }

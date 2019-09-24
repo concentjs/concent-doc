@@ -1,4 +1,4 @@
-# 快速了解和体验concent
+# 快速上手
 
 ## 模块初览
 ![cc-module](/concent-doc/img/cc-module.png)
