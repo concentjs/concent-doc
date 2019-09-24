@@ -39,19 +39,19 @@ module.exports = {
   // 顶部导航
   nav: {
     cn: [
-      { text: '指引', link: '/guide/first-sight' },
-      { text: 'Api', link: '/api/explain' },
-      { text: '生态系统', link: '/eco-sys' },
-      { text: '发布日志', link: '/release-log' },
-      { text: '实验室', link: '/lab' },
+      { text: '📍指引', link: '/guide/first-sight' },
+      { text: '⚙️Api', link: '/api/explain' },
+      { text: '☘️生态系统', link: '/eco-sys' },
+      { text: ' 🖋发布日志', link: '/release-log' },
+      { text: ' 🔍实验室', link: '/lab' },
       { text: 'GitHub', link: 'https://github.com/concentjs/concent', important: true }
     ],
     en: [
-      { text: 'Guide', link: '/guide/first-sight' },
-      { text: 'Api', link: '/api/explain' },
-      { text: 'EcoSys', link: '/eco-sys' },
-      { text: 'ReleaseLog', link: '/release-log' },
-      { text: 'Lab', link: '/lab' },
+      { text: '📍Guide', link: '/guide/first-sight' },
+      { text: '⚙️Api', link: '/api/explain' },
+      { text: '☘️EcoSys', link: '/eco-sys' },
+      { text: ' 🖋ReleaseLog', link: '/release-log' },
+      { text: ' 🔍Lab', link: '/lab' },
       { text: 'GitHub', link: 'https://github.com/concentjs/concent', important: true }
     ]
   },

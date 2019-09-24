@@ -38,7 +38,8 @@
 .banner-wrapper {
   background-image: url(/concent-doc/img/bg1.jpg);
   /* 因为main-wrapper去掉了padding，这里加上margin-top */
-  margin-top: 12px;
+  margin-top: 2px;
+  max-width:100%;
   /* background-size: cover; */
 }
 
@@ -49,13 +50,20 @@
 .banner-wrapper .banner-title-wrapper p {
   /* color: burlywood; */
   color: white;
-  opacity: .8;
+  opacity: .88;
+}
+.banner-wrapper .banner-title-wrapper {
+  max-width: 780px;
 }
 
 /** 重写首页的markdown区域宽度 */
 .home-page .gatsby-highlight {
   max-width: 780px;
   margin: auto;
+}
+.home-page {
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 footer {
@@ -89,7 +97,7 @@ footer {
 }
 
 .home-wrapper {
-  max-width: 1200px;
+  max-width: 100%;
 }
 
 .my-banner {

@@ -53,9 +53,9 @@ showStar: true
 
   <div class="featureWrap">
     <div class="featureImgBase featureImg1"></div>
-    <h2>极简的核心api</h2>
+    <h2>极简核心api</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
-      run负责载入模块配置，register负责注册你的react组件为concent组件
+      run载入模块配置，register注册组件
     </p>
   </div>
 
@@ -63,23 +63,23 @@ showStar: true
     <div class="featureImgBase featureImg2"></div>
     <h2>0入侵成本接入</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
-      无需Provider包裹，原始react组件被注册后，其setState就被赋予了接通store的能力。
+      无需Provider包裹，被注册后的组件setState调用就接通store。
     </p>
   </div>
 
   <div class="featureWrap">
     <div class="featureImgBase featureImg3"></div>
-    <h2>贴心的模块配置</h2>
+    <h2>贴心模块配置</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
-      模块定义提供state、reducer、watch、computed和init 5个选项，支持按需定义，覆盖你所有的业务场景。
+      模块提供state、reducer、watch、computed和init 5个选项，支持按需定义，覆盖所有业务场景。
     </p>
   </div>
 
   <div style="width:25%; padding:0 10px; text-align:center">
     <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/03.png);"></div>
-    <h2>灵活的数据消费粒度</h2>
+    <h2>数据消费粒度灵活</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
-      可指定组件所属模块变更依赖的任意状态key，同时还支持连接到其他模块去指定变更依赖的任意状态key，实现灵活的跨模块&细粒度的数据消费。
+      支持组件跨多个模块消费数据，定义key级别的变更依赖。
     </p>
   </div>
 
@@ -87,7 +87,7 @@ showStar: true
     <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/04.png);"></div>
     <h2>渐进式</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
-      除setState之外，也支持dispatch、invoke提交数据变更，同时让ui视图与业务逻辑彻底解耦。
+      除setState之外，还支持dispatch、invoke提交数据变更，同时让ui视图与业务逻辑彻底解耦。
     </p>
   </div>
 
@@ -95,7 +95,7 @@ showStar: true
     <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/05.png);"></div>
     <h2>组件能力增强</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
-      支持实例级别computed、watch定义；支持emit&on，让跨组件通通信更容易；支持setup特性，让函数组件拥有定义静态api的能力。
+      支持实例级别computed、watch定义；支持组件emit&on；支持setup特性。
     </p>
   </div>
 
@@ -113,7 +113,7 @@ showStar: true
     <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/07.png);"></div>
     <h2>渲染性能出众</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
-      基于依赖标记、引用收集和状态分发原理工作，内置renderKey、lazyDispatch、delayBroadcast等特性，保证大型react工程的渲染效率。
+      基于依赖标记、引用收集和状态分发原理工作，内置renderKey、lazyDispatch、delayBroadcast等特性。
     </p>
   </div>
 
@@ -129,7 +129,7 @@ showStar: true
     <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/09.png);"></div>
     <h2>扩展中间件与插件</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
-      允许用户定义中间件拦截所有的数据变更提交记录，做额外处理，也可以自定义插件，接收运行时的发出的各种信号，按需增强concent自身的能力。
+      支持定义中间件拦截所有的数据变更提交记录做额外处理，也支持自定义插件接收运行时的各种信号，增强concent能力。
     </p>
   </div>
 
@@ -137,7 +137,7 @@ showStar: true
     <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/11.png);"></div>
     <h2>去中心化配置模块</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
-      启动concent后还支持任意地方调用configure接口动态配置模块，方便用户将组件和其模块定义放置在同一个文件夹并打包发布npm，方便别人直接引入你的concent组件
+      支持任意地方调用configure接口动态配置模块，方便就近配置模块，且能够独立打包组件发布npm。
     </p>
   </div>
 
@@ -145,7 +145,7 @@ showStar: true
     <div style="height: 80px;background-size: contain;background-position: center;background-repeat: no-repeat; background-image: url(/concent-doc/icon/10.png);"></div>
     <h2>模块克隆</h2>
     <p style="text-align:left;color:#697b8c; font-size:16px; line-height:22px">
-      支持对已定义模块进行克隆，克隆出的模块在运行时是完全独立的，以满足用户使用抽象工厂函数动态创建属于不同模块的cc组件。
+      支持对已定义模块进行克隆运行时是完全独立的新模块，满足抽象工厂函数等高维度抽象。
     </p>
   </div>
 
