@@ -49,37 +49,3 @@ module.exports = {
 
   }
 };
-
-
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
-import { run, register, useConcent } from 'concent';
-
-run({
-  foo: {
-    state: { greeting: 'hello concent' }
-  }
-})
-
-function Comp1() {
-  const { state: { greeting } } = useConcent('foo');
-  return <h1>{greeting}</h1>
-}
-
-@register('foo')
-class Comp2 extends Component {
-  render() {
-    const { greeting } = this.state;
-    return <h1>{greeting}</h1>
-  }
-}
-
-function App() {
-  return (
-    <>
-      <Comp1 />
-      <Comp2 />
-    </>
-  )
-}
-ReactDom.render(<App />, document.getElementById('root'));

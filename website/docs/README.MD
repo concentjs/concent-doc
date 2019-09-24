@@ -154,7 +154,7 @@ ___
   <h2 style="border-left:5px solid #0094bd;border-bottom:2px solid #0094bd; width:190px; padding-left:19px; color:#0094bd">开始使用</h2>
 </div>
 
-```js
+```js{3}
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import { run, register, useConcent } from 'concent';                
