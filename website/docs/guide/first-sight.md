@@ -188,7 +188,7 @@ function CounterHookComp() {
 
 <h3 class="L3Title">实例computed、watch、effect、emit&on etc...</h3>
 <div style="text-align:center;">
-  <h3 style="color:#0094bd">降低渲染频率</h3>
+  <h3 style="color:#0094bd">拥抱更好的开发范式</h3>
   <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />
   <video muted="" style="width:100%;max-width:780px;transform:translateY(-6px)" controls="controls">
     <source src="/concent-doc/video/enhance-react.mov" type="video/mp4" />Your browser does not support the video tag.

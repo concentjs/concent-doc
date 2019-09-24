@@ -40,7 +40,7 @@
   /* 因为main-wrapper去掉了padding，这里加上margin-top */
   margin-top: 2px;
   max-width:100%;
-  /* background-size: cover; */
+  background-size: cover;
 }
 
 .banner-wrapper h1 {
@@ -116,12 +116,36 @@ footer {
   padding: 0 10px;
   text-align: center
 }
+.featureWrap h2{
+  font-size: 16px;
+}
+.featureContent {
+  text-align: left;
+  color: #697b8c;
+  font-size: 14px;
+  line-height: 16px
+}
 
 .featureImgBase {
   height: 80px;
-  background-size: contain;
+  width: 80px;
+  margin: 0 auto;
+  background-size: 66% 66%;
   background-position: center;
-  background-repeat: no-repeat
+  background-repeat: no-repeat;
+  border-radius: 40px;
+}
+.fibs1{
+  box-shadow: rgba(245, 34, 45, 0.12) 0px 6px 12px;
+}
+.fibs2{
+  box-shadow: rgba(19, 194, 194, 0.12) 0px 6px 12px;
+}
+.fibs3{
+  box-shadow: rgba(47, 84, 235, 0.12) 0px 6px 12px;
+}
+.fibs4{
+  box-shadow: rgba(250, 140, 22, 0.12) 0px 6px 12px;
 }
 
 .featureImg1 {
