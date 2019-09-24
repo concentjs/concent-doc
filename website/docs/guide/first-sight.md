@@ -183,7 +183,7 @@ function CounterHookComp() {
 > 有了**实例上线文**`ctx`，concent可以非常从容自然的增强react组件功能，离开这些功能你依然能够开发react应用，但用上这些功能能你拥抱更好的开发范式，从而全面提升大型react工程的编码优化度和架构体验。
 
 <div>
-  <h2 class="L2Title">⚡ 🛠增强react</h2>
+  <h2 class="L2Title">🛠增强react</h2>
 </div>
 
 <h3 class="L3Title">实例computed、watch、effect、emit&on etc...</h3>
