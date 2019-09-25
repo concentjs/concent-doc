@@ -142,17 +142,16 @@ showStar: true
 </div>
 
 ___
-<div>
-  <h2 style="border-left:5px solid #0094bd;border-bottom:2px solid #0094bd; width:190px; padding-left:19px; color:#0094bd">如何安装</h2>
-</div>
-
+<h2 style="font-weight:300; width:100%; text-align:center; margin: 66px 0;">
+  How to <span style="font-weight:600;" >install</span>
+</h2>
 <div style="text-align: center;">
   <img src="/concent-doc/img/install-concent.png" width="780px" style="margin:0 auto"/>
 </div>
 
-<div>
-  <h2 style="border-left:5px solid #0094bd;border-bottom:2px solid #0094bd; width:190px; padding-left:19px; color:#0094bd">开始使用</h2>
-</div>
+<h2 style="font-weight:300; width:100%; text-align:center; margin: 66px 0;">
+  Let's <span style="font-weight:600;" >start</span>
+</h2>
 
 ```js{3}
 import React, { Component } from 'react';
@@ -189,9 +188,8 @@ function App() {
 ReactDom.render(<App />, document.getElementById('root'));
 ```
 
-<div style="text-align: center;">
-  <a href="./guide/first-sight" style="font-size:52px"> 🔥 🔥 🔥<span style="font-size:16px;line-height:52px;vertical-align: text-bottom; padding-left:12px;">探索更多</span> 🔥 🔥 🔥</a>
-</div>
-
+<a class="exploreMore" href="./guide/first-sight">
+  Explore <span style="font-weight:600;">more</span>
+</a>
 
 
