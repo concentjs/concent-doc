@@ -15,12 +15,12 @@ module.exports = {
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: 'concent',
+      title: 'CONCENT',
       description: '一个可预测、零入侵、渐进式、高性能的增强型状态管理方案'
     },
     '/en/': {
       lang: 'en-US',
-      title: 'concent',
+      title: 'CONCENT',
       description: "a predictable、zero-cost-use、progressive、high performance's enhanced state management solution"
     }
   },

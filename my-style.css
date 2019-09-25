@@ -247,3 +247,18 @@ footer {
 .exploreMore:hover{
   cursor: pointer;
 }
+
+.getStarted {
+  display: block;
+  position: absolute;
+  text-align: center;
+  color: black;
+  left: 50%;
+  transform: translate(-50%, -112px);
+  background-color: #d6d6d6;
+  border-radius: 21px;
+  font-size: 19px;
+  width: 150px;
+  height: 42px;
+  line-height: 42px;
+}

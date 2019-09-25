@@ -1,7 +1,7 @@
 ---
 heroImage: /favicon.png
-actionText: Get Started →
-actionLink: /guide/first-sight
+# actionText: Get Started →
+# actionLink: /guide/first-sight
 home: true
 showStar: true
 # features:
@@ -12,6 +12,11 @@ showStar: true
 #   - title: Feature3
 #     details: Feature3 Details...
 ---
+
+<a class="getStarted" href="./guide/first-sight">
+  Get Started ➜
+</a>
+
 
 <div style="display:flex; flex-wrap: wrap; justify-content: center;">
 
