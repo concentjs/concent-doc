@@ -66,6 +66,10 @@
   margin: 0 auto;
 }
 
+.button-wrapper{
+  min-height: 19px;
+}
+
 .button-wrapper button{
   display: none;
 }
