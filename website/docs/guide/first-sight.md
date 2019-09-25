@@ -180,13 +180,119 @@ function CounterHookComp() {
 [点我查看视频源码](https://stackblitz.com/edit/concent-delay-broadcast)
 
 ## 增强react
-> 有了**实例上线文**`ctx`，concent可以非常从容自然的增强react组件功能，离开这些功能你依然能够开发react应用，但用上这些功能能你拥抱更好的开发范式，从而全面提升大型react工程的编码优化度和架构体验。
+> 有了**实例上线文**`ctx`，配合`setup`特性，concent可以非常从容自然的增强react组件功能，离开这些功能你依然能够开发react应用，但用上这些功能能你拥抱更好的开发范式，全面提升大型react工程的编码优化度和架构体验。    
+>`setup`是针对组件实例提供的一个非常重要的特性，在类组件和函数组件里都能够被使用，它会在组件首次渲染之前会被触发执行一次，其返回结果收集在`ctx.settings`里，之后便不会再被执行，所以可以在其中定义`实例computed`、`实例watch`、`实例effect`等钩子函数，同时也可以自定义其他的业务逻辑函数并返回，方便组件使用。
+利用setup只执行一次的特性，可以让函数组件省去重复渲染期间，重复生成临时闭包函数，同时需要手动调用`useCallback`等辅助优化函数
 
 <div>
   <h2 class="L2Title">🛠增强react</h2>
 </div>
-
 <h3 class="L3Title">实例computed、watch、effect、emit&on etc...</h3>
+
+```js
+import { run, useConcent } from 'concent';
+
+run({
+  counter: {//定义counter模块
+    state: {//【必需】定义state
+      count: 1,
+      msg: '',
+    },
+    reducer: {//【可选】定义reducer，解耦业务逻辑与ui渲染
+      inc(num, moduleState, actionCtx) {
+        return { count: moduleState.count + num };
+      },
+      changeMsg(msg, moduleState, actionCtx) {
+        return { msg };
+      },
+      async complexInc(num, moduleState, actionCtx) {
+        await api.track('inc');
+        actionCtx.dispatch('inc', inc);
+        actionCtx.dispatch('changeMsg', 'call complexInc');
+      }
+    },
+    computed: {//【可选】定义模块计算函数
+      count: count => count * 2,
+      anyOneChange: {
+        fn: (newState, oldState, fnCtx) => {
+          const { changed } = fnCtx;
+          return `${changed.join(',')} changed`
+        },
+        depKeys: ['count', 'msg'],
+      }
+    },
+    watch: {//【可选】定义模块观察函数
+      count: (count, oldVal) => console.log(`old ${oldVal} new ${count}`),
+      anyOneChange: {
+        fn: (newState, oldState, fnCtx) => {
+          console.log(`${changed.join(',')} changed`);
+        },
+        depKeys: ['count', 'msg'],
+      }
+    },
+    init: async () => {//【可选】异步的初始化模块状态
+      const data = await api.fetchData();
+      return data;
+    }
+  },
+})
+
+const setup = ctx => {
+  //count变化时的副作用函数，第二位参数可以传递多个值，表示任意一个发生变化都将触发此副作用
+  ctx.effect(() => {
+    console.log('count changed');
+  }, ['count']);
+  //每一轮渲染都会执行
+  ctx.effect(() => {
+    console.log('trigger every render');
+  });
+  //仅首次渲染执行的副作用函数
+  ctx.effect(() => {
+    console.log('trigger only first render');
+  }, []);
+
+  //定义实例computed，因每个实例都可能会触发，优先考虑模块computed
+  ctx.computed('count', (newVal, oldVal, fnCtx) => {
+    return newVal * 2;
+  });
+
+  //定义实例watch，区别于effect，执行时机是在组件渲染之前
+  //因每个实例都可能会触发，优先考虑模块watch
+  ctx.watch('count', (newVal, oldVal, fnCtx) => {
+    //发射事件
+    ctx.emit('countChanged', newVal);
+    api.track(`count changed to ${newVal}`);
+  });
+
+  //定义事件监听，concent会在实例销毁后自动将其off掉
+  ctx.on('changeCount', count => {
+    ctx.setState({ count });
+  });
+
+  return {
+    inc: () => ctx.dispatch('inc', ctx.state.count + 1),
+    complexInc: () => ctx.dispatch('complexInc', ctx.state.count + 1),
+  };
+}
+
+const iState = { privCount: 0 };//此state相当于组件的私有状态
+function HookFnComp() {
+  const {
+    state: { privCount, count, msg }, settings: { inc, dec, incStoreCount, decStoreCount }
+  } = useConcent({ module: 'counter', setup, state: iState });
+
+  return (
+    <div>
+      count: {count}
+      msg: {msg}
+      privCount: {privCount}
+      <button onClick={inc}>+</button>
+      <button onClick={complexInc}>+</button>
+    </div>
+  );
+}
+```
+
 <div style="text-align:center;">
   <h3 style="color:#0094bd">拥抱更好的开发范式</h3>
   <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />

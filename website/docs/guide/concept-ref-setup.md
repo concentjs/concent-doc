@@ -84,7 +84,7 @@ const setup = ctx => {
 }
 
 const iState = { count: 0 };//此state相当于组件的私有状态
-function TraditionalFnComp() {
+function HookFnComp() {
   const { 
     state: { count, storeCount }, settings: { inc, dec, incStoreCount, decStoreCount } 
   } = useConcent({ module:'counter', setup, state: iState });

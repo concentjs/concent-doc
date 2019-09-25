@@ -95,7 +95,7 @@ src
 ├─ ...
 └─ page
 │  ├─ login
-│  │  ├─ model /写为文件夹
+│  │  ├─ model //写为文件夹
 │  │  │  ├─ state.js
 │  │  │  ├─ reducer.js
 │  │  │  ├─ computed.js
