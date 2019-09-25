@@ -66,6 +66,10 @@
   margin: 0 auto;
 }
 
+.button-wrapper button{
+  display: none;
+}
+
 footer {
   color: white;
 }

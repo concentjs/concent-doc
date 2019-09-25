@@ -150,9 +150,18 @@ ___
 <h2 style="font-weight:300; width:100%; text-align:center; margin: 66px 0;">
   How to <span style="font-weight:600;" >install</span>
 </h2>
-<div style="text-align: center;">
+
+```bash
+npm install concent --save
+
+//or 
+
+yarn add concent
+```
+
+<!-- <div style="text-align: center;">
   <img src="/concent-doc/img/install-concent.png" width="780px" style="margin:0 auto"/>
-</div>
+</div> -->
 
 <h2 style="font-weight:300; width:100%; text-align:center; margin: 66px 0;">
   Let's <span style="font-weight:600;" >start</span>
