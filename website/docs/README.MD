@@ -175,48 +175,21 @@ import { run, register, useConcent, registerDumb } from 'concent';
 run({
   foo: {// declared a module named 'foo'
     state: { greeting: 'hello concent' },
-    reducer: {
-      changeGreeting(greeting) {
-        return { greeting }
-      }
-    }
+    reducer: { ... }
   }
 })
 
-// three ways of creating component, three ways of changing state
+// three ways of creating component, multi ways to change state
 function HookFnComp() {
   const ctx = useConcent('foo');
   const { state: { greeting }, sync } = ctx;
-  return (
-    <>
-      <h1>{greeting}</h1>
-      <input value={greeting} onChange={sync('greeting')} />
-    </>
-  )
+  return <input value={greeting} onChange={sync('greeting')} />
 }
 
-const RenderPropsComp = registerDumb('foo')(ctx => {
-  const { state: { greeting }, setState } = ctx;
-  return (
-    <>
-      <h1>{greeting}</h1>
-      <input value={greeting} onChange={e => setState({ greeting: e.currentTarget.value })} />
-    </>
-  )
-});
+const RenderPropsComp = registerDumb('foo')(...);
 
 @register('foo')
-class HocClassComp extends Component {
-  render() {
-    const { greeting } = this.state;// or this.ctx.state
-    return (
-      <>
-        <h1>{greeting}</h1>
-        <input value={greeting} onChange={e => this.ctx.dispatch('changeGreeting', e.currentTarget.value)} />
-      </>
-    )
-  }
-}
+class HocClassComp extends Component {...}
 
 function App() {
   return (

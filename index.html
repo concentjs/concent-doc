@@ -30034,7 +30034,7 @@
   <meta data-react-helmet="true" name="twitter:description" content="一个可预测、零入侵、渐进式、高性能的增强型状态管理方案" />
   <link as="script" rel="preload" href="/concent-doc/webpack-runtime-e6bcdfdc23a297bd346a.js" />
   <link as="script" rel="preload" href="/concent-doc/app-d87bc04a6407424adb34.js" />
-  <link as="script" rel="preload" href="/concent-doc/styles-bc4f9afd8589baab6fbd.js" />
+  <link as="script" rel="preload" href="/concent-doc/styles-a6ddb0419ac1a4535760.js" />
   <link as="script" rel="preload"
     href="/concent-doc/component---node-modules-antdsite-src-templates-index-tsx-c3565cbfd75b212b117e.js" />
   <link as="fetch" rel="preload" href="/concent-doc/page-data/index/page-data.json" crossorigin="anonymous" />
@@ -30251,48 +30251,21 @@
 <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   foo<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token comment">// declared a module named &#x27;foo&#x27;</span>
     state<span class="token punctuation">:</span> <span class="token punctuation">{</span> greeting<span class="token punctuation">:</span> <span class="token string">&#x27;hello concent&#x27;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    reducer<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token function">changeGreeting</span><span class="token punctuation">(</span><span class="token parameter">greeting</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token punctuation">{</span> greeting <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    reducer<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-<span class="token comment">// three ways of creating component, three ways of changing state</span>
+<span class="token comment">// three ways of creating component, multi ways to change state</span>
 <span class="token keyword">function</span> <span class="token function">HookFnComp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> ctx <span class="token operator">=</span> <span class="token function">useConcent</span><span class="token punctuation">(</span><span class="token string">&#x27;foo&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> <span class="token punctuation">{</span> state<span class="token punctuation">:</span> <span class="token punctuation">{</span> greeting <span class="token punctuation">}</span><span class="token punctuation">,</span> sync <span class="token punctuation">}</span> <span class="token operator">=</span> ctx<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token operator">&lt;</span><span class="token operator">&gt;</span>
-      <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span><span class="token punctuation">{</span>greeting<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
-      <span class="token operator">&lt;</span>input value<span class="token operator">=</span><span class="token punctuation">{</span>greeting<span class="token punctuation">}</span> onChange<span class="token operator">=</span><span class="token punctuation">{</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token string">&#x27;greeting&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span><span class="token operator">&gt;</span>
-  <span class="token punctuation">)</span>
+  <span class="token keyword">return</span> <span class="token operator">&lt;</span>input value<span class="token operator">=</span><span class="token punctuation">{</span>greeting<span class="token punctuation">}</span> onChange<span class="token operator">=</span><span class="token punctuation">{</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token string">&#x27;greeting&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">const</span> RenderPropsComp <span class="token operator">=</span> <span class="token function">registerDumb</span><span class="token punctuation">(</span><span class="token string">&#x27;foo&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token parameter">ctx</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> <span class="token punctuation">{</span> state<span class="token punctuation">:</span> <span class="token punctuation">{</span> greeting <span class="token punctuation">}</span><span class="token punctuation">,</span> setState <span class="token punctuation">}</span> <span class="token operator">=</span> ctx<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token operator">&lt;</span><span class="token operator">&gt;</span>
-      <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span><span class="token punctuation">{</span>greeting<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
-      <span class="token operator">&lt;</span>input value<span class="token operator">=</span><span class="token punctuation">{</span>greeting<span class="token punctuation">}</span> onChange<span class="token operator">=</span><span class="token punctuation">{</span><span class="token parameter">e</span> <span class="token operator">=&gt;</span> <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> greeting<span class="token punctuation">:</span> e<span class="token punctuation">.</span>currentTarget<span class="token punctuation">.</span>value <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span><span class="token operator">&gt;</span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> RenderPropsComp <span class="token operator">=</span> <span class="token function">registerDumb</span><span class="token punctuation">(</span><span class="token string">&#x27;foo&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 @<span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&#x27;foo&#x27;</span><span class="token punctuation">)</span>
-<span class="token keyword">class</span> <span class="token class-name">HocClassComp</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
-  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">const</span> <span class="token punctuation">{</span> greeting <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">;</span><span class="token comment">// or this.ctx.state</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span>
-      <span class="token operator">&lt;</span><span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span><span class="token punctuation">{</span>greeting<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
-        <span class="token operator">&lt;</span>input value<span class="token operator">=</span><span class="token punctuation">{</span>greeting<span class="token punctuation">}</span> onChange<span class="token operator">=</span><span class="token punctuation">{</span><span class="token parameter">e</span> <span class="token operator">=&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>ctx<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token string">&#x27;changeGreeting&#x27;</span><span class="token punctuation">,</span> e<span class="token punctuation">.</span>currentTarget<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
-      <span class="token operator">&lt;</span><span class="token operator">/</span><span class="token operator">&gt;</span>
-    <span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name">HocClassComp</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
 
 <span class="token keyword">function</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token punctuation">(</span>
@@ -30322,7 +30295,7 @@ ReactDom<span class="token punctuation">.</span><span class="token function">ren
   <script id="gatsby-script-loader">
     /*<![CDATA[*/
     window.pagePath = "/";
-    window.webpackCompilationHash = "a8437d599f19774ef362"; /*]]>*/
+    window.webpackCompilationHash = "38b01a740d546b109f2a"; /*]]>*/
   </script>
   <script id="gatsby-chunk-mapping">
     /*<![CDATA[*/
@@ -30336,10 +30309,10 @@ ReactDom<span class="token punctuation">.</span><span class="token function">ren
   </script>
   <script src="/concent-doc/component---node-modules-antdsite-src-templates-index-tsx-c3565cbfd75b212b117e.js" async="">
   </script>
-  <script src="/concent-doc/styles-bc4f9afd8589baab6fbd.js" async=""></script>
+  <script src="/concent-doc/styles-a6ddb0419ac1a4535760.js" async=""></script>
   <script src="/concent-doc/app-d87bc04a6407424adb34.js" async=""></script>
   <script src="/concent-doc/webpack-runtime-e6bcdfdc23a297bd346a.js" async=""></script>
-
+  
   <script>
     var _mtac = {};
     (function() {
@@ -30351,6 +30324,7 @@ ReactDom<span class="token punctuation">.</span><span class="token function">ren
         s.parentNode.insertBefore(mta, s);
     })();
     </script>
+
 </body>
 
 </html>
