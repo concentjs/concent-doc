@@ -170,37 +170,66 @@ yarn add concent
 ```js{3}
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import { run, register, useConcent } from 'concent';                
+import { run, register, useConcent, registerDumb } from 'concent';
 
 run({
-  foo: {
-    state: { greeting: 'hello concent' }
+  foo: {// declared a module named 'foo'
+    state: { greeting: 'hello concent' },
+    reducer: {
+      changeGreeting(greeting) {
+        return { greeting }
+      }
+    }
   }
 })
 
-function Comp1() {
-  const { state: { greeting } } = useConcent('foo');
-  return <h1>{greeting}</h1>
+// three ways of creating component, three ways of changing state
+function HookFnComp() {
+  const ctx = useConcent('foo');
+  const { state: { greeting }, sync } = ctx;
+  return (
+    <>
+      <h1>{greeting}</h1>
+      <input value={greeting} onChange={sync('greeting')} />
+    </>
+  )
 }
 
+const RenderPropsComp = registerDumb('foo')(ctx => {
+  const { state: { greeting }, setState } = ctx;
+  return (
+    <>
+      <h1>{greeting}</h1>
+      <input value={greeting} onChange={e => setState({ greeting: e.currentTarget.value })} />
+    </>
+  )
+});
+
 @register('foo')
-class Comp2 extends Component {
+class HocClassComp extends Component {
   render() {
-    const { greeting } = this.state;
-    return <h1>{greeting}</h1>
+    const { greeting } = this.state;// or this.ctx.state
+    return (
+      <>
+        <h1>{greeting}</h1>
+        <input value={greeting} onChange={e => this.ctx.dispatch('changeGreeting', e.currentTarget.value)} />
+      </>
+    )
   }
 }
 
 function App() {
   return (
     <>
-      <Comp1 />
-      <Comp2 />
+      <HookFnComp />
+      <HocClassComp />
+      <RenderPropsComp />
     </>
   )
 }
 ReactDom.render(<App />, document.getElementById('root'));
 ```
+<a class="seeDemoCode cake" href="https://stackblitz.com/edit/concent-doc-home-demo">click here to experience this demo</a>
 
 <a class="exploreMore" href="./guide/first-sight">
   Explore <span style="font-weight:600;">more</span>
