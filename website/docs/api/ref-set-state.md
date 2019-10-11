@@ -6,23 +6,21 @@
 
 ## 函数签名定义
 ```ts
-type SetState = (
+function setState(
   partialState: object, 
-  callback?: fullState=>void, 
+  callback?: (newFullState: object) =>void, 
   renderKey?:string
   delay?:number, 
-)=>void
+): void
 ```
 
 ## 参数解释
-* partialState<br/>
-提交的新片段状态
-* callback<br/>
-新片段状态合并后的回调函数
-* renderKey<br/>
-触发渲染的目标渲染Key
-* delay<br/>
-广播延迟时间，单位(ms)
+名称 | <div style="width:250px;">描述</div> |  默认值  | 类型 
+-|-|-|-  
+partialState | 提交的新部分状态 | | Object
+callback | 新部分状态合并后触发的回调函数 | undefined | Function
+renderKey | 触发渲染的目标渲染Key | null | String
+delay | 广播延迟时间，单位(ms) | 0 | Number
 
 ## 如何使用
 ### 在Class里调用

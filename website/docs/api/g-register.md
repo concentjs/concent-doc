@@ -20,13 +20,13 @@ type Register = (
 
 ## 参数解释
 ### 当option类型为string
-名称 | 描述 |  默认值  | 类型 
--|-|-|  -  
+名称 | <div style="width:250px;">描述</div> |  默认值  | 类型 
+-|-|-|-  
 option | 注册参数 | `'$$default'` | `string`
 ccClassKey | 不设定时，concent会自动生成一个，每一个cc类都必须有一个类名，通常这个名字可以和你的react类名保持一致，以便于理解，你的cc组件渲染到界面上后，react dom tree里看到的标签名字来自于你这里定义的名字 |  | `string` or `undefined`
 
 ### 当option类型为`RegisterOption`
-名称 | 描述 |  默认值  | 类型 
+名称 | <div style="width:250px;">描述</div> |  默认值  | 类型 
 -|-|-|-
 option | 注册参数 |  | `RegisterOption`
 option.module | 实例所属模块 | `$$default` | `string`
