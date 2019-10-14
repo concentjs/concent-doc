@@ -44,7 +44,7 @@ class Foo extends Component{
 }
 ```
 #### 带renderKey调用
-当实例携带`renderKey`调用时，concent会去寻找和传递的`renderKey`值一样的实例触发渲染，而每一个cc实例，如果没有人工设置`renderKey`的话，默认的`renderKey`值就是`ccUniqueKey`(即每一个cc实例的唯一索引)，所以当我们拥有大量的消费了store某个模块下同一个key如`sourceList`（通常是map和list）下的不同数据的组件时，如果调用方传递的`renderKey`就是自己的`ccUniqueKey`, 那么`renderKey`机制将允许组件修改了`sourceList`下自己的数据同时也只触发自己渲染，而不触发其他实例的渲染，这样大大提供这种场景的渲染性能。
+当实例携带`renderKey`调用时，concent会去寻找和传递的`renderKey`值一样的实例触发渲染，而每一个cc实例，如果没有人工设置`renderKey`的话，默认的`renderKey`值就是`ccUniqueKey`(即每一个cc实例的唯一索引)，所以当我们拥有大量的消费了store某个模块下同一个key如`sourceList`（通常是map和list）下的不同数据的组件时，如果调用方传递的`renderKey`就是自己的`ccUniqueKey`, 那么`renderKey`机制将允许组件修改了`sourceList`下自己的数据同时也只触发自己渲染，而不触发其他实例的渲染，这样大大提高这种list场景的渲染性能。
 ```js
 // code in model/product/reducer.js
 export function changeName({name, pid}, moduleState){
