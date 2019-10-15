@@ -9,7 +9,7 @@
 function setState(
   partialState: object, 
   callback?: (newFullState: object) =>void, 
-  renderKey?:string
+  renderKey?:string,
   delay?:number, 
 ): void
 ```

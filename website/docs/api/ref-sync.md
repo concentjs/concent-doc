@@ -3,21 +3,25 @@
 
 ## 函数签名定义
 ```ts
-type SyncCallback = (value:any, keyPath:string, syncContext:{moduleState:object, fullKeyPath:string}) => object;
+type SyncCallback = (
+  value: any, 
+  keyPath: string, 
+  syncContext: {moduleState:object, fullKeyPath:string},
+) => object;
 
 function sync(
   stateKey: string,
-  value?: SyncCallback | any, 
-  renderKey?:string
-  delay?:number, 
+  value?: SyncCallback | any,
+  renderKey?: string,
+  delay?: number,
 ): void
 ```
 
 ## 参数解释
 名称 | <div style="width:250px;">描述</div> |  默认值  | 类型 
 -|-|-|-  
-stateKey | 欲绑定的stateKey名称 | | String
-value | 欲绑定的值，不绑定任何值时，从调用处的第一位参数提取值，如果第一位参数传递的是event对象，从event.currentTarget.value里取，否则就第一位参数的值当做要更新的值；如果绑定了一个具体的值，值是函数则将函数的返回值当做要更新的对象，否则将将具体的值当做stateKey要更新的值 | undefined | SyncCallback or Any
+stateKey | 欲绑定的stateKey名称，包含点符号表示多层key路径 | | String
+value | 欲绑定的值，不绑定任何值时，从调用处的第一位参数提取值，如果第一位参数传递的是event对象，从event.currentTarget.value里取，否则就第一位参数的值当做要更新的值；如果绑定了一个具体值，值是函数的话，则将函数的返回值当做要更新的对象，否则将将具体值当做stateKey要更新的值 | undefined | SyncCallback or Any
 renderKey | 触发渲染的目标渲染Key | null | String
 delay | 广播延迟时间，单位(ms) | 0 | Number
 

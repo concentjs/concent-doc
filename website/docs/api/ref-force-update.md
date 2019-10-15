@@ -9,7 +9,7 @@
 ```ts
 function forceUpdate(
   callback?: (currentState: object) =>void, 
-  renderKey?:string
+  renderKey?:string,
   delay?:number, 
 ): void
 ```
