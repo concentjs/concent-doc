@@ -202,7 +202,12 @@ function App() {
 }
 ReactDom.render(<App />, document.getElementById('root'));
 ```
+<br />
 <a class="seeDemoCode cake" href="https://stackblitz.com/edit/concent-doc-home-demo">click here to experience this demo</a>
+<div style="width:100%;display:flex;">
+<iframe style="width:1200px;height:800px;margin:0 auto" src="https://stackblitz.com/edit/concent-doc-home-demo"></iframe>
+</div>
+
 
 <a class="exploreMore" href="./guide/first-sight">
   Explore <span style="font-weight:600;">more</span>
