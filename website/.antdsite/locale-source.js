@@ -41,17 +41,17 @@ module.exports = {
     cn: [
       { text: '📍指引', link: '/guide/first-sight' },
       { text: '⚙️Api', link: '/api/explain' },
-      { text: '☘️生态系统', link: '/eco-sys' },
-      { text: ' 🖋发布日志', link: '/release-log' },
-      { text: ' 🔍实验室', link: '/lab' },
+      { text: '☘️生态系统', link: '/eco-sys/intro' },
+      { text: ' 🖋发布日志', link: '/release-log/intro' },
+      { text: ' 🔍实验室', link: '/lab/intro' },
       { text: 'GitHub', link: 'https://github.com/concentjs/concent', important: true }
     ],
     en: [
       { text: '📍Guide', link: '/guide/first-sight' },
       { text: '⚙️Api', link: '/api/explain' },
-      { text: '☘️EcoSys', link: '/eco-sys' },
-      { text: ' 🖋ReleaseLog', link: '/release-log' },
-      { text: ' 🔍Lab', link: '/lab' },
+      { text: '☘️EcoSys', link: '/eco-sys/intro' },
+      { text: ' 🖋ReleaseLog', link: '/release-log/intro' },
+      { text: ' 🔍Lab', link: '/lab/intro' },
       { text: 'GitHub', link: 'https://github.com/concentjs/concent', important: true }
     ]
   },
@@ -152,6 +152,18 @@ module.exports = {
             'g-clear-context-if-hot',
           ]
         },
+      ],
+      '/eco-sys/': [
+        'intro',
+        'react-router-concent',
+        'plugin-loading',
+        'plugin-redux-devtool',
+      ],
+      '/release-log/': [
+        'intro',
+      ],
+      '/lab/': [
+        'intro',
       ]
     },
     en: {
