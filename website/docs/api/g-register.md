@@ -4,7 +4,7 @@
 
 ## 函数签名定义
 
-```js
+```ts
 type RegisterOption = {
   module?:string,
   watchedKeys?: '*' | string[], //default *
@@ -12,7 +12,7 @@ type RegisterOption = {
   isSingle?:boolean
 }
 
-type Register = (
+function register(
   option?: string | RegisterOption,
   ccClassKey?: string
 ) => (comp: ReactClass) => ConcentClass;
@@ -22,17 +22,17 @@ type Register = (
 ### 当option类型为string
 名称 | <div style="width:250px;">描述</div> |  默认值  | 类型 
 -|-|-|-  
-option | 注册参数 | `'$$default'` | `string`
-ccClassKey | 不设定时，concent会自动生成一个，每一个cc类都必须有一个类名，通常这个名字可以和你的react类名保持一致，以便于理解，你的cc组件渲染到界面上后，react dom tree里看到的标签名字来自于你这里定义的名字 |  | `string` or `undefined`
+option | 注册参数 | `'$$default'` | String
+ccClassKey | 不设定时，concent会自动生成一个，每一个cc类都必须有一个类名，通常这个名字可以和你的react类名保持一致，以便于理解，你的cc组件渲染到界面上后，react dom tree里看到的标签名字来自于你这里定义的名字 | undefined | String 
 
 ### 当option类型为`RegisterOption`
 名称 | <div style="width:250px;">描述</div> |  默认值  | 类型 
 -|-|-|-
-option | 注册参数 |  | `RegisterOption`
-option.module | 实例所属模块 | `$$default` | `string`
-option.watchedKeys | 实例观察的`stateKey`范围，不设定时默认为`'*'`，表示所属模块的任意一个key发生变化都会触发当前实例渲染 | `'*'` | `string[]` or `'*'`
-option.storedKeys | 组件销毁后，如果希望挂载回来时状态能够恢复回来，设置想要存储的key | [] | `string[]` or `undefined`
-option.isSingle | 表示是否允许改cc类实例话多次，默认是false，允许一个cc类有多个cc实例 | `false` | `boolean` or `undefined`
+option | 注册参数 |  | RegisterOption
+option.module | 实例所属模块 | '$$default' | String
+option.watchedKeys | 实例观察的`stateKey`范围，不设定时默认为`'*'`，表示所属模块的任意一个key发生变化都会触发当前实例渲染 | '*' | String[] or '*'
+option.storedKeys | 组件销毁后，如果希望挂载回来时状态能够恢复回来，设置想要存储的key | [] | String
+option.isSingle | 表示是否允许改cc类实例话多次，默认是false，允许一个cc类有多个cc实例 | false | Boolean
 
 > 理解`storedKeys`这一点要注意实例的stateKey分为3类   
 1 watchedKeys 从所属模块状态的所有key里，挑选要观察的key    

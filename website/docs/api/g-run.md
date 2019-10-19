@@ -1,6 +1,6 @@
 # run
 
-`run`函数负责载入用户定义的模块配置并启动`concent`,所有其他顶层函数的调用都必须在调用`run`之后才能调用，建议将启动函数封装成一个脚本`run-cc.js`,在你的app入口处调用`import './run-cc'`
+`run`函数负责载入用户定义的模块配置并启动`concent`,所有其他顶层函数的调用都必须在调用`run`之后才能调用，建议将启动函数封装成一个脚本`runConcent.js`,在你的app入口处调用`import './run-cc'`
 > 启动一定要在入口文件头部引用其他cc组件前先执行，所以通常为了保险起见，可以放入口函数的第一行触发执行
 
 ## 函数签名定义
@@ -120,7 +120,7 @@ export async function uploadTheme(theme){
 ```
 
 - computed文件
->这里面定义的是模块级别的computed函数，如果需要定义类级别的watch，可以在class里重写`$$computed`
+>这里面定义的是模块级别的computed函数，如果需要定义类级别的watch，可以在class里的`$$setup`内部调用[ctx.computed](/api/ref-computed)定义
 
 ```js
 //code in models/global/computed.js
@@ -139,7 +139,7 @@ export const myTheme = {
 [了解更多模块computed](/guide/concept-module-computed)
 
 - watch文件
->这里面定义的是模块级别的watch函数，如果需要定义类级别的watch，可以在class里重写`$$watch`
+>这里面定义的是模块级别的watch函数，如果需要定义类级别的watch，可以在class里的`$$setup`内部调用[ctx.watch](/api/ref-watch)定义
 
 ```js
 //code in models/global/watch.js
