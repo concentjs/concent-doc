@@ -205,7 +205,7 @@ ReactDom.render(<App />, document.getElementById('root'));
 <br />
 <a class="seeDemoCode cake" href="https://stackblitz.com/edit/concent-doc-home-demo">click here to experience this demo</a>
 <div style="width:100%;display:flex;">
-<iframe style="width:1200px;height:800px;margin:0 auto" src="https://stackblitz.com/edit/concent-doc-home-demo"></iframe>
+<iframe style="width:1200px;height:820px;margin:0 auto" src="https://stackblitz.com/edit/concent-doc-home-demo"></iframe>
 </div>
 
 
