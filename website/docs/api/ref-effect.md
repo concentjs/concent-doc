@@ -19,7 +19,7 @@ function effect(
 -|-|-|-  
 cb | 回调函数 | | Function
 depKeys | 依赖stateKey列表 | undefined | string[]
-immediate | 是否立即执行 | true | string[]
+immediate | 是否立即执行 | true | Boolean
 
 ## 如何使用
 `effect`在`setup`里完成定义，使用体验上和`useEffect`很像，不同的是`depKeys`传递的是stateKey的名称，而非具体的值
