@@ -202,11 +202,17 @@ function App() {
 }
 ReactDom.render(<App />, document.getElementById('root'));
 ```
-<br />
-<a class="seeDemoCode cake" href="https://stackblitz.com/edit/concent-doc-home-demo">click here to experience this demo</a>
+<br /> 
+<br /> 
+<br /> 
+<br /> 
 <div style="width:100%;display:flex;">
-<iframe style="width:1200px;height:820px;margin:0 auto" src="https://stackblitz.com/edit/concent-doc-home-demo"></iframe>
+<iframe style="width:1200px;height:820px;margin:0 auto" src="https://codesandbox.io/s/concent-guide-xvcej"></iframe>
 </div>
+<br/>
+<a class="seeDemoCode cake" href="https://codesandbox.io/s/concent-guide-xvcej">Experience this demo in CodeSandbox [recommend]</a>
+<br/>
+<a class="seeDemoCode cake" href="https://stackblitz.com/edit/concent-doc-home-demo">Experience this demo in StackBlitz</a>
 
 
 <a class="exploreMore" href="./guide/first-sight">
