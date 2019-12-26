@@ -207,7 +207,7 @@ ReactDom.render(<App />, document.getElementById('root'));
 <br /> 
 <br /> 
 <div style="width:100%;display:flex;">
-<iframe style="width:1200px;height:820px;margin:0 auto" src="https://codesandbox.io/s/concent-guide-xvcej"></iframe>
+<iframe style="width:1440px;height:860px;margin:0 auto" src="https://codesandbox.io/s/concent-guide-xvcej"></iframe>
 </div>
 <br/>
 <a class="seeDemoCode cake" href="https://codesandbox.io/s/concent-guide-xvcej">Experience this demo in CodeSandbox [recommend]</a>
