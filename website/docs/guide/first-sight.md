@@ -252,13 +252,13 @@ const setup = ctx => {
   }, []);
 
   //定义实例computed，因每个实例都可能会触发，优先考虑模块computed
-  ctx.computed('count', (newVal, oldVal, fnCtx) => {
-    return newVal * 2;
+  ctx.computed('count', ({count}, oldState, fnCtx) => {
+    return count * 2;
   });
 
   //定义实例watch，区别于effect，执行时机是在组件渲染之前
   //因每个实例都可能会触发，优先考虑模块watch
-  ctx.watch('count', (newVal, oldVal, fnCtx) => {
+  ctx.watch('count', ({count}, oldState, fnCtx) => {
     //发射事件
     ctx.emit('countChanged', newVal);
     api.track(`count changed to ${newVal}`);

@@ -386,3 +386,13 @@ footer {
     transform: rotate(0deg);
   }
 }
+
+.seeDemoCodeOfArticle {
+  display: block;
+  width: 722px;
+  margin: 0 auto;
+  text-align: center;
+  color: black;
+  box-shadow: black 0px 2px 3px;
+  font-size: 19px;
+}

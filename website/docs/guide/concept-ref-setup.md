@@ -1,11 +1,12 @@
 # 实例setup
 
-`setup`是针对组件实例提供的一个非常重要的特性，在类组件和函数组件里都能够被使用，它会在组件首次渲染之前会被触发执行一次，其返回结果收集在`ctx.settings`里，之后便不会再被执行，所以可以在其中定义`实例computed`、`实例watch`、`实例effect`等钩子函数，同时也可以自定义其他的业务逻辑函数并返回，方便组件使用。
+## 概述
+`setup`是针对组件实例提供的一个非常重要的特性，在类组件和函数组件里都能够被使用，它会在组件首次渲染之前被触发执行一次，其返回结果收集在`ctx.settings`里，之后便不会再被执行，所以可以在setup函数体内定义`实例computed`、`实例watch`、`实例effect`等钩子函数，同时也可以自定义其他的业务逻辑函数并返回，方便组件使用。
 > 利用setup只执行一次的特性，可以让函数组件省去重复渲染期间，重复生成临时闭包函数，同时需要手动调用`useCallback`等辅助优化函数
 
-[查阅api文档了解更多关于setup](/api/ref-setup)
+[查阅api文档了解更多setup使用方法](/api/ref-setup)
 
-## 未接入store对比
+## 传统组件对比接入setup组件
 
 - 一个传统的函数组件
 ```js
@@ -64,7 +65,7 @@ function TraditionalFnComp() {
 ```
 
 ## 接入store
-接入store非常方便，仅仅是声明所属模块就可以了，如下示例，假设我们已配置`counter`模块，然后就可以很快接入
+上述示例通过`useConcent`接入setup特性后的组件，还是一个自管理私有状态的组件，如果我们想将其接入store的某个模块，仅仅声明所属模块就可以了，如下示例，假设我们已配置`counter`模块，我们在调用`useConcent`设置module参数为`counter`，则将读取到`counter`模块的所有数据，同时也能够操作`counter`模块的所有reducer方法
 ```js
 
 const setup = ctx => {

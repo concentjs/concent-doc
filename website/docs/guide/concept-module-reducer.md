@@ -174,8 +174,14 @@ function FooComp(){
 
 ### reducer函数内部触发
 concent会为每一个`reducer函数`的第三个参数注入`actionCtx`对象，使用此`actionCtx.dispatch`来触发其他的`reducer`函数
-```js{4}
+```js{10}
 // code in models/foo/reducer.js
+
+export async changeNameAsync(name){
+  await api.updateName(name);
+  return {name}
+}
+
 export async function changeNameCompose(name, moduleState, actionCtx) {
   await actionCtx.setState({ loading: true });
   await actionCtx.dispatch(changeNameAsync, name);//基于函数引用调用
@@ -273,10 +279,9 @@ export async function complexUpdateWithLoading(id, moduleState, actionCtx) {
 }
 
 ```
-当然触发示例上触发`lazy`除了`lazyDispatch`，调用还有    
-`js>>>ctx.lazyReducer.{moduleName}.{fnName}(payload:any)`    
+当然在实例上触发`lazy`除了`lazyDispatch`，调用还有    
+`js>>>ctx.dispatch(type:string, payload:any, {lazy:true})`    
 全局上下文也可以触发`lazy`    
-`js>>>cc.lazyReducer.{moduleName}.{fnName}(payload:any)`   
-`js>>>cc.lazyDispatch(type:string, payload:any)`   
+`js>>>cc.reducer.{moduleName}.{fnName}(payload:any, {lazy:true})`   
 
 > 为了方便读者进一步理解**lazy**特性，[可以点击此处查看在线示例](https://stackblitz.com/edit/concent-lazy-dispatch)

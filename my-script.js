@@ -1,6 +1,2 @@
 
-alert('my-script');
-
-function switch(){
-  alert('switch');
-}
+console.log('my-script');
