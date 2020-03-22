@@ -16,12 +16,12 @@ module.exports = {
     '/': {
       lang: 'zh-CN',
       title: 'CONCENT',
-      description: '一个可预测、零入侵、渐进式、高性能的增强型状态管理方案'
+      description: '内置依赖收集，可预测、零入侵、渐进式、高性能的react开发框架'
     },
     '/en/': {
       lang: 'en-US',
       title: 'CONCENT',
-      description: "a predictable、zero-cost-use、progressive、high performance's enhanced state management solution"
+      description: "Build-in dependency collection, a predictable、zero-cost-use、progressive、high performance's react develop framework"
     }
   },
 
