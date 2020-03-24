@@ -96,16 +96,16 @@ export const flChanged = {
 }
 ```
 
-也可以基于`defImmediateWatch`来封装此函数
+也可以基于`defWatch`来封装此函数
 
 ```js
-import { defImmediateWatch } from 'defImmediateWatch';
+import { defWatch } from 'concent';
 
-export const flChanged = defImmediateWatch((n, o, f)=>{
+export const flChanged = defWatch((n, o, f)=>{
   const { firstName, lastName } = n;
   if(f.isFirstCall) return;
   // do some staff with firstName lastName
-});
+}, {immediate:true});
 ```
 
 ## 依赖标记   
@@ -123,7 +123,7 @@ export const flChanged = {
 
 等同于调用`defWatch`达到同样的效果
 ```js
-import { defWatch } from 'defImmediateWatch';
+import { defWatch } from 'concent';
 
 export const flChanged = defWatch((n, o, f)=>{
   const { firstName, lastName } = n;

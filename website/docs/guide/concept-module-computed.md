@@ -109,8 +109,10 @@ export function complexName(n, o, f){
 }
 ```
 
-## 同名计算键
-如果计算键的名字和模块状态里的某个`stateKey`同名，则会为`retKey`自动生成一个包含此`stateKey`的依赖列表
+## 同名计算结果键
+当计算结果名`retKey`和模块状态里的某个`stateKey`同名时，concent则会为此`retKey`自动生成一个包含此`stateKey`的依赖列表
+
+* 函数体内无其他任何依赖时
 
 ```js
 // code in models/foo/computed.js
@@ -122,36 +124,68 @@ export firstName(){
 }
 ```
 
-如果想要关闭此规则，需要显示的传递`depKeys`为空列表
+* 函数体内包含其他依赖时
 
 ```js
-export const firstName = {
-  fn:()=>{
-    return `just_for_fun_${Date.now()}`;
-  },
-  depKeys:[], //显示的指定依赖列表为空
+// 因`retKey`和`stateKey`同名，concent为它的生成的依赖列表为['firstName']
+// 同时函数体内还有一个依赖['LastName']
+// 所以最终计算函数firstName的依赖为 ['firstName', 'lastName']
+export firstName(n)){
+  return `just_for_fun_${n.LastName}`;
 }
 ```
 
-当然了，这里也支持调用`defComputed`来封装此函数
+如果想要关闭此规则，有以下几种方式
+
+* 让函数保持依赖收集状态，只是关闭同名计算结果依赖规则
 
 ```js
 import { defComputed } from 'concent';
-// defComputed(fn:Function, depKeys?:string[], compare?:boolean, sort?:number)
+
+// 设置retKeyDep为false，表示关闭同名计算结果规则
+export const firstName = defComputed(()=>{
+  return `just_for_fun_${n.lastName}`;
+}, { retKeyDep:false })
+```
+
+* 显式地传递`depKeys`列表
+
+> 此时函数处于依赖标记状态，你需要根据函数体内具体用到的状态键来标记依赖
+
+一个无任何依赖的函数
+
+```js
+import { defComputed } from 'concent';
 
 export const firstName = defComputed(()=>{
   return `just_for_fun_${Date.now()}`;
-}, [])
+}, []) // 显示的指定依赖列表为空
+
+// or defComputed(fn, {depKeys:[]}
 ```
 
-此时`firstName`变成了一个固定的计算结果，初次计算完毕后，没有任何机会再触发它的变化了，可以进一步使用`defComputedVal`改写
+对于这种只会有一次机会被触发并计算结果的零依赖函数，我们称之为`静态计算函数`，还可以使用`defComputedVal`来定义
 
 ```js
 import { defComputedVal } from 'concent';
-// defComputedVal(fn:Function, compare?:boolean, sort?:number)
-
 export const firstName = defComputedVal(`just_for_fun_${Date.now()}`);
 ```
+
+如果函数体内用到了具体的状态键，需要人工标记依赖
+
+```js
+import { defComputed } from 'concent';
+
+export const firstName = defComputed(()=>{
+  return `just_for_fun_${n.lastName}`;
+}, ['lastName'])
+
+// or defComputed(fn, {depKeys:['lastName']}
+```
+
+::: tip | 推荐使用依赖收集策略
+处于依赖收集状态的函数会自动收集函数体用到的依赖，从而避免了人工维护因遗漏了某个依赖导致出错的机会
+:::
 
 
 ## 触发计算
@@ -159,8 +193,8 @@ export const firstName = defComputedVal(`just_for_fun_${Date.now()}`);
 - 模块被加载时，所有计算函数都会被触发(和该模块下有没有相关的组件被实例化没有关系)
 - 模块的某些状态被改变时，按各个`retKey`依赖列表挑出需要执行的计算函数并逐个执行
 
-::: tip | 注意
-key对应的应该是primitive类型的（如number, string, boolean），如果是object型，则需要总是返回新的引用才能触发计算
+::: tip | 注意相同引用的比较
+当key对应的应该是primitive类型的（如number, string, boolean）时，新状态和旧状态的比较总是如我们预期的那样成立，但是如果是object型，则需要总是返回新的引用才能触发计算
 :::
 
 ```js{13}

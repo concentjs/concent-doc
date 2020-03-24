@@ -213,11 +213,18 @@ run({
     },
     computed: {//【可选】定义模块计算函数
       count: count => count * 2,
-      anyOneChange: {
+      // 收集到此函数的依赖为 ['count', 'msg']
+      autoDep:(newState, oldState, fnCtx) => {
+        const { count, msg } = newState;
+        const { changed } = fnCtx;
+        return `${changed.join(',')} changed, count ${count}, msg ${msg}`
+      },
+      manualDep: {
         fn: (newState, oldState, fnCtx) => {
           const { changed } = fnCtx;
           return `${changed.join(',')} changed`
         },
+        // 人工标记依赖为 ['count', 'msg']，不管函数体有没有用到这些值，只要它们改变了就触发此计算函数
         depKeys: ['count', 'msg'],
       }
     },
