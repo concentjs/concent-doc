@@ -1,7 +1,7 @@
 # 函数上下文
 函数上下文指的是`computed`函数或者`watch`调用的目标函数的第三位参数，由concent负责生成并传入，主要负责读取触发对应函数时的一些上下文信息
 
-### 出现在模块computed&watch
+## 出现在模块computed&watch
 
 ```js
 const loginModel =  {
@@ -30,11 +30,9 @@ const loginModel =  {
 run({
   login:loginModel,
 })
-
 ```
 
-
-### 出现在实例computed&watch
+## 出现在实例computed&watch
 
 ```js
 const setup = ctx=>{

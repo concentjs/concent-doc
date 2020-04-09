@@ -8,6 +8,7 @@
 
 ### 定义普通事件监听
 在`setup`函数体内定义普通事件监听
+
 ```js
 const setup = ctx=>{
   ctx.on('someEvent', (p1, p2, p3)=>{
@@ -35,6 +36,7 @@ const setup = ctx=>{
 
 ### 发射普通事件
 使用实例api `emit`和顶层api `emit`均可发射普通事件
+
 ```js
 import { useConcent, emit } from 'concent';
 
@@ -51,6 +53,7 @@ emit('someEvent', 1, 2, 3);
 
 ### 发射携带id的事件
 通过携带id的事件进一步筛选接收事件的目标
+
 ```js
 import { useConcent, emit } from 'concent';
 
@@ -69,6 +72,7 @@ emit(['someEvent', 'id_1'], 1, 2, 3);
 更多使用方式请点击[查看实例off api](/api/ref-off)
 
 ### 取消普通事件监听
+
 ```js
 import { useConcent } from 'concent';
 
@@ -81,6 +85,7 @@ function FnComp(){
 ```
 
 ### 取消携带id的事件监听
+
 ```js
 import { useConcent } from 'concent';
 
@@ -104,6 +109,7 @@ function FnCompBetter(props){
   return <button onClick={settings.offEvent}>off</button>
 }
 ```
+
 ::: tip | 组件销毁，监听自动取消
 如果不是为了特殊的业务逻辑，你不需要人工去取消事件监听，因为在组件销毁之前，实例会主动取消相关事件的监听
 :::

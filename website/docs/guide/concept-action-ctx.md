@@ -3,6 +3,7 @@
 action上下文指的是`reducer`函数或者`invoke`调用的目标函数的第三位参数，由concent负责生成并传入，主要负责串联调用其他`reducer`函数或自定义函数
 
 ## 出现在reducer函数里
+
 ```js
 // code in models/login/reducer.js
 
@@ -26,6 +27,7 @@ export async function changeAgeAndName({ name, age }, moduleState, actionCtx) {
 ```
 
 ## 出现在自定义函数里
+
 ```js
 async function changeAge(age) {
   await api.updateName(age);

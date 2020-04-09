@@ -1,7 +1,7 @@
 ---
 heroImage: /favicon.png
-# actionText: Get Started →
-# actionLink: /guide/first-sight
+actionText: Get Started →
+actionLink: /guide/first-sight
 home: true
 showStar: true
 # features:
