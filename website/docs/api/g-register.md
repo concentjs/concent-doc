@@ -3,13 +3,17 @@
 `register`函数负责将用户的普通`react类`注册成为`cc类`，变成`cc类`后，你的组件实例将获得更多的能力，具体请参考实例api章节
 
 ## 函数签名定义
+[详细类型描述参考此处](https://github.com/concentjs/concent/blob/master/src/index.d.ts)
 
 ```ts
 type RegisterOption = {
   module?:string,
-  watchedKeys?: '*' | string[], //default *
-  storedKeys?: '*' | string[],
-  isSingle?:boolean
+  watchedKeys?: '*' | string[], // in 1.X: default is *, in 2.x: default is -
+  storedKeys?: '*' | string[],// default is []
+  isSingle?:boolean,
+  tag?:string,
+  connect?:string[] | { [moduleName:string]: string[] }, //连击的其他模块
+  setup?: (refCtx: ICtx) => IAnyObj | void,
 }
 
 function register(
@@ -30,12 +34,12 @@ ccClassKey | 不设定时，concent会自动生成一个，每一个cc类都必�
 -|-|-|-
 option | 注册参数 |  | RegisterOption
 option.module | 实例所属模块 | '$$default' | String
-option.watchedKeys | 实例观察的`stateKey`范围，不设定时默认为`'*'`，表示所属模块的任意一个key发生变化都会触发当前实例渲染 | '*' | String[] or '*'
+option.watchedKeys | 实例观察的`stateKey`范围，1.x版本(不设定时默认为`'*'`，表示所属模块的任意一个key发生变化都会触发当前实例渲染), 2.x版本(不设定时默认为`'-'`, 表示运行时自动收集依赖)| '*' | String[] or '*' or '-'
 option.storedKeys | 组件销毁后，如果希望挂载回来时状态能够恢复回来，设置想要存储的key | [] | String
 option.isSingle | 表示是否允许改cc类实例话多次，默认是false，允许一个cc类有多个cc实例 | false | Boolean
 
 > 理解`storedKeys`这一点要注意实例的stateKey分为3类   
-1 watchedKeys 从所属模块状态的所有key里，挑选要观察的key    
+1 watchedKeys 从所属模块状态的所有key里，挑选要观察的key（在2.*版本里，推荐不设定此项，concent会在render期间收集到实例对数据的相关依赖，以保持精确更新）    
 2 storedKeys 表示不属于watchedKeys，但是希望被存储的key   
 3 temporaryKeys 则表示随着组件卸载就丢失状态的key   
 所以实例里的state是合成出来的，由module、self 两部分state合成得出
@@ -68,7 +72,8 @@ run({
 注册一个类Foo，观察和共享foo模块的f1值变化，我们在其构造器里申明一个初始的state
 ```js
 import { register } from 'concent';
-@register('Foo', {module:'foo', watchedKeys:['f1']})
+
+@register({module:'foo', watchedKeys:['f1']}, 'Foo')
 class Foo extends Component{
   constructor(props, context){
     super(props, context);
@@ -90,15 +95,18 @@ class Foo extends Component{
 每一个cc类除了能够观察自己所属模块的key值变化，也能够观察其他模块的key值变化，其他模块的将从`this.$$connectedState`里获取
 ```js
 import { register } from 'concent';
-@register('Foo', {
-  module:'foo', 
-  watchedKeys:['f1'], 
-  connect:{bar:'*'}}, //连接到bar模块，观察它的所有key值变化，
+@register({
+    module:'foo', 
+    watchedKeys:['f1'], // 在2.*版本里推荐不设定，表示对foo模块自动收集依赖
+    // 写为 connect:['bar'] 在1.*版本里表示观察所有key变化，在2.*里表示自动收集依赖
+    connect:{bar:'*'},  
+  }, //连接到bar模块，观察它的所有key值变化，
+  'Foo'
 )
 class Foo extends Component{
   render(){
     // 打印为：{b1:11}
-    console.log(this.$$connectedState.bar);
+    console.log(this.ctx.connectedState.bar);
   }
 }
 ```
@@ -151,4 +159,4 @@ this.forceUpdate(cb:function, delay:number, identity:string)
 
 ### [示例2](https://stackblitz.com/edit/ccapi-top-register-2?file=index.js)
 演示一个指定了具体模块同时也观察其他模块的cc类，帮助你理解
-> 每个cc类都有自己的专属模块，数据从state上获取，如果想观察其他模块的变化，需要定义`connect`参数，实例可以从`$$connectedState`上获取
+> 每个cc类都有自己的专属模块，数据从state上获取，如果想观察其他模块的变化，需要定义`connect`参数，实例可以从`ctx.connectedState`上获取
