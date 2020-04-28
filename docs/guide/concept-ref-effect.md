@@ -6,7 +6,7 @@
 如下图里3处箭头所指向的红框处，是触发`effect`执行的时机，此图里虽然描述的是`class组件`的生命周期，但是因为`function组件`组件里通过`useEffect`完全的对等模拟出`componentDidMount`、`componentDidUpdate`、`componentWillUnmount`3个生命周期函数，所以concent提供的`effect`函数能够封装`class组件`和`function组件`的生命周期方法并对外提供一致的定义方式，使得用户可以采用更简单的编程模型来处理复杂的场景。
 
 
-![ref-watch](/concent-doc/img/ref-effect-attention.png)
+![ref-watch](/img/ref-effect-attention.png)
 
 ## 定义实例effect
 下面代码示例演示类组件和函数组件如何共享生命周期函数定义。  
@@ -115,7 +115,7 @@ export default function App() {
 ```
 
 
-<a target="blink" class="seeDemoCodeOfArticle" style="background-image:/concent-doc/img/edit-on-codesandbox.png"
+<a target="blink" class="seeDemoCodeOfArticle" style="background-image:/img/edit-on-codesandbox.png"
 href="https://codesandbox.io/s/concent-guide-xvcej">在线编辑(拷贝App3-setup文件内容至App查看效果)</a>      
 
 

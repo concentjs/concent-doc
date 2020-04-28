@@ -160,7 +160,7 @@ yarn add concent
 ```
 
 <!-- <div style="text-align: center;">
-  <img src="/concent-doc/img/install-concent.png" width="780px" style="margin:0 auto"/>
+  <img src="/img/install-concent.png" width="780px" style="margin:0 auto"/>
 </div> -->
 
 <h2 style="font-weight:300; width:100%; text-align:center; margin: 66px 0;">

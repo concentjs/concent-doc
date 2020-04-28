@@ -2,7 +2,7 @@
 
 插件是一个普通的json对象，只要满足`{install: (on:CcPluginOn)=>{name:string}}`类型，即可配置在在启动时的`runOptions.plugins`属性下，每一个插件对象必需暴露一个`install`接口，该接口的回调参数里提供一个`on`句柄，用于监听`concent`运行时发射的各种信号并做处理，方便按需扩展一些非业务逻辑，提供给其他开发者使用
 
-![](/concent-doc/img/cc-state-broadcast-process.png)
+![](/img/cc-state-broadcast-process.png)
 
 
 ## 定义一个插件

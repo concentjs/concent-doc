@@ -1,8 +1,6 @@
-.1_foo.js
-
-website/node_modules
-website/.cache
-website/public
-website/static/concent-doc
-concent-doc
+.cache
+public
 .help.md
+node_modules
+
+.now

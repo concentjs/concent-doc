@@ -7,7 +7,7 @@
 * 初始化组件的整个过程中，执行完setup之后，则开始执行setup里定义好的computed函数，即首次渲染之前，所有的computed函数都会被触发
 * 修改状态之后，按depKeys定义触发相对应的computed函数，即首次渲染之后，按需触发部分computed函数
 
-![ref-computed](/concent-doc/img/ref-computed-process.png)
+![ref-computed](/img/ref-computed-process.png)
 [查阅api文档了解更多实例computed使用方法](/api/ref-computed)
 
 > 尽管实例computed可以对模块里的stateKey定义计算函数，但是任何情况下都应该优先考虑使用模块computed，因为模块computed在状态改变时只会计算一次，而实例computed是每个实例都会单独计算一次，所以仅当需要对私有状态定义计算函数时，才对其定义计算函数

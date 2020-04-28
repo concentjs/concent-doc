@@ -1,6 +1,6 @@
 # 模块
 
-![cc-module](/concent-doc/img/cc-module.png)
+![cc-module](/img/cc-module.png)
 在concent里，提供一个全局唯一的`store`，而`store`是由多个模块一起组成的，**模块**是一个非常重要的概念，每个模块又分别由`state`、`reducer`、`computed`、`watch`、`init`组成。
 
 ## run，载入配置
@@ -9,7 +9,7 @@
 
 一个典型的concent应用启动流程如下图所示
 
-![cc-run-module](/concent-doc/img/cc-run-module.png)
+![cc-run-module](/img/cc-run-module.png)
 
 伪代码如下
 ```js

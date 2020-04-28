@@ -54,5 +54,5 @@ export default async ()=>{
 ## init触发时机
 每个模块的`init`函数只会被执行一次，将在`模块watch`配置完毕之后执行，返回的状态会被concent分发到对应的实例上。
 
-![run-module](/concent-doc/img/cc-run-module.png)
+![run-module](/img/cc-run-module.png)
 > 当init函数内部有等待时间较长的异步调用时，相关组件实例挂载完毕读取的是最初定义的模块状态，直到init函数执行结束才会被再次刷新，拿到最新的状态。

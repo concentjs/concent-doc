@@ -75,7 +75,7 @@ export const lastName = {
 - 当`stateKey`的值为非`primitive`类型时，如果没有使用解构语法总是返回一个新的对象，`watch`回调也不会被触发，触非人工设置`compare`为false，表示只要对某个`stateKey`设了值就触发回调
 - `模块watch`触发流程是在`模块computed`之后
 
-![run-module](/concent-doc/img/cc-run-module.png)
+![run-module](/img/cc-run-module.png)
 
 ## 依赖收集
 模块观察函数的依赖收集收集依然是载入模块配置时，在执行完所有的计算函数之后，去执行`immediate`为true的所有观察函数，**但是watch函数默认的immediate值是false**，这是因为watch函数的本质是观察某个写状态发送改变时执行一些异步任务，初次配置模块状态时，不算作是有状态发生改变，所以为了正确的收集到依赖，用户需要显示的配置`immediate`为true，因函数上下文`fnCtx`会携带一个标记告诉用户此次执行是不是首次执行，可以利用此标记跳出具体的业务逻辑执行函数

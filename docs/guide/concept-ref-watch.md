@@ -7,7 +7,7 @@
 * 初始化组件的整个过程中，执行完setup之后，在首次渲染之前，所有的设置了immediate为true的watch函数都会被触发(默认是false)
 * 之后的组件存在期，修改状态之后，按depKeys定义触发相对应的watch函数
 
-![ref-watch](/concent-doc/img/ref-watch-attention.png)
+![ref-watch](/img/ref-watch-attention.png)
 
 > 尽管实例watch可以对模块里的stateKey定义计算函数，但是任何情况下都应该优先考虑使用模块watch，因为模块watch在状态改变时才可能触发执行一次，而实例watch是每个实例都可能触发执行一次，所以仅当需要对私有状态定义观察函数时，才对其定义实例watch
 

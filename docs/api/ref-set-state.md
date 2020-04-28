@@ -15,11 +15,11 @@ function setState(
 ```
 
 <a href="https://stackblitz.com/edit/hook-setup" target="_blank">
-<img src="/concent-doc/img/edit-on-stackblitz.png" width="280px" style="margin:0 auto"/>
+<img src="/img/edit-on-stackblitz.png" width="280px" style="margin:0 auto"/>
 </a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://stackblitz.com/edit/hook-setup" target="_blank">
-<img src="/concent-doc/img/edit-on-codesandbox.png" width="280px" style="margin:0 auto"/>
+<img src="/img/edit-on-codesandbox.png" width="280px" style="margin:0 auto"/>
 </a>
 
 ## 参数解释

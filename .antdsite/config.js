@@ -10,7 +10,7 @@ function getLocaleThemeConf(localeKey) {
 }
 
 module.exports = {
-  base: '/concent-doc/',
+  base: '/',
 
   locales: {
     '/': {
@@ -28,8 +28,8 @@ module.exports = {
   logo: '/favicon.png',
   footer: 'MIT Licensed | Copyright © concentjs (author: fantasticsoul)',
   head: [
-    ['link', { rel: 'icon', href: '/concent-doc/favicon.png' }],
-    ['link', { rel: 'stylesheet', type: 'text/css', href: '/concent-doc/my-style.css' }],
+    ['link', { rel: 'icon', href: 'favicon.png' }],
+    ['link', { rel: 'stylesheet', type: 'text/css', href: 'my-style.css' }],
   ],
   themeConfig: {
     logo: '/favicon.png',

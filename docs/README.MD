@@ -17,7 +17,6 @@ showStar: true
   Get Started ➜
 </a>
 
-
 <div style="display:flex; flex-wrap: wrap; justify-content: center;">
 
   <a href='https://www.npmjs.com/package/concent' style='margin: 0 0.5rem;'>
@@ -146,7 +145,8 @@ showStar: true
 
 </div>
 
-___
+---
+
 <h2 style="font-weight:300; width:100%; text-align:center; margin: 66px 0;">
   How to <span style="font-weight:600;" >install</span>
 </h2>
@@ -154,13 +154,13 @@ ___
 ```bash
 npm install concent --save
 
-//or 
+//or
 
 yarn add concent
 ```
 
 <!-- <div style="text-align: center;">
-  <img src="/concent-doc/img/install-concent.png" width="780px" style="margin:0 auto"/>
+  <img src="/img/install-concent.png" width="780px" style="margin:0 auto"/>
 </div> -->
 
 <h2 style="font-weight:300; width:100%; text-align:center; margin: 66px 0;">
@@ -202,6 +202,7 @@ function App() {
 }
 ReactDom.render(<App />, document.getElementById('root'));
 ```
+
 <br /> 
 <br /> 
 <br /> 
@@ -214,9 +215,6 @@ ReactDom.render(<App />, document.getElementById('root'));
 <br/>
 <a class="seeDemoCode cake" href="https://stackblitz.com/edit/concent-doc-home-demo">Experience this demo in StackBlitz</a>
 
-
 <a class="exploreMore" href="./guide/first-sight">
   Explore <span style="font-weight:600;">more</span>
 </a>
-
-

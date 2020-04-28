@@ -249,7 +249,7 @@ export async function complexUpdate(id, moduleState, actionCtx) {
 <button onClick={()=> ctx.dispatch('complexUpdate', 2)}>复杂的更新</button>
 ```
 触发的更新流程如下图所示
-![dispatch](/concent-doc/img/cc-dispatch.png)
+![dispatch](/img/cc-dispatch.png)
 
 启动**lazy**只需要在源头调用处将`dispatch`替换为`lazyDispatch`
 ```js
@@ -257,7 +257,7 @@ export async function complexUpdate(id, moduleState, actionCtx) {
 <button onClick={()=> ctx.lazyDispatch('complexUpdate', 2)}>复杂的更新</button>
 ```
 则触发的更新流程将变为
-![dispatch](/concent-doc/img/cc-lazy-dispatch.png)
+![dispatch](/img/cc-lazy-dispatch.png)
 
 concent将延迟reducer函数调用链上所有`reducer函数`触发ui更新的时机，仅将他们返回的新**部分状态**按模块分类合并后暂存起来，最后的源头函数调用结束时才一次性的提交到`store`并触发相关实例渲染。
 
