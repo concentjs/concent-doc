@@ -2,7 +2,7 @@
 
 注册为cc组件后，提供的`setState`方法已不再是react提供的原始的`setState`，如果用户想触发原始的`setState`，可以调用`ctx.reactSetState`，***但是强烈不建议这么做***，除非你明确的知道你做的什么以及明白其后果。  
 
-当属于`foo`模块的cc组件实例调用`setState`，将用户的新片段状态提交之后，`concent`会分析这份片段状态除了传递给当前实例，还将找出其他同样属于`foo`模块的类组件实例或者连接到`foo`的类组件实例，并将这份提交状态分发到这些实例上触发渲染。
+当属于`foo`模块的组件实例调用`setState`提交新片段状态之后，除了传递给当前实例触发其重渲染，`concent`还会分析这份片段状态并提取出属于`foo`模块描述范围的状态，然后将找出其他同样属于`foo`模块或者连接到`foo`模块的组件实例，并将提取出来的状态分发到这些实例上触发它们重渲染。
 
 ## 函数签名定义
 ```ts
@@ -35,7 +35,7 @@ delay | 广播延迟时间，单位(ms) | 0 | Number
 #### 直接调用
 在class里使用时，如果忽略其`renderKey`和`delay`参数的话，使用方式和体验的reactClass是一致的
 ```js
-@register({module:'foo', connect:{bar:'*', baz:'*'}}, 'Foo');
+@register({module:'foo', connect:['bar', 'baz']}, 'Foo');
 class Foo extends Component{
   changeBarName = (e)=>{
     //修改name
@@ -103,7 +103,7 @@ class ProductPage extends Component{
 #### 带delay调用
 当属于模块`foo`的某个cc组件实例修改状态时，默认情况下`concent`是实时将状态分发到其他关系这些状态变化的实例的，如果有一些状态变化非常频繁，且关心这个状态变化的组件很多时，可以使用delay参数，延迟状态的分发从而提高渲染性能。
 
-delay的值单位是毫秒，表示状态变化之后多少毫秒内，如果没有新的转态输入，才将最后这份状态分发到其他实例
+delay的值单位是毫秒，表示状态变化之后多少毫秒内，如果没有新的状态输入，才将最后这份状态分发到其他实例
 >注意当前实例总是实时的收到最新状态的，只有其他实例才是延迟收到
 
 ```js
