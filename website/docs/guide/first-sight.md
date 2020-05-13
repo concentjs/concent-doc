@@ -43,7 +43,7 @@ class CounterComp extends Component {
   <h3 style="color:#0094bd">代码0改动接入concent</h3>
   <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />
   <video muted="" style="width:100%;max-width:780px;transform:translateY(-6px)" controls="controls" autoPlay="none">
-    <source src="/concent-doc/video/zero-cost-use.mov" type="video/mp4" />Your browser does not support the video tag.
+    <source src="https://github.com/concentjs/cc-doc-video/blob/master/video/zero-cost-use.mov?raw=true" type="video/mp4" />Your browser does not support the video tag.
   </video>
   <br />
 </div>
@@ -97,7 +97,7 @@ class CounterComp extends Component {
   <h3 style="color:#0094bd">逐步解耦业务逻辑与ui渲染</h3>
   <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />
   <video muted="" style="width:100%;max-width:780px;transform:translateY(-6px)" controls="controls">
-    <source src="/concent-doc/video/step-by-step.mov" type="video/mp4" />Your browser does not support the video tag.
+    <source src="https://github.com/concentjs/cc-doc-video/blob/master/video/step-by-step.mov?raw=true" type="video/mp4" />Your browser does not support the video tag.
   </video>
   <br />
 </div>
@@ -148,7 +148,7 @@ function CounterHookComp() {
   <h3 style="color:#0094bd">缩小长列表渲染范围</h3>
   <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />
   <video muted="" style="width:100%;max-width:780px;transform:translateY(-6px)" controls="controls">
-    <source src="/concent-doc/video/render-key.mov" type="video/mp4" />Your browser does not support the video tag.
+    <source src="https://github.com/concentjs/cc-doc-video/blob/master/video/render-key.mov?raw=true" type="video/mp4" />Your browser does not support the video tag.
   </video>
   <br />
 </div>
@@ -160,7 +160,7 @@ function CounterHookComp() {
   <h3 style="color:#0094bd">减小渲染次数</h3>
   <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />
   <video muted="" style="width:100%;max-width:780px;transform:translateY(-6px)" controls="controls">
-    <source src="/concent-doc/video/lazy-dispatch.mov" type="video/mp4" />Your browser does not support the video tag.
+    <source src="https://github.com/concentjs/cc-doc-video/blob/master/video/lazy-dispatch.mov?raw=true" type="video/mp4" />Your browser does not support the video tag.
   </video>
   <br />
 </div>
@@ -172,7 +172,7 @@ function CounterHookComp() {
   <h3 style="color:#0094bd">降低渲染频率</h3>
   <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />
   <video muted="" style="width:100%;max-width:780px;transform:translateY(-6px)" controls="controls">
-    <source src="/concent-doc/video/delay-broadcast.mov" type="video/mp4" />Your browser does not support the video tag.
+    <source src="https://github.com/concentjs/cc-doc-video/blob/master/video/delay-broadcast.mov?raw=true" type="video/mp4" />Your browser does not support the video tag.
   </video>
   <br />
 </div>
@@ -304,7 +304,7 @@ function HookFnComp() {
   <h3 style="color:#0094bd">拥抱更好的开发范式</h3>
   <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />
   <video muted="" style="width:100%;max-width:780px;transform:translateY(-6px)" controls="controls">
-    <source src="/concent-doc/video/enhance-react.mov" type="video/mp4" />Your browser does not support the video tag.
+    <source src="https://github.com/concentjs/cc-doc-video/blob/master/video/enhance-react.mov?raw=true" type="video/mp4" />Your browser does not support the video tag.
   </video>
   <br />
 </div>

@@ -111,7 +111,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
   <a style="color:#0094bd" target="blink" href="https://stackblitz.com/edit/cc-course-hello-concent-simple">在线示例点我</a>
   <img style="width:100%;max-width:740px" src="/concent-doc/img/blockHeader.png" /><br />
   <video muted="" style="width:100%;max-width:740px;transform:translateY(-6px)" controls="controls" autoPlay="none">
-    <source src="/concent-doc/video/cc-zero-cost.mov" type="video/mp4" />Your browser does not support the video tag.
+    <source src="https://github.com/concentjs/cc-doc-video/blob/master/video/cc-zero-cost.mov?raw=true" type="video/mp4" />Your browser does not support the video tag.
   </video>
   <br />
 </div>
