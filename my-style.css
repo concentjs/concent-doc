@@ -278,6 +278,11 @@ footer {
   font-size: 19px;
 }
 
+.textLeft{
+  text-align: left;
+  padding-left: 19px;
+}
+
 .getStarted {
   display: block;
   position: absolute;

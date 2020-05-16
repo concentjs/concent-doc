@@ -52,7 +52,7 @@ showStar: true
     <div class="featureImgBase featureImg1 fibs1"></div>
     <h2>极简核心api</h2>
     <p class="featureContent">
-      run载入模块配置，register注册组件
+      run载入模块配置，register注册类组件，useConcent注册函数组件。
     </p>
   </div>
 
@@ -60,7 +60,7 @@ showStar: true
     <div class="featureImgBase featureImg2 fibs2"></div>
     <h2>0入侵成本接入</h2>
     <p class="featureContent">
-      无需Provider包裹，被注册后的组件setState调用就接通store。
+      无根Provider包裹，注册后的组件setState即可更新store。
     </p>
   </div>
 
@@ -92,7 +92,7 @@ showStar: true
     <div class="featureImgBase featureImg6 fibs3"></div>
     <h2>组件能力增强</h2>
     <p class="featureContent">
-      支持实例级别computed、watch定义；支持组件emit&on；支持setup特性。
+      支持实例级别computed、watch定义；支持组件emit&on；支持setup特性实现composition api.
     </p>
   </div>
 
@@ -108,7 +108,7 @@ showStar: true
     <div class="featureImgBase featureImg8 fibs1"></div>
     <h2>渲染性能出众</h2>
     <p class="featureContent">
-      基于依赖标记、引用收集和状态分发原理工作，内置renderKey、lazyDispatch、delayBroadcast等特性。
+      启用Proxy在运行时动态收集每一个组件的最新依赖列表，保证最小粒度更新，同时内置renderKey、lazyDispatch、delayBroadcast等高级特性满足更复杂的更新场景。
     </p>
   </div>
 
@@ -164,55 +164,120 @@ yarn add concent
 </div> -->
 
 <h2 style="font-weight:300; width:100%; text-align:center; margin: 66px 0;">
-  Let's <span style="font-weight:600;" >start</span>
+  <span style="font-weight:600;">Key features</span> preview
 </h2>
 
+<a class="seeDemoCode textLeft" rel="noopener" target="blank" href="https://codesandbox.io/s/hello-concent-pzde3?file=/src/App.js:50-92">
+  ❤️Enjoy <span style="font-weight:600;" >composition api</span>  with 🔥dependency collection🔥
+</a>
+<br />
+
 ```js{3}
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
-import { run, register, useConcent, registerDumb } from 'concent';
+import { run, useConcent } from "concent";
 
-run({
-  foo: {// declared a module named 'foo'
-    state: { greeting: 'hello concent' },
-    reducer: { ... }
-  }
-})
+run();// 启动concent
 
-// three ways of creating component, multi ways to change state
-function HookFnComp() {
-  const ctx = useConcent('foo');
-  const { state: { greeting }, sync } = ctx;
-  return <input value={greeting} onChange={sync('greeting')} />
-}
+const setup = ctx => {
+  const { initState, computed, watch, setState } = ctx;
+  // 初始化实例状态
+  initState({ count: 0 });
+  // 定义计算函数，这里的依赖是count，仅当count变化，触发此函数重新计算
+  computed("doubleCount", n => n.count * 2);
+  // 定义观察函数，这里的依赖是count，仅当count变化，会弹此提示
+  watch("count", (n, o) => alert(`from ${o.count} to ${n.count}`));
+  // 打包方法返回，将被收集到settings里
+  return {
+    inc: () => setState({ count: ctx.state.count + 1 }),
+    dec: () => setState({ count: ctx.state.count - 1 })
+  };
+};
 
-const RenderPropsComp = registerDumb('foo')(...);
-
-@register('foo')
-class HocClassComp extends Component {...}
-
-function App() {
+function Counter(){
+  // 这些是从实例上下文里解构出来的属性
+  const { state, refComputed, settings } = useConcent({ setup });
   return (
     <>
-      <HookFnComp />
-      <HocClassComp />
-      <RenderPropsComp />
+      <h1>{state.count}</h1>
+      <h1>{refComputed.doubleCount}</h1>
+      <button onClick={settings.inc}>inc</button>
+      <button onClick={settings.dec}>dec</button>
     </>
-  )
+  );
 }
-ReactDom.render(<App />, document.getElementById('root'));
 ```
+<div style="text-align:center;">
+<img style="max-width:780px" src="https://raw.githubusercontent.com/fantasticsoul/assets/master/article-img/rmc-comparison/3.png"/>
+</div>
+
 <br /> 
-<br /> 
+<a class="seeDemoCode textLeft" rel="noopener" target="blank" href="https://codesandbox.io/s/hello-concent-shared-cu1i9">
+  ❤️Easily <span style="font-weight:600;" >share state</span>  and <span style="font-weight:600;" >reuse logic</span> between class and function
+</a>
+<br />
+
+```js{5}
+import { run, useConcent } from "concent";
+
+const delay = (ms = 1000) => new Promise(r => setTimeout(r, ms));
+
+run({// 载入模块配置启动concent
+  counter: {
+    state: { count: 0 },// 【必需】，定义模块状态
+    reducer: {
+      async complexUpdate(p, m, ac) {
+        await delay();
+        await ac.setState({ count: m.count + 10 });
+        await delay();
+        return { count: m.count + 10 };
+      },
+      simpleUpdate(p, m) {
+        return { count: m.count - 100 };
+      }
+    },
+    computed: {// 【可选】，定义模块计算
+      doubleCount: n => n.count * 2,
+      quadrupleCount: (n, o, f) => f.cuVal.doubleCount * 2,
+    },
+    watch: {// 【可选】，定义模块观察
+      count: (n, o) => alert(`from ${o.count} to ${n.count}`)
+    }
+  }
+});
+
+const setup = ctx => {
+  return {
+    inc: () => ctx.setState({ count: ctx.state.count + 1 }),
+    dec: () => ctx.setState({ count: ctx.state.count - 1 })
+  };
+};
+
+function Counter() {
+  const { state, moduleComputed, moduleReducer, settings } = 
+    useConcent({ setup, module: "counter" });
+  return <div> ui ... </div>
+}
+
+@register({ setup, module: "counter" })
+class ClassCounter extends React.Component{
+  render(){
+    const { state, moduleComputed, moduleReducer, settings } = this.ctx;
+    return <div> ui ... </div>
+  }
+}
+```
+<div style="text-align:center;">
+<img style="max-width:780px" src="https://raw.githubusercontent.com/fantasticsoul/assets/master/article-img/rmc-comparison/cc-unified-lifecycle-en.png"/>
+</div>
+
 <br /> 
 <br /> 
 <div style="width:100%;display:flex;">
 <iframe style="width:1440px;height:860px;margin:0 auto" src="https://codesandbox.io/s/concent-guide-xvcej"></iframe>
 </div>
 <br/>
-<a class="seeDemoCode cake" href="https://codesandbox.io/s/concent-guide-xvcej">Experience this demo in CodeSandbox [recommend]</a>
+<a class="seeDemoCode cake" href="https://codesandbox.io/s/concent-guide-xvcej">Experience standard js concent project</a>
 <br/>
-<a class="seeDemoCode cake" href="https://stackblitz.com/edit/concent-doc-home-demo">Experience this demo in StackBlitz</a>
+<a class="seeDemoCode cake" href="https://codesandbox.io/s/concent-guide-ts-zrxd5">Experience standard ts concent project</a>
 
 
 <a class="exploreMore" href="./guide/first-sight">

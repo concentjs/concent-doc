@@ -30034,7 +30034,7 @@
   <meta data-react-helmet="true" name="twitter:description" content="内置依赖收集，可预测、零入侵、渐进式、高性能的react开发框架" />
   <link as="script" rel="preload" href="/concent-doc/webpack-runtime-e6bcdfdc23a297bd346a.js" />
   <link as="script" rel="preload" href="/concent-doc/app-d87bc04a6407424adb34.js" />
-  <link as="script" rel="preload" href="/concent-doc/styles-fe04415f32e911905438.js" />
+  <link as="script" rel="preload" href="/concent-doc/styles-10a1d7e8cc2ec7c88756.js" />
   <link as="script" rel="preload"
     href="/concent-doc/component---node-modules-antdsite-src-templates-index-tsx-c3565cbfd75b212b117e.js" />
   <link as="fetch" rel="preload" href="/concent-doc/page-data/index/page-data.json" crossorigin="anonymous" />
@@ -30173,12 +30173,12 @@
                       <div class="featureWrap">
                         <div class="featureImgBase featureImg1 fibs1"></div>
                         <h2>极简核心api</h2>
-                        <p class="featureContent">run载入模块配置，register注册组件</p>
+                        <p class="featureContent">run载入模块配置，register注册类组件，useConcent注册函数组件。</p>
                       </div>
                       <div class="featureWrap">
                         <div class="featureImgBase featureImg2 fibs2"></div>
                         <h2>0入侵成本接入</h2>
-                        <p class="featureContent">无需Provider包裹，被注册后的组件setState调用就接通store。</p>
+                        <p class="featureContent">无根Provider包裹，注册后的组件setState即可更新store。</p>
                       </div>
                       <div class="featureWrap">
                         <div class="featureImgBase featureImg3 fibs3"></div>
@@ -30198,7 +30198,7 @@
                       <div class="featureWrap">
                         <div class="featureImgBase featureImg6 fibs3"></div>
                         <h2>组件能力增强</h2>
-                        <p class="featureContent">支持实例级别computed、watch定义；支持组件emit&amp;on；支持setup特性。</p>
+                        <p class="featureContent">支持实例级别computed、watch定义；支持组件emit&amp;on；支持setup特性实现composition api.</p>
                       </div>
                       <div class="featureWrap">
                         <div class="featureImgBase featureImg7 fibs2"></div>
@@ -30208,7 +30208,9 @@
                       <div class="featureWrap">
                         <div class="featureImgBase featureImg8 fibs1"></div>
                         <h2>渲染性能出众</h2>
-                        <p class="featureContent">基于依赖标记、引用收集和状态分发原理工作，内置renderKey、lazyDispatch、delayBroadcast等特性。</p>
+                        <p class="featureContent">
+                          启用Proxy在运行时动态收集每一个组件的最新依赖列表，保证最小粒度更新，同时内置renderKey、lazyDispatch、delayBroadcast等高级特性满足更复杂的更新场景。
+                        </p>
                       </div>
                       <div class="featureWrap">
                         <div class="featureImgBase featureImg9 fibs1"></div>
@@ -30241,49 +30243,107 @@
 
 <span class="token function">yarn</span> <span class="token function">add</span> concent</code></pre>
                     </div>
-                    <h2 style="font-weight:300;width:100%;text-align:center;margin:66px 0">Let&#x27;s <span
-                        style="font-weight:600">start</span></h2>
+                    <h2 style="font-weight:300;width:100%;text-align:center;margin:66px 0"><span
+                        style="font-weight:600">Key features</span> preview</h2><a class="seeDemoCode textLeft"
+                      rel="noopener" target="blank"
+                      href="https://codesandbox.io/s/hello-concent-pzde3?file=/src/App.js:50-92">❤️Enjoy <span
+                        style="font-weight:600">composition api</span> with 🔥dependency collection🔥</a><br />
                     <div class="gatsby-highlight has-highlighted-lines" data-language="js">
-                      <pre
-                        class="language-js"><code class="language-js"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> Component <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#x27;react&#x27;</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> ReactDom <span class="token keyword">from</span> <span class="token string">&#x27;react-dom&#x27;</span><span class="token punctuation">;</span>
-<span class="gatsby-highlight-code-line"><span class="token keyword">import</span> <span class="token punctuation">{</span> run<span class="token punctuation">,</span> register<span class="token punctuation">,</span> useConcent<span class="token punctuation">,</span> registerDumb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#x27;concent&#x27;</span><span class="token punctuation">;</span></span>
-<span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  foo<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token comment">// declared a module named &#x27;foo&#x27;</span>
-    state<span class="token punctuation">:</span> <span class="token punctuation">{</span> greeting<span class="token punctuation">:</span> <span class="token string">&#x27;hello concent&#x27;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    reducer<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
+                      <pre class="language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> run<span class="token punctuation">,</span> useConcent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;concent&quot;</span><span class="token punctuation">;</span>
 
-<span class="token comment">// three ways of creating component, multi ways to change state</span>
-<span class="token keyword">function</span> <span class="token function">HookFnComp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> ctx <span class="token operator">=</span> <span class="token function">useConcent</span><span class="token punctuation">(</span><span class="token string">&#x27;foo&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token punctuation">{</span> state<span class="token punctuation">:</span> <span class="token punctuation">{</span> greeting <span class="token punctuation">}</span><span class="token punctuation">,</span> sync <span class="token punctuation">}</span> <span class="token operator">=</span> ctx<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token operator">&lt;</span>input value<span class="token operator">=</span><span class="token punctuation">{</span>greeting<span class="token punctuation">}</span> onChange<span class="token operator">=</span><span class="token punctuation">{</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token string">&#x27;greeting&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
-<span class="token punctuation">}</span>
+<span class="gatsby-highlight-code-line"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 启动concent</span></span>
+<span class="token keyword">const</span> <span class="token function-variable function">setup</span> <span class="token operator">=</span> <span class="token parameter">ctx</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> initState<span class="token punctuation">,</span> computed<span class="token punctuation">,</span> watch<span class="token punctuation">,</span> setState <span class="token punctuation">}</span> <span class="token operator">=</span> ctx<span class="token punctuation">;</span>
+  <span class="token comment">// 初始化实例状态</span>
+  <span class="token function">initState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 定义计算函数，这里的依赖是count，仅当count变化，触发此函数重新计算</span>
+  <span class="token function">computed</span><span class="token punctuation">(</span><span class="token string">&quot;doubleCount&quot;</span><span class="token punctuation">,</span> <span class="token parameter">n</span> <span class="token operator">=&gt;</span> n<span class="token punctuation">.</span>count <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 定义观察函数，这里的依赖是count，仅当count变化，会弹此提示</span>
+  <span class="token function">watch</span><span class="token punctuation">(</span><span class="token string">&quot;count&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">n<span class="token punctuation">,</span> o</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">alert</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">from </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>o<span class="token punctuation">.</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>n<span class="token punctuation">.</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 打包方法返回，将被收集到settings里</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">inc</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> ctx<span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">dec</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> ctx<span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-<span class="token keyword">const</span> RenderPropsComp <span class="token operator">=</span> <span class="token function">registerDumb</span><span class="token punctuation">(</span><span class="token string">&#x27;foo&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-@<span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&#x27;foo&#x27;</span><span class="token punctuation">)</span>
-<span class="token keyword">class</span> <span class="token class-name">HocClassComp</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
-
-<span class="token keyword">function</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">function</span> <span class="token function">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token comment">// 这些是从实例上下文里解构出来的属性</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> state<span class="token punctuation">,</span> refComputed<span class="token punctuation">,</span> settings <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">useConcent</span><span class="token punctuation">(</span><span class="token punctuation">{</span> setup <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">return</span> <span class="token punctuation">(</span>
     <span class="token operator">&lt;</span><span class="token operator">&gt;</span>
-      <span class="token operator">&lt;</span>HookFnComp <span class="token operator">/</span><span class="token operator">&gt;</span>
-      <span class="token operator">&lt;</span>HocClassComp <span class="token operator">/</span><span class="token operator">&gt;</span>
-      <span class="token operator">&lt;</span>RenderPropsComp <span class="token operator">/</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span><span class="token punctuation">{</span>state<span class="token punctuation">.</span>count<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span><span class="token punctuation">{</span>refComputed<span class="token punctuation">.</span>doubleCount<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span>settings<span class="token punctuation">.</span>inc<span class="token punctuation">}</span><span class="token operator">&gt;</span>inc<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span>settings<span class="token punctuation">.</span>dec<span class="token punctuation">}</span><span class="token operator">&gt;</span>dec<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
     <span class="token operator">&lt;</span><span class="token operator">/</span><span class="token operator">&gt;</span>
-  <span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+                    </div>
+                    <div style="text-align:center"><img style="max-width:780px"
+                        src="https://raw.githubusercontent.com/fantasticsoul/assets/master/article-img/rmc-comparison/3.png" />
+                    </div><br /><a class="seeDemoCode textLeft" rel="noopener" target="blank"
+                      href="https://codesandbox.io/s/hello-concent-shared-cu1i9">❤️Easily <span
+                        style="font-weight:600">share state</span> and <span style="font-weight:600">reuse logic</span>
+                      between class and function</a><br />
+                    <div class="gatsby-highlight has-highlighted-lines" data-language="js">
+                      <pre class="language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> run<span class="token punctuation">,</span> useConcent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;concent&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">delay</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">ms <span class="token operator">=</span> <span class="token number">1000</span></span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token parameter">r</span> <span class="token operator">=&gt;</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span> ms<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="gatsby-highlight-code-line"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token comment">// 载入模块配置启动concent</span></span>  counter<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">:</span> <span class="token punctuation">{</span> count<span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token comment">// 【必需】，定义模块状态</span>
+    reducer<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">async</span> <span class="token function">complexUpdate</span><span class="token punctuation">(</span><span class="token parameter">p<span class="token punctuation">,</span> m<span class="token punctuation">,</span> ac</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">await</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> ac<span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> m<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">10</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span> count<span class="token punctuation">:</span> m<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">10</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token function">simpleUpdate</span><span class="token punctuation">(</span><span class="token parameter">p<span class="token punctuation">,</span> m</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span> count<span class="token punctuation">:</span> m<span class="token punctuation">.</span>count <span class="token operator">-</span> <span class="token number">100</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    computed<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token comment">// 【可选】，定义模块计算</span>
+      <span class="token function-variable function">doubleCount</span><span class="token punctuation">:</span> <span class="token parameter">n</span> <span class="token operator">=&gt;</span> n<span class="token punctuation">.</span>count <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token function-variable function">quadrupleCount</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter">n<span class="token punctuation">,</span> o<span class="token punctuation">,</span> f</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> f<span class="token punctuation">.</span>cuVal<span class="token punctuation">.</span>doubleCount <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    watch<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token comment">// 【可选】，定义模块观察</span>
+      <span class="token function-variable function">count</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter">n<span class="token punctuation">,</span> o</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">alert</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">from </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>o<span class="token punctuation">.</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>n<span class="token punctuation">.</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">setup</span> <span class="token operator">=</span> <span class="token parameter">ctx</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">inc</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> ctx<span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> ctx<span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">dec</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> ctx<span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> ctx<span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> state<span class="token punctuation">,</span> moduleComputed<span class="token punctuation">,</span> moduleReducer<span class="token punctuation">,</span> settings <span class="token punctuation">}</span> <span class="token operator">=</span> 
+    <span class="token function">useConcent</span><span class="token punctuation">(</span><span class="token punctuation">{</span> setup<span class="token punctuation">,</span> module<span class="token punctuation">:</span> <span class="token string">&quot;counter&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span> ui <span class="token operator">...</span> <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
 <span class="token punctuation">}</span>
-ReactDom<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>App <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&#x27;root&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-                    </div><br /><br /><br /><br />
+
+@<span class="token function">register</span><span class="token punctuation">(</span><span class="token punctuation">{</span> setup<span class="token punctuation">,</span> module<span class="token punctuation">:</span> <span class="token string">&quot;counter&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">ClassCounter</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span><span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> state<span class="token punctuation">,</span> moduleComputed<span class="token punctuation">,</span> moduleReducer<span class="token punctuation">,</span> settings <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>ctx<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span> ui <span class="token operator">...</span> <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+                    </div>
+                    <div style="text-align:center"><img style="max-width:780px"
+                        src="https://raw.githubusercontent.com/fantasticsoul/assets/master/article-img/rmc-comparison/cc-unified-lifecycle-en.png" />
+                    </div><br /><br />
                     <div style="width:100%;display:flex"><iframe style="width:1440px;height:860px;margin:0 auto"
                         src="https://codesandbox.io/s/concent-guide-xvcej"></iframe></div><br /><a
-                      class="seeDemoCode cake" href="https://codesandbox.io/s/concent-guide-xvcej">Experience this demo
-                      in CodeSandbox [recommend]</a><br /><a class="seeDemoCode cake"
-                      href="https://stackblitz.com/edit/concent-doc-home-demo">Experience this demo in StackBlitz</a><a
-                      class="exploreMore" href="./guide/first-sight">Explore <span
+                      class="seeDemoCode cake" href="https://codesandbox.io/s/concent-guide-xvcej">Experience standard
+                      js concent project</a><br /><a class="seeDemoCode cake"
+                      href="https://codesandbox.io/s/concent-guide-ts-zrxd5">Experience standard ts concent
+                      project</a><a class="exploreMore" href="./guide/first-sight">Explore <span
                         style="font-weight:600">more</span></a>
                   </div>
                 </div>
@@ -30300,7 +30360,7 @@ ReactDom<span class="token punctuation">.</span><span class="token function">ren
   <script id="gatsby-script-loader">
     /*<![CDATA[*/
     window.pagePath = "/";
-    window.webpackCompilationHash = "c74d27918b7f80295db7"; /*]]>*/
+    window.webpackCompilationHash = "bec6454597c74ba4482f"; /*]]>*/
   </script>
   <script id="gatsby-chunk-mapping">
     /*<![CDATA[*/
@@ -30314,7 +30374,7 @@ ReactDom<span class="token punctuation">.</span><span class="token function">ren
   </script>
   <script src="/concent-doc/component---node-modules-antdsite-src-templates-index-tsx-c3565cbfd75b212b117e.js" async="">
   </script>
-  <script src="/concent-doc/styles-fe04415f32e911905438.js" async=""></script>
+  <script src="/concent-doc/styles-10a1d7e8cc2ec7c88756.js" async=""></script>
   <script src="/concent-doc/app-d87bc04a6407424adb34.js" async=""></script>
   <script src="/concent-doc/webpack-runtime-e6bcdfdc23a297bd346a.js" async=""></script>
   <script>
