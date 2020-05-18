@@ -43,7 +43,7 @@ function SetPrivStateFn() {
 }
 ```
 
-基于`setState`，结合[setup]('/guide/concept-ref-setup')，将修改状态的方法一次性封装起来，组件 ui 可通过实例上下文的`settings`属性来调用已定义方法
+基于`setState`，结合[setup](/guide/concept-ref-setup)，将修改状态的方法一次性封装起来，组件 ui 可通过实例上下文的`settings`属性来调用已定义方法
 
 ```js
 export const iState = () => ({ privName: "name", privMsg: "msg" });
@@ -92,7 +92,7 @@ export const SetPrivStateCls = register()(
 );
 ```
 
-结合[setup]('/guide/concept-ref-setup')定义方法，渲染时 ui 通过`settings`属性获取已定义方法来做绑定
+结合[setup](/guide/concept-ref-setup)定义方法，渲染时 ui 通过`settings`属性获取已定义方法来做绑定
 
 ```js
 const iState = () => ({ privName: "name", privMsg: "msg" });
@@ -146,7 +146,7 @@ export function SetModuleStateFn() {
 }
 ```
 
-当然此处也可以结合[setup]('/guide/concept-ref-setup')将方法一次性做好静态定义
+当然此处也可以结合[setup](/guide/concept-ref-setup)将方法一次性做好静态定义
 
 ```js
 export const setup = ctx => {
@@ -180,7 +180,7 @@ const SetModuleStateCls = register("foo")(
 );
 ```
 
-对于类组件来说，一样可以结合[setup]('/guide/concept-ref-setup')将方法一次性做好静态定义
+对于类组件来说，一样可以结合[setup](/guide/concept-ref-setup)将方法一次性做好静态定义
 
 ```js
 const setup = ctx => {
@@ -201,7 +201,7 @@ const BetterSetModuleStateCls = register({ module: "foo", setup })(
 
 ## 代码演示
 
-> 此处代码演示开始，总是使用推荐结合[setup]('/guide/concept-ref-setup')的方式来组织代码
+> 此处代码演示开始，总是使用推荐结合[setup](/guide/concept-ref-setup)的方式来组织代码
 
 ### 结合 callback 修改状态
 
