@@ -164,53 +164,127 @@ yarn add concent
 </div> -->
 
 <h2 style="font-weight:300; width:100%; text-align:center; margin: 66px 0;">
-  Let's <span style="font-weight:600;" >start</span>
+  <span style="font-weight:600;">Key features</span> preview
 </h2>
 
+<a class="seeDemoCode textLeft" rel="noopener" target="blank" href="https://codesandbox.io/s/hello-concent-pzde3?file=/src/App.js:50-92">
+  ❤️Enjoy <span style="font-weight:600;" >composition api</span>  with 🔥dependency collection🔥
+</a>
+<br />
+
 ```js{3}
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
-import { run, register, useConcent, registerDumb } from 'concent';
+import { run, useConcent } from "concent";
 
-run({
-  foo: {// declared a module named 'foo'
-    state: { greeting: 'hello concent' },
-    reducer: { ... }
-  }
-})
+run();// startup concent
 
-// three ways of creating component, multi ways to change state
-function HookFnComp() {
-  const ctx = useConcent('foo');
-  const { state: { greeting }, sync } = ctx;
-  return <input value={greeting} onChange={sync('greeting')} />
-}
+const setup = ctx => {
+  const { initState, computed, watch, setState } = ctx;
+  // init ref state
+  initState({ count: 0 });
+  // defined a computed fn, here dep is count, 
+  // only count value changed will trigger this computed fn execute again
+  computed("doubleCount", n => n.count * 2);
+  // defined a watch fn, here dep is count, 
+  // only count value changed will trigger this watch fn execute again
+  watch("count", (n, o) => alert(`from ${o.count} to ${n.count}`));
+  // return packed methods, they will been collected to ctx.settings
+  return {
+    inc: () => setState({ count: ctx.state.count + 1 }),
+    dec: () => setState({ count: ctx.state.count - 1 })
+  };
+};
 
-const RenderPropsComp = registerDumb('foo')(...);
-
-@register('foo')
-class HocClassComp extends Component {...}
-
-function App() {
+function Counter(){
+  // deconstruct from ref ctx
+  const { state, refComputed, settings } = useConcent({ setup });
   return (
     <>
-      <HookFnComp />
-      <HocClassComp />
-      <RenderPropsComp />
+      <h1>{state.count}</h1>
+      <h1>{refComputed.doubleCount}</h1>
+      <button onClick={settings.inc}>inc</button>
+      <button onClick={settings.dec}>dec</button>
     </>
-  )
+  );
 }
-ReactDom.render(<App />, document.getElementById('root'));
 ```
-<br />
-<a class="seeDemoCode cake" href="https://stackblitz.com/edit/concent-doc-home-demo">click here to experience this demo</a>
-<div style="width:100%;display:flex;">
-<iframe style="width:1200px;height:820px;margin:0 auto" src="https://stackblitz.com/edit/concent-doc-home-demo"></iframe>
+<div style="text-align:center;">
+<img style="max-width:780px" src="https://raw.githubusercontent.com/fantasticsoul/assets/master/article-img/rmc-comparison/3.png"/>
 </div>
+
+<br /> 
+<a class="seeDemoCode textLeft" rel="noopener" target="blank" href="https://codesandbox.io/s/hello-concent-shared-cu1i9">
+  ❤️Easily <span style="font-weight:600;" >share state</span>  and <span style="font-weight:600;" >reuse logic</span> between class and function
+</a>
+<br />
+
+```js{5}
+import { run, useConcent } from "concent";
+
+const delay = (ms = 1000) => new Promise(r => setTimeout(r, ms));
+
+run({// startup concent with module configuration
+  counter: {
+    state: { count: 0 },// 【neccessary】，define module state
+    reducer: {
+      async complexUpdate(p, m, ac) {
+        await delay();
+        await ac.setState({ count: m.count + 10 });
+        await delay();
+        return { count: m.count + 10 };
+      },
+      simpleUpdate(p, m) {
+        return { count: m.count - 100 };
+      }
+    },
+    computed: {// 【optional】，define module computed
+      doubleCount: n => n.count * 2,
+      quadrupleCount: (n, o, f) => f.cuVal.doubleCount * 2,
+    },
+    watch: {// 【optional】，define module watch
+      count: (n, o) => alert(`from ${o.count} to ${n.count}`)
+    }
+  }
+});
+
+const setup = ctx => {
+  return {
+    inc: () => ctx.setState({ count: ctx.state.count + 1 }),
+    dec: () => ctx.setState({ count: ctx.state.count - 1 })
+  };
+};
+
+function Counter() {
+  const { state, moduleComputed, moduleReducer, settings } = 
+    useConcent({ setup, module: "counter" });
+  return <div> ui ... </div>
+}
+
+@register({ setup, module: "counter" })
+class ClassCounter extends React.Component{
+  render(){
+    const { state, moduleComputed, moduleReducer, settings } = this.ctx;
+    return <div> ui ... </div>
+  }
+}
+```
+<div style="text-align:center;">
+<img style="max-width:780px" src="https://raw.githubusercontent.com/fantasticsoul/assets/master/article-img/rmc-comparison/cc-unified-lifecycle-en.png"/>
+</div>
+
+<br /> 
+<br /> 
+<div style="width:100%;display:flex;">
+<iframe style="width:1440px;height:860px;margin:0 auto" src="https://codesandbox.io/s/concent-guide-xvcej"></iframe>
+</div>
+<br/>
+<a class="seeDemoCode cake" href="https://codesandbox.io/s/concent-guide-xvcej">Experience standard js concent project</a>
+<br/>
+<a class="seeDemoCode cake" href="https://codesandbox.io/s/concent-guide-ts-zrxd5">Experience standard ts concent project</a>
 
 
 <a class="exploreMore" href="./guide/first-sight">
   Explore <span style="font-weight:600;">more</span>
 </a>
+
 
 

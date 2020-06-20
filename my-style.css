@@ -278,6 +278,38 @@ footer {
   font-size: 19px;
 }
 
+.summaryContent {
+  display: block;
+  width: 780px;
+  margin: 0 auto;
+  text-align: center;
+  color: #697b8c;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.summaryContentTip {
+  display: block;
+  width: 780px;
+  margin: 0 auto;
+  color: #697b8c;
+  background-color: #f7f8f8;
+  font-size: 14px;
+  border-left: 4px solid #0e96b9;
+  padding-left: 14px;
+}
+
+.summaryContentJump {
+  display: block;
+  width: 780px;
+  margin: 0 auto;
+  color: white;
+  background-color: #2d9be6;
+  font-size: 14px;
+  border-left: 4px solid #0e96b9;
+  padding-left: 14px;
+}
+
 .textLeft{
   text-align: left;
   padding-left: 19px;

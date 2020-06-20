@@ -32,6 +32,10 @@
 同理构建过程第一步也是`copy website/public/concent-doc/* to website/static/concent-doc`,确保资源总是正确的
 
 
-## 注意事项1
+## 注意事项2
 
 doc 文档里使用了 `#`后 下一个标题必需是`##`, 否则点击搜索条会报错undefined
+
+## 注意事项3
+
+build完成后，需将 <rootDir>/concent-doc 下的资源拷贝到 <rootDir>下
