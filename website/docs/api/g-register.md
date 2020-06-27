@@ -3,13 +3,13 @@
 `register`函数负责将用户的普通`react类`注册成为`cc类`，变成`cc类`后，你的组件实例将获得更多的能力，具体请参考实例api章节
 
 ## 函数签名定义
-[详细类型描述参考此处](https://github.com/concentjs/concent/blob/master/src/index.d.ts)
+[详细类型描述参考此处](https://github.com/concentjs/concent/blob/master/src/types.d.ts)
 
 ```ts
 type RegisterOption = {
   module?:string,
-  watchedKeys?: '*' | string[], // in 1.X: default is *, in 2.x: default is -
-  storedKeys?: '*' | string[],// default is []
+  watchedKeys?: '*' | '-' | string[], // in 1.X: default is *, in 2.x: default is -
+  storedKeys?: '*' | '-' | string[],// default is []
   isSingle?:boolean,
   tag?:string,
   connect?:string[] | { [moduleName:string]: string[] }, //连击的其他模块

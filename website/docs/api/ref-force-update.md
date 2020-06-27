@@ -24,7 +24,7 @@ delay | 广播延迟时间，单位(ms) | 0 | Number
 ## 如何使用
 具体使用方法和`setState`相同，[点击了解setState](/api/ref-set-state)
 ```js
-@register({module:'foo', connect:{bar:'*', baz:'*'}}, 'Foo');
+@register({module:'foo', connect:['bar', 'baz']}, 'Foo');
 class Foo extends Component{
   reRenderCurrentUI = (e)=>{
     this.forceUpdate();//等同于调用this.ctx.forceUpdate
