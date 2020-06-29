@@ -217,7 +217,7 @@ run({
   依托运行时的依赖收集机制，所有实例在每一轮渲染期间读取模块状态时，concent将收集到它们需要被重渲染的数据依赖关系，从而实现精确更新，将需要人工介入的组件优化负担降低为0。
 </div>
 <div style="text-align:center;">
-<img style="max-width:780px" src="https://raw.githubusercontent.com/fantasticsoul/assets/master/article-img/rmc-comparison/3.png"/>
+<img style="max-width:780px" src="https://raw.githubusercontent.com/fantasticsoul/assets/master/img/cc-re-render-process.png"/>
 </div>
 <div class="summaryContent textLeft">
   下面示例定义了组件所属的模块为counter，在组件内部调用setState时，除了触发自己重渲染，数据还将提交到store里的couner模块下，之后concent会将其分发到其他同属于counter模块的实例。
