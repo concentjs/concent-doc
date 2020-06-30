@@ -116,8 +116,45 @@ ReactDOM.render(<App />, document.getElementById('root'));
   <br />
 </div>
 
-## 指定key的观察范围
-上面的例子里，我们直接使用`setState`修改数据从未触发ui渲染，当我们实例化多个`HelloConcent`后，其中任意一个实例修改了`name`值，其他实例都将会被触发渲染，因为我们注册组件时，只指定了模块，没有指定**观察key列表**，此时concent将默认该组件关心`foo`模块状态的所有key变化，如果我们创建了一个新的组件`FooComp`，也属于`foo`模块，但是不想因为某个`HelloConcent`调用`js>>>this.setState({name:...})`时也触发`FooComp`的渲染，我们需要在注册`FooComp`时标记`watchedKeys`来排除影响。
+## 运行时的依赖收集策略
+concent组件在每一次渲染时都会收集当前渲染逻辑对数据的依赖列表，所以推荐渲染逻辑里遵循用到什么数据就解构什么的原则，让组件保持最小范围的依赖
+
+```js
+// 渲染未用到age，但只要age改变了依然会触发当前组价实例渲染
+function BadCase(){
+  const { state:{name, age} } = useConcent('foo');
+  return <h1>only use name: {name} </h1>
+}
+
+// 删掉age，保持组件最小的依赖列表
+function GoodCase(){
+  const { state:{name} } = useConcent('foo');
+  return <h1>only use name: {name} </h1>
+}
+```
+
+如有条件判断渲染，采用延迟解构方式，让组件保持最小范围的依赖
+
+```js
+function BadCase(){
+  const { state:{name, needShow, age} } = useConcent('foo');
+  return <h1>use name: {name} {needShow? `or age ${age}`: ''}</h1>
+}
+
+function GoodCase(){
+  const { state:{name, needShow} } = useConcent('foo');
+  return <h1>use name: {name} {needShow? `or age ${stage.age}`: ''}</h1>
+}
+```
+
+## 人工指定依赖
+
+通过设定`watchedKeys`可以人工指定组件的依赖列表，从而替换掉默认的运行时依赖收集策略
+
+::: tip-zh | 优先考虑依赖收集
+人工指定会有额外的维护成本，推荐用户不指定watchedKeys，让concent采用默认的运行时依赖收集策略
+:::
+
 ```js{1}
 @register({ module: 'foo', watchedKeys: ['age'] })
 class FooComp extends Component {
@@ -128,7 +165,7 @@ class FooComp extends Component {
 ```
 
 ::: warning-zh | 注意
-this.state依然能取到name与hobbies，但是因为标记了watchedKeys为['age']，所以他们永远是旧值，如果组件渲染里需要用到name，hobbies参与渲染，那么就不该限定FooComp的watchedKeys，或者标记watchedKeys='*'，表示观察foo模块所有key的值变化，如果渲染里并不需要用到name，hobbies，但是组件的业务逻辑（比如提交表单）需要用到他们，可以通过concent提供的顶层api来获取最新的值。
+this.state依然能取到name与hobbies，但是因为标记了watchedKeys为['age']，所以他们永远是旧值，如果组件渲染里需要用到name，hobbies参与渲染，那么就不该限定FooComp的watchedKeys，表示观察foo模块所有key的值变化，如果渲染里并不需要用到name，hobbies，但是组件的业务逻辑（比如提交表单）需要用到他们，可以通过concent提供的顶层api 或 ctx.moduleState 来获取最新的值。
 :::
 
 ```js{7}
@@ -137,8 +174,10 @@ import { getState } from 'concent';
 @register({ module: 'foo', watchedKeys: ['age'] })
 class FooComp extends Component {
   submit() {
-    //这个值才是最新的
+    // 去最新的name和hobbies 值
     const { name, hobbies } = getState('foo');
+    //or 
+    const { name, hobbies } = this.ctx.moduleState;
   }
 }
 ```
@@ -168,7 +207,9 @@ const foo = {
   }
 }
 ```
+
 建议的做法是将reducer函数独立放一个文件，在暴露出来给module配置，这样的reducer里函数间的相互调用可以不用基于字符串了，同时因为concent的module是包含多个可选定义项的，分离它们有利于后期维护和扩展。
+
 ```
 ├── modules
     ├── foo
@@ -238,7 +279,9 @@ export const fullName = {
 }
 
 ```
+
 获取模块computed计算结果
+
 ```js{4}
 @register('foo')
 class HelloComp extends Component {
@@ -247,10 +290,12 @@ class HelloComp extends Component {
   }
 }
 ```
+
 ::: tip | 注意
 模块computed的初次计算在启动concent载入模块时就被触发了初次计算，和该模块下有没有相关的组件被实例化没有关系。   
 key对应的应该是primitive类型的（如number, string, boolean），如果是object型，则需要总是返回新的引用才能触发计算，或者设置compare为false，只要对这个key设了值就出发计算
 :::
+
 ```js{13}
 // code in models/foo/computed.js
 
@@ -267,7 +312,9 @@ export function addHobby(hobby, moduleState){
   return { hobbies: [...hobbies] };//正确的写法
 }
 ```
+
 如果需要`js>>>return { hobbies }`能触发计算，则定义hobbies计算函数时，需要将其`compare`指定为`false`，表示只要设了`hobbies`的值，就触发计算
+
 ```js{5}
 export const hobbies = {
   fn(newVal, oldVal) {

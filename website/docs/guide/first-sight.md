@@ -19,7 +19,6 @@ run({
 })
 ```
 
-
 <h3 class="L3Title">定义类组件</h3>
 
 ```javascript
@@ -39,6 +38,24 @@ class CounterComp extends Component {
   }
 }
 ```
+
+<h3 class="L3Title">定义函数组件</h3>
+
+```javascript
+import { useConcent } from 'concent';
+
+function CounterFnComp() {
+  const { state, setState } = useConcent('concent');
+  return (
+    <div>
+      count: {state.count}
+      <button onClick={() => setState({count: state.count+1})}>inc</button>
+      <button onClick={() => setState({count: state.count-1})}>dec</button>
+    </div>
+  );
+}
+```
+
 <div style="text-align:center;">
   <h3 style="color:#0094bd">代码0改动接入concent</h3>
   <img style="width:100%;max-width:780px" src="/concent-doc/img/blockHeader.png" /><br />
@@ -74,20 +91,23 @@ run({
 })
 ```
 
-<h3 class="L3Title">通过dispatch修改状态</h3>
+<h3 class="L3Title">通过dispatch 或 moduleReducer 修改状态</h3>
 
 ```js
 import { register } from 'concent';
 //注册成为Concent Class组件，指定其属于counter模块
 @register('counter')
 class CounterComp extends Component {
+  // 替代dispatch字符串方式的调用, this.ctx.dispatch('inc')
+  inc = ()=> this.ctx.mr.inc();
+  dec = ()=> this.ctx.mr.dec();
   render() {
     //ctx是concent为所有组件注入的上下文对象，携带为react组件提供的各种新特性api
     return (
       <div>
         count: {this.state.count}
-        <button onClick={() => this.ctx.dispatch('inc')}>inc</button>
-        <button onClick={() => this.ctx.dispatch('dec')}>dec</button>
+        <button onClick={this.inc}>inc</button>
+        <button onClick={this.dec}>dec</button>
       </div>
     );
   }
@@ -102,42 +122,9 @@ class CounterComp extends Component {
   <br />
 </div>
 
-> 对于concent来说，Hoc class, renderProps, hook 三种组件写法是高度统一的，对于concent来说，它们只是渲染的载体，注入的**实例上下文对象**`ctx`才是concent的灵魂，让你可以在它们3种形态之间丝滑的任意切换，所以你大可以不用担心class组件与function组件怎么共享代码以及怎么共享业务逻辑。
-
-<h3 class="L3Title">定义为RenderProps组件</h3>
-
-```javascript
-import { registerDumb } from 'concent';
-const CounterRenderPropsComp = registerDumb('counter')(ctx => {
-  return (
-    <div>
-      count: {ctx.state.count}
-      <button onClick={() => ctx.dispatch('inc')}>inc</button>
-      <button onClick={() => ctx.dispatch('dec')}>dec</button>
-    </div>
-  );
-})
-```
-
-<h3 class="L3Title">定义为Hook组件</h3>
-
-```javascript
-import { useConcent } from 'concent';
-function CounterHookComp() {
-  const ctx = useConcent('counter');
-  return (
-    <div>
-      count: {ctx.state.count}
-      <button onClick={() => ctx.dispatch('inc')}>inc</button>
-      <button onClick={() => ctx.dispatch('dec')}>dec</button>
-    </div>
-  );
-}
-```
-
 
 ## 高性能
-> 基于**依赖标记**、**引用收集**和**状态分发**原理工作，内置`renderKey`、`lazyDispatch`、`delayBroadcast`等特性，从状态提交那一刻，concent就精确的知道怎么样缩小渲染范围、减少渲染次数、降低渲染频率，保证大型react工程的极致的渲染效率。
+> 基于运行时的依赖收集机制，同时配合内置的`renderKey`、`lazyDispatch`、`delayBroadcast`等特性，从状态提交那一刻，concent就精确的知道怎么样缩小渲染范围、减少渲染次数、降低渲染频率，保证大型react工程的极致的渲染效率。
 
 <div>
   <h2 class="L2Title">⚡️高性能</h2>

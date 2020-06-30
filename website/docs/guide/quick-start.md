@@ -116,8 +116,45 @@ ReactDOM.render(<App />, document.getElementById('root'));
   <br />
 </div>
 
-## 指定key的观察范围
-上面的例子里，我们直接使用`setState`修改数据从未触发ui渲染，当我们实例化多个`HelloConcent`后，其中任意一个实例修改了`name`值，其他实例都将会被触发渲染，因为我们注册组件时，只指定了模块，没有指定**观察key列表**，此时concent将默认该组件关心`foo`模块状态的所有key变化，如果我们创建了一个新的组件`FooComp`，也属于`foo`模块，但是不想因为某个`HelloConcent`调用`js>>>this.setState({name:...})`时也触发`FooComp`的渲染，我们需要在注册`FooComp`时标记`watchedKeys`来排除影响。
+## 运行时的依赖收集策略
+concent组件在每一次渲染时都会收集当前渲染逻辑对数据的依赖列表，所以推荐渲染逻辑里遵循用到什么数据就解构什么的原则，让组件保持最小范围的依赖
+
+```js
+// 渲染未用到age，但只要age改变了依然会触发当前组价实例渲染
+function BadCase(){
+  const { state:{name, age} } = useConcent('foo');
+  return <h1>only use name: {name} </h1>
+}
+
+// 删掉age，保持组件最小的依赖列表
+function GoodCase(){
+  const { state:{name} } = useConcent('foo');
+  return <h1>only use name: {name} </h1>
+}
+```
+
+如有条件判断渲染，采用延迟解构方式，让组件保持最小范围的依赖
+
+```js
+function BadCase(){
+  const { state:{name, needShow, age} } = useConcent('foo');
+  return <h1>use name: {name} {needShow? `or age ${age}`: ''}</h1>
+}
+
+function GoodCase(){
+  const { state:{name, needShow} } = useConcent('foo');
+  return <h1>use name: {name} {needShow? `or age ${stage.age}`: ''}</h1>
+}
+```
+
+## 人工指定依赖
+
+通过设定`watchedKeys`可以人工指定组件的依赖列表，从而替换掉默认的运行时依赖收集策略
+
+::: tip-zh | 优先考虑依赖收集
+人工指定会有额外的维护成本，推荐用户不指定watchedKeys，让concent采用默认的运行时依赖收集策略
+:::
+
 ```js{1}
 @register({ module: 'foo', watchedKeys: ['age'] })
 class FooComp extends Component {
@@ -128,7 +165,7 @@ class FooComp extends Component {
 ```
 
 ::: warning-zh | 注意
-this.state依然能取到name与hobbies，但是因为标记了watchedKeys为['age']，所以他们永远是旧值，如果组件渲染里需要用到name，hobbies参与渲染，那么就不该限定FooComp的watchedKeys，或者标记watchedKeys='*'，表示观察foo模块所有key的值变化，如果渲染里并不需要用到name，hobbies，但是组件的业务逻辑（比如提交表单）需要用到他们，可以通过concent提供的顶层api来获取最新的值。
+this.state依然能取到name与hobbies，但是因为标记了watchedKeys为['age']，所以他们永远是旧值，如果组件渲染里需要用到name，hobbies参与渲染，那么就不该限定FooComp的watchedKeys，表示观察foo模块所有key的值变化，如果渲染里并不需要用到name，hobbies，但是组件的业务逻辑（比如提交表单）需要用到他们，可以通过concent提供的顶层api 或 ctx.moduleState 来获取最新的值。
 :::
 
 ```js{7}
@@ -137,8 +174,10 @@ import { getState } from 'concent';
 @register({ module: 'foo', watchedKeys: ['age'] })
 class FooComp extends Component {
   submit() {
-    //这个值才是最新的
+    // 取最新的name和hobbies 值
     const { name, hobbies } = getState('foo');
+    //or 
+    const { name, hobbies } = this.ctx.moduleState;
   }
 }
 ```
@@ -181,7 +220,9 @@ const foo = {
     ├── bar
         ├── ...
 ```
-此时reducer文件里，调用可以基于函数引用了
+
+此时reducer文件里，可以基于函数引用调用其他reducer函数了
+
 ```js{13}
 // code in models/foo/reducer.js
 export function changeName(name) {
@@ -199,16 +240,18 @@ export async function changeNameCompose(name, moduleState, actionCtx) {
   return { loading: false };
 }
 ```
+
 在组件里触发reducer
+
 ```js
 @register('foo')
 class HelloComp extends Component {
   changeName = (e)=>{
     // this.setState({name:e.currentTarget.value})
 
-    this.ctx.dispatch('changeName', e.currentTarget.value);
-    // or this.ctx.dispatch('changeNameAsync', e.currentTarget.value);
-    // or this.ctx.dispatch('changeNameCompose', e.currentTarget.value);
+    // 替代dispatch字符串调用方式
+    this.ctx.mr.changeName(e.currentTarget.value);
+    // this.ctx.dispatch('changeName', e.currentTarget.value);
   }
 }
 ```
@@ -216,28 +259,56 @@ class HelloComp extends Component {
 ## 定义模块computed
 concent正确的修改数据行为是提交片段state，即变化了数据就提交什么，这与react的`setState`是一致的理念，真因为如此，concent可以精确的感知到哪些key的值发生了变化，所以允许你定义计算函数，concent会将其返回结果缓存起来。    
 [了解更多关于computed](/guide/concept-computed)
-```js{18}
+
+```js
 // code in models/foo/computed.js
 
 //当age发生变化时，对age做计算,
-export function age(newVal, oldVal) {
-  return newVal * 2;
+export function age({age}) {
+  return age * 2;
 }
-//因为依赖key只有一个且和计算结果key同名，就可以像上面这样写
-//等同于写为 export const age = {fn:..., depKeys:['age']}
 
 //对firstName, lastName任意一个值发生变化时，计算新的fullName
+export function fullName(newState, oldState, fnCtx){
+  // fnCtx.setted查看提交的状态key列表
+  // fnCtx.changed查看提交的状态key列表里发生了变化的key列表
+  // fnCtx.retKey查看当前函数的计算结果对应key，当前示例为 fullName
+  return `${newState.firstName}_${newState.lastName}`;
+}
+
 export const fullName = {
   fn(newState, oldState, fnCtx) {
-    // fnCtx.setted查看提交的状态key列表
-    // fnCtx.changed查看提交的状态key列表里发生了变化的key列表
-    // fnCtx.retKey查看当前函数的计算结果对应key，当前示例为 fullName
-    return `${newState.firstName}_${newState.lastName}`;
+
   },
   depKeys: ['firstName', 'lastName'],//这里定义触发fullName计算的依赖key列表
 }
-
 ```
+
+计算函数的依赖列表是定定义时就确定了的，我们需要尽可能早把需要参与计算的状态解构出来
+
+```js
+// good case
+export function funnyName(newState, oldState, fnCtx){
+  // 表示当前计算函数依赖是 firstName 和 lastName
+  const { firstName, lastName } = newState;
+  if(firstName.length > 20){
+    return `${firstName}_${lastName}`;
+  }else{
+    return `${firstName}_2short`;
+  }
+}
+
+// bad case
+export function funnyName(newState, oldState, fnCtx){
+  // 此函数的依赖可能是firstName lastName 或 firstName
+  if(newState.firstName.length > 20){
+    return `${newState.firstName}_${newState.lastName}`;
+  }else{
+    return `${newState.firstName}_2short`;
+  }
+}
+```
+
 获取模块computed计算结果
 ```js{4}
 @register('foo')
@@ -247,10 +318,12 @@ class HelloComp extends Component {
   }
 }
 ```
+
 ::: tip | 注意
 模块computed的初次计算在启动concent载入模块时就被触发了初次计算，和该模块下有没有相关的组件被实例化没有关系。   
 key对应的应该是primitive类型的（如number, string, boolean），如果是object型，则需要总是返回新的引用才能触发计算，或者设置compare为false，只要对这个key设了值就触发计算
 :::
+
 ```js{13}
 // code in models/foo/computed.js
 
@@ -267,37 +340,51 @@ export function addHobby(hobby, moduleState){
   return { hobbies: [...hobbies] };//正确的写法
 }
 ```
+
 如果需要`js>>>return { hobbies }`能触发计算，则定义hobbies计算函数时，需要将其`compare`指定为`false`，表示只要设了`hobbies`的值，就触发计算
-```js{3}
-export const hobbies = {
-  fn: (hobbies) => hobbies.length * 2,
-  compare: false,//不做比较，只要片段状态里对设了`hobbies`的值，就触发计算
-}
+
+```js
+import { defComputed } from 'concent';
+
+export const hobbies = defComputed(
+  ({hobbies}) => hobbies.length * 2, 
+  {compare: false},// //不做比较，只要片段状态里对设了`hobbies`的值，就触发计算
+)
 ```
 
-当然，你可以打开`console`，输入`js>>>cc.setState('foo', {age:100})`或`js>>>cc.set('foo/age', 100)`去修改`foo`模块的age值从而触发`age`再次被计算，此命令也同时会触发所有相关组件被渲染。
+可打开`console`，输入`js>>>cc.setState('foo', {age:100})`或`js>>>cc.set('foo/age', 100)`去修改`foo`模块的age值，来测试触发`age`再次被计算。
 
 ## 定义模块watch
+
 同computed一样，可以对key做一些watch定义，当key的值发生改变时触发其watch回调，适用于一些需要处理异步任务的场景。
+
 ```js
 // code in models/foo/watch.js
+import { defWatch } from 'concent';
 
-//当age发生变化时触发此函数
-export function age(newVal, oldVal) {
+// age和stateKey同名，表示当age发生变化时触发此函数
+export function age() {
   api.track('ageChanged');
 }
 
 //对firstName, lastName任意一个值发生变化时，触发此函数
-export const fullName = {
-  fn(newState, oldState, fnCtx) {
+export const fullName = defWatch(
+  (newState, oldState, fnCtx) => {
     // fnCtx.changed查看提交的状态key列表里发生了变化的key列表
     const { changed } = fnCtx;
     if(changed.includes('firstName'))api.track('firstNameChanged');
     if(changed.includes('lastName'))api.track('lastNameChanged');
   },
-  depKeys: ['firstName', 'lastName'],//这里定义触发fullName watch回调的依赖key列表
-}
+  // 人工定义触发fullName watch回调的依赖key列表
+  depKeys: ['firstName', 'lastName'],
+)
 
+// 或写为解构时确定依赖
+export function fullName2({firstName, lastName}, oldState, fnCtx){
+  const { changed } = fnCtx;
+  if(changed.includes('firstName'))api.track('firstNameChanged');
+  if(changed.includes('lastName'))api.track('lastNameChanged');
+}
 ```
 
 ## 定义模块init
@@ -313,22 +400,16 @@ export default async()=>{
 ```
 
 ## 跨多个模块的组件
-上述的示例中，注册的组件都指定了**属于**`foo`模块，所以实例上线文对象调用`js>>>this.ctx.dispatch('reducerFnName', payload)`时，知道触发的是`foo`模块的`reducer`函数修改`foo`模块的数据。
-```js
-  this.ctx.dispatch('changeName', 'newName');
-  //等同于写为
-  this.ctx.dispatch('foo/changeName', 'newName');
 
-  //如果我们要显示的去触发其他模块的reducer函数，可以写为
-  this.ctx.dispatch('bar/changeName', 'newName');
-```
 如果我们的组件还要消费其他模块的数据，则需要注册是定义`connect`来**连接**其他模块，以便达到消费其他模块数据的目的。
+
 ::: tip | 注意
 属于和连接是两个不同的概念，组件dispatch行为在没有指定目标模块时，都自动的修改的是自己模块数据，同时数据是诸如到this.state里的，而且一个组件只能属于一个模块，但是可以连接多个其他模块，连击的模块其数据是注入到this.ctx.connectedState.{moduleName}下的
 :::
 ![connect](/concent-doc/img/cc-class-and-instance-state.png)
 
-如下我们将定义一个`BarComp`，指定其属于`bar`模块，同时连接`foo`和`baz`模块，观察`foo`和`baz`模块下所有key变化
+如下我们将定义一个`BarComp`，指定其属于`bar`模块，同时连接`foo`和`baz`模块
+
 ```js
 @register({ module: 'bar', connect: ['foo', 'baz'] })
 class BarComp extends Component {
@@ -341,13 +422,40 @@ class BarComp extends Component {
   }
 }
 ```
-`js>>>@register({ module: 'bar', connect: ['foo', 'baz'] })`等同于写为    
-`js>>>@register({ module: 'bar', connect: {foo:'*', baz:'*'} })`    
-如果我们只需要挑选`foo`模块的部分key做观察，则可以写为    
-`js>>>@register({ module: 'bar', connect: {foo:['key1', 'key2'], baz:'*'} })`   
-当然你也可以不指定属于某个模块，只是单纯的连接其他多个模块    
-`js>>>@register({ connect: {foo:['key1', 'key2'], baz:'*'} })`   
+
+如果我们需人工挑选`foo`模块的部分key做观察，而`baz`模块保持默认的依赖收集策略，则可以写为   
+
+`js>>>@register({ module: 'bar', connect: {foo:['key1', 'key2'], baz:'-'} })`   
+
+如果不指定组件属于任何模块，仅连接其他模块，则可写为    
+
+`js>>>@register({ connect: {foo:['key1', 'key2'], baz:'-'} })`   
+
 > 此时组件会被concent指定属于内置模块`$$default`，这是一个空模块，除非你显式地去重定义该模块相关配置项，在没有对`$$default`模块重定义前，组件里的`this.state`和`模块state`将不再有关联，组件的`this.setState`也不再能够触发修改`模块state`的数据，组件自定义的`state`相当于变成完全私有的了。
+
+上述示例中，注册的组件都指定了**属于**`bar`模块，所以实例上线文对象调用`js>>>this.ctx.dispatch('reducerFnName', payload)`时，知道触发的是`bar`模块的`reducer`函数，去修改`bar`模块的数据。
+
+```js
+  this.ctx.dispatch('changeName', 'newName');
+  //等同于写为
+  this.ctx.dispatch('bar/changeName', 'newName');
+
+  // 推荐写为直接调用的方式
+  this.ctx.moduleReducer.changeName('newName');
+  // or
+  this.ctx.mr.changeName('newName');
+
+  //如果我们要显示的去触发其他模块的reducer函数，可以写为
+  this.ctx.dispatch('foo/changeName', 'newName');
+```
+
+调用其他模块的方法时，推荐使用`js>>>this.ctx.connectedReducer.{moduleName}` 或其缩写 `js>>>this.ctx.cr.{moduleName}` 来发起调用
+
+```js
+this.ctx.dispatch('foo/changeName', 'newName');
+// 改为
+this.ctx.cr.foo.changeName('newName');
+```
 
 ## 定义setup
 `setup`定义是针对实例的，触发时机是组件构造器函数执行结束后，组件将要首次渲染前，所以只会被执行一次，其返回结果将搜集到`js>>>this.ctx.settings`里，配合上线文对象提供的`effect`api，还可以达到在类里**消灭生命周期函数**的效果  
@@ -401,18 +509,17 @@ class HelloComp extends Component {
 ```js{17}
 @register('foo')
 class HelloComp extends Component {
+
   $$setup(ctx) {
-    ctx.computed('name', (newName) => {
-      return newName.split('').reverse().join();
+    ctx.computed('name', ({name}) => {
+      return name.split('').reverse().join();
     });
 
-    ctx.computed('fullName', {
-      fn: (newState) => {
-        return `${newState.firstName}_${newState.lastName}`
-      },
-      depKeys: ['firstName', 'lastName']
+    ctx.computed('fullName', (newState) => {
+      return `${newState.firstName}_${newState.lastName}`
     });
   }
+
   render() {
     // 从refComputed里获得计算结果
     const { name: reversedName } = this.ctx.refComputed;
@@ -422,12 +529,13 @@ class HelloComp extends Component {
 
 ## 定义实例watch
 同样的，我们也可以对实例定义`watch`，以方便处理一些异步任务，如以下示例，当type发生变化时，抓取一次数据
+
 ```js
 @register('foo')
 class HelloComp extends Component {
   $$setup(ctx) {
-    ctx.watch('type', (newType)=>{
-      ctx.dispatch('fetchDataWhileTypeChanged', newType);
+    ctx.watch('type', ({type})=>{
+      ctx.dispatch('fetchDataWhileTypeChanged', type);
     });
   }
   render() {
@@ -441,6 +549,7 @@ class HelloComp extends Component {
   }
 }
 ```
+
 ::: tip | 注意
 实例watch和实例effect执行时机不一样，前者是指组件渲染前触发，后者是指组件渲染后触发
 :::
