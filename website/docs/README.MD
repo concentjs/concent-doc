@@ -250,7 +250,7 @@ function DemoFn(){
 
 ```js
 // privNum是一个模块里不存在的key，初始化实例时不会被模块状态所覆盖
-const privState = ()=> {privNum: 1000};
+const privState = ()=> ({privNum: 1000});
 
 @register('counter')
 class DemoCls extends React.Component{
