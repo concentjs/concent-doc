@@ -266,11 +266,10 @@ function DemoFn(){
 ```
 
 <div class="summaryContent textLeft">
-如果是有条件判断的读取状态，推荐采用**延迟解构**的写法，让每一次渲染都锁定最小的依赖列表，获得更好的渲染性能。
+如果是有条件判断的读取状态，推荐采用<b>延迟解构</b>的写法，让每一次渲染都锁定最小的依赖列表，获得更好的渲染性能。
 </div>
 
 ```jsx
-
 // good, 当showName为false时，依赖是 ['showName']
 <div>{state.showName ? state.name : ''}</div>
 

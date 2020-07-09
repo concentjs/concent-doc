@@ -30034,7 +30034,7 @@
   <meta data-react-helmet="true" name="twitter:description" content="内置依赖收集，可预测、零入侵、渐进式、高性能的react开发框架" />
   <link as="script" rel="preload" href="/concent-doc/webpack-runtime-e6bcdfdc23a297bd346a.js" />
   <link as="script" rel="preload" href="/concent-doc/app-d87bc04a6407424adb34.js" />
-  <link as="script" rel="preload" href="/concent-doc/styles-b45e34c24bcc11c8ccff.js" />
+  <link as="script" rel="preload" href="/concent-doc/styles-aabe1e11ce0565a7a98f.js" />
   <link as="script" rel="preload"
     href="/concent-doc/component---node-modules-antdsite-src-templates-index-tsx-c3565cbfd75b212b117e.js" />
   <link as="fetch" rel="preload" href="/concent-doc/page-data/index/page-data.json" crossorigin="anonymous" />
@@ -30314,11 +30314,11 @@
   <span class="token keyword">const</span> <span class="token punctuation">{</span> state<span class="token punctuation">,</span> moduleState <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">useConcent</span><span class="token punctuation">(</span><span class="token punctuation">{</span>module<span class="token punctuation">:</span><span class="token string">&#x27;counter&#x27;</span><span class="token punctuation">,</span> state<span class="token punctuation">:</span>privState <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
                     </div>
-                    <div class="summaryContent textLeft">如果是有条件判断的读取状态，推荐采用**延迟解构**的写法，让每一次渲染都锁定最小的依赖列表，获得更好的渲染性能。</div>
+                    <div class="summaryContent textLeft">如果是有条件判断的读取状态，推荐采用<b>延迟解构</b>的写法，让每一次渲染都锁定最小的依赖列表，获得更好的渲染性能。
+                    </div>
                     <div class="gatsby-highlight" data-language="jsx">
                       <pre
-                        class="language-jsx"><code class="language-jsx">
-<span class="token comment">// good, 当showName为false时，依赖是 [&#x27;showName&#x27;]</span>
+                        class="language-jsx"><code class="language-jsx"><span class="token comment">// good, 当showName为false时，依赖是 [&#x27;showName&#x27;]</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span>state<span class="token punctuation">.</span>showName <span class="token operator">?</span> state<span class="token punctuation">.</span>name <span class="token punctuation">:</span> <span class="token string">&#x27;&#x27;</span><span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
 
 <span class="token comment">// bad，依赖总是  [&#x27;showName&#x27;, &#x27;name&#x27;]</span>
@@ -30611,7 +30611,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
   <script id="gatsby-script-loader">
     /*<![CDATA[*/
     window.pagePath = "/";
-    window.webpackCompilationHash = "50ec7d5b0a1a0f46ed33"; /*]]>*/
+    window.webpackCompilationHash = "9b07afbf1e0e2b413d20"; /*]]>*/
   </script>
   <script id="gatsby-chunk-mapping">
     /*<![CDATA[*/
@@ -30625,12 +30625,12 @@ console<span class="token punctuation">.</span><span class="token function">log<
   </script>
   <script src="/concent-doc/component---node-modules-antdsite-src-templates-index-tsx-c3565cbfd75b212b117e.js" async="">
   </script>
-  <script src="/concent-doc/styles-b45e34c24bcc11c8ccff.js" async=""></script>
+  <script src="/concent-doc/styles-aabe1e11ce0565a7a98f.js" async=""></script>
   <script src="/concent-doc/app-d87bc04a6407424adb34.js" async=""></script>
   <script src="/concent-doc/webpack-runtime-e6bcdfdc23a297bd346a.js" async=""></script>
   <script>
     var _mtac = {};
-    (function () {
+    (function() {
       var mta = document.createElement("script");
       mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
       mta.setAttribute("name", "MTAH5");
