@@ -265,6 +265,20 @@ function DemoFn(){
 }
 ```
 
+<div class="summaryContent textLeft">
+如果是有条件判断的读取状态，推荐采用**延迟解构**的写法，让每一次渲染都锁定最小的依赖列表，获得更好的渲染性能。
+</div>
+
+```jsx
+
+// good, 当showName为false时，依赖是 ['showName']
+<div>{state.showName ? state.name : ''}</div>
+
+// bad，依赖总是  ['showName', 'name']
+const { showName, name } = state;
+<div>{showName ? name : ''}</div>
+```
+
 <br />
 <h3 class="seeDemoCode textLeft">
   渲染组件
@@ -272,7 +286,11 @@ function DemoFn(){
 <br />
 
 <div class="summaryContent textLeft">
-  调用run接口配置模块数据，启动concent之后，concent会自己生成一份全局上下文并独立维护着，用于管理组件实例与模块直接的关系，因其不依赖react的Context api，所以接入concent无需对顶层根组件包裹Provider，做到真正的无感知接入和即插即用。
+  调用run接口配置模块数据，启动concent之后，concent会自己生成一份全局上下文并独自维护着，用于管理组件实例与模块直接的关系，因其不依赖react的Context api，所以接入concent无需对顶层根组件包裹Provider，做到真正的无感知接入和即插即用。
+</div>
+
+<div class="summaryContentTip">
+打开dev-tool查看react dom树结构，你也将发现没有任何额外的包裹组件
 </div>
 <br />
 
@@ -299,7 +317,7 @@ ReactDOM.render(
 <br />
 
 <div class="summaryContent textLeft">
-  如果修改状态之前，需要做业务逻辑处理才能得到欲修改的状态，推荐将其写到模块reducer里(可以是同步的，也可以是异步的)，解耦ui渲染与业务逻辑。
+  如果修改状态之前，需要做业务逻辑处理才能得到欲修改的状态，推荐将其写到模块reducer里(可以是同步的，也可以是异步的)，代替写在组件里，从而达到解耦ui渲染与业务逻辑的目的。
 </div>
 <div class="summaryContentTip">
 为了让concent总是处于最高的性能模式下运行，reducer里仅需要返回部分状态，即修改了什么则返回什么，方便concent通知关心这些变化的实例重渲染。
@@ -458,7 +476,7 @@ const { globalState } = useConcent();
 </div>
 
 <div class="summaryContent textLeft">
-👉使用setState   
+👉  使用<b>setState</b>
 </div>
 
 ```js
@@ -470,7 +488,7 @@ console.log(getState('counter').num);// log: 10
 ```
 
 <div class="summaryContent textLeft">
-👉使用 dispatch，dispatch会返回一个promise，所以我们需要在外部包裹一个async
+👉  使用 <b>dispatch</b>，dispatch会返回一个promise，所以我们需要在外部包裹一个async
 </div>
 
 ```js
@@ -486,7 +504,7 @@ import { getState, dispatch } from "concent";
 ```
 
 <div class="summaryContent textLeft">
-👉使用 reducer，run接口定义的reducer集合已被concent集中管理起来，并允许用户以reducer.moduleName.methodName的方式直接发起调用
+👉  使用 <b>reducer</b>，run接口里为各个模块定义的reducer函数集合已被concent集中管理起来，并允许用户以reducer.moduleName.methodName的方式直接发起调用
 </div>
 
 ```js
@@ -548,7 +566,7 @@ const setup = ctx=>{
 </h2>
 
 <a class="seeDemoCode textLeft" rel="noopener" target="blank" href="https://codesandbox.io/s/hello-concent-pzde3?file=/src/App.js:50-92">
-  ❤️ 使用<span style="font-weight:600;" >组合api</span>
+  ❤️  使用<span style="font-weight:600;" >组合api</span>
 </a>
 <div class="summaryContent textLeft">
   得益于setup接口只会在组件初次渲染之前执行一次的特性，可以在其内部使用组合api帮助我们将函数组件里每一轮渲染需要声明的临时闭包函数提升为静态函数
@@ -591,7 +609,7 @@ function Counter(){
 
 <br /> 
 <a class="seeDemoCode textLeft" rel="noopener" target="blank" href="https://codesandbox.io/s/hello-concent-shared-cu1i9">
-  ❤️统一<span style="font-weight:600;" >类组件</span>和<span style="font-weight:600;" >函数组件</span>生命周期
+  ❤️  统一<span style="font-weight:600;" >类组件</span>和<span style="font-weight:600;" >函数组件</span>生命周期
 </a>
 <div class="summaryContent textLeft">
   setup可同时作用于类组件与函数组件，提供的effect接口统一适配了函数和类的生命周期接口。
@@ -617,7 +635,7 @@ const setup = ctx => {
 ```
 
 <div class="summaryContent textLeft">
-  类组件和函数组件都可装配此setup函数，共用生命周期业务逻辑
+  类组件和函数组件都可装配setup函数，共用生命周期业务逻辑
 </div>
 
 ```js
