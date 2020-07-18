@@ -30034,7 +30034,7 @@
   <meta data-react-helmet="true" name="twitter:description" content="内置依赖收集，可预测、零入侵、渐进式、高性能的react开发框架" />
   <link as="script" rel="preload" href="/concent-doc/webpack-runtime-e6bcdfdc23a297bd346a.js" />
   <link as="script" rel="preload" href="/concent-doc/app-d87bc04a6407424adb34.js" />
-  <link as="script" rel="preload" href="/concent-doc/styles-aabe1e11ce0565a7a98f.js" />
+  <link as="script" rel="preload" href="/concent-doc/styles-317ef64cad0a4e70f1a2.js" />
   <link as="script" rel="preload"
     href="/concent-doc/component---node-modules-antdsite-src-templates-index-tsx-c3565cbfd75b212b117e.js" />
   <link as="fetch" rel="preload" href="/concent-doc/page-data/index/page-data.json" crossorigin="anonymous" />
@@ -30176,6 +30176,18 @@
                         <p class="featureContent">run载入模块配置，register注册类组件，useConcent注册函数组件。</p>
                       </div>
                       <div class="featureWrap">
+                        <div class="featureImgBase featureImg8 fibs1"></div>
+                        <h2>渲染性能出众</h2>
+                        <p class="featureContent">
+                          启用Proxy在运行时动态收集每一个组件的最新依赖列表，保证最小粒度更新，同时内置renderKey、lazyDispatch、delayBroadcast等高级特性满足更复杂的更新场景。
+                        </p>
+                      </div>
+                      <div class="featureWrap">
+                        <div class="featureImgBase featureImg4 fibs4"></div>
+                        <h2>数据消费粒度灵活</h2>
+                        <p class="featureContent">支持组件跨多个模块消费数据，同时所有组件都自动连接到内置的$$global模块。</p>
+                      </div>
+                      <div class="featureWrap">
                         <div class="featureImgBase featureImg2 fibs2"></div>
                         <h2>0入侵成本接入</h2>
                         <p class="featureContent">无根Provider包裹，注册后的组件setState即可更新store。</p>
@@ -30184,11 +30196,6 @@
                         <div class="featureImgBase featureImg3 fibs3"></div>
                         <h2>贴心模块配置</h2>
                         <p class="featureContent">模块提供state、reducer、watch、computed和init 5个选项，支持按需定义，覆盖所有业务场景。</p>
-                      </div>
-                      <div class="featureWrap">
-                        <div class="featureImgBase featureImg4 fibs4"></div>
-                        <h2>数据消费粒度灵活</h2>
-                        <p class="featureContent">支持组件跨多个模块消费数据，定义key级别的变更依赖。</p>
                       </div>
                       <div class="featureWrap">
                         <div class="featureImgBase featureImg5 fibs4"></div>
@@ -30204,13 +30211,6 @@
                         <div class="featureImgBase featureImg7 fibs2"></div>
                         <h2>高度一致的编程体验</h2>
                         <p class="featureContent">hoc、render props和hook 3种方式定义的组件均享有一致的api调用体验，相互切换代价为0。</p>
-                      </div>
-                      <div class="featureWrap">
-                        <div class="featureImgBase featureImg8 fibs1"></div>
-                        <h2>渲染性能出众</h2>
-                        <p class="featureContent">
-                          启用Proxy在运行时动态收集每一个组件的最新依赖列表，保证最小粒度更新，同时内置renderKey、lazyDispatch、delayBroadcast等高级特性满足更复杂的更新场景。
-                        </p>
                       </div>
                       <div class="featureWrap">
                         <div class="featureImgBase featureImg9 fibs1"></div>
@@ -30314,8 +30314,8 @@
   <span class="token keyword">const</span> <span class="token punctuation">{</span> state<span class="token punctuation">,</span> moduleState <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">useConcent</span><span class="token punctuation">(</span><span class="token punctuation">{</span>module<span class="token punctuation">:</span><span class="token string">&#x27;counter&#x27;</span><span class="token punctuation">,</span> state<span class="token punctuation">:</span>privState <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
                     </div>
-                    <div class="summaryContent textLeft">如果是有条件判断的读取状态，推荐采用<b>延迟解构</b>的写法，让每一次渲染都锁定最小的依赖列表，获得更好的渲染性能。
-                    </div>
+                    <div class="summaryContent textLeft">
+                      如果是有条件判断的读取状态，推荐采用<b>延迟解构</b>的写法，让每一次渲染都锁定最小的依赖列表，减少冗余渲染，获得更好的性能。</div>
                     <div class="gatsby-highlight" data-language="jsx">
                       <pre
                         class="language-jsx"><code class="language-jsx"><span class="token comment">// good, 当showName为false时，依赖是 [&#x27;showName&#x27;]</span>
@@ -30393,25 +30393,52 @@ ReactDOM<span class="token punctuation">.</span><span class="token function">ren
                       <pre
                         class="language-js"><code class="language-js"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   counter<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    state<span class="token punctuation">:</span> <span class="token punctuation">{</span> num<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> numBig<span class="token punctuation">:</span> <span class="token number">100</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    state<span class="token punctuation">:</span> <span class="token punctuation">{</span> num<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> numBig<span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">,</span> numHuge<span class="token punctuation">:</span> <span class="token number">10000</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 计算函数回调参数从左到右 (newState, oldState, fnCtx)</span>
     computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
       <span class="token function-variable function">numx2</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>num<span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> num <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">,</span>
       <span class="token function-variable function">numSumBig</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>num<span class="token punctuation">,</span> numBig<span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> num <span class="token operator">+</span> numBig<span class="token punctuation">,</span>
+      <span class="token comment">// 复用计算结果做二次计算</span>
+      <span class="token function-variable function">numSumBigAndHuge</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>numHuge<span class="token punctuation">}</span><span class="token punctuation">,</span> o<span class="token punctuation">,</span> f</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span> numHuge <span class="token operator">+</span> f<span class="token punctuation">.</span>cuVal<span class="token punctuation">.</span>numSumBig<span class="token punctuation">,</span>
+      <span class="token comment">// 支持异步计算</span>
+      <span class="token function-variable function">asyncNumAdd</span><span class="token punctuation">:</span> <span class="token keyword">async</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>num<span class="token punctuation">}</span><span class="token punctuation">,</span> o<span class="token punctuation">,</span> f</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        f<span class="token punctuation">.</span><span class="token function">setInitialVal</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 设置一个初始值，该函数只会被触发执行一次</span>
+        <span class="token keyword">const</span> operand <span class="token operator">=</span> <span class="token keyword">await</span> api<span class="token punctuation">.</span><span class="token function">getOperand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> num <span class="token operator">+</span> operand<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-                    </div><br />
+                    </div>
+                    <div class="summaryContent textLeft">更多关于异步计算错误捕捉可查看<a
+                        href="https://github.com/concentjs/concent-plugin-async-computed-status">异步函数状态插件</a>，或<a
+                        href="https://juejin.im/post/5eda2a0ef265da76fa4b6c03">阅读文章</a></div><br />
                     <h3 class="seeDemoCode textLeft">组件消费模块计算结果</h3><br />
+                    <div class="summaryContent textLeft">直接从实例上下文ctx.moduleComputed获取即可获取模块计算结果</div>
+                    <div class="gatsby-highlight" data-language="js">
+                      <pre class="language-js"><code class="language-js"><span class="token comment">// 类组件里获取计算结果</span>
+@<span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&#x27;counter&#x27;</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">DemoCls</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span><span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// 当前依赖是[&#x27;numx2&#x27;, &#x27;numSumBig&#x27;]</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> numx2<span class="token punctuation">,</span> numSumBig <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>ctx<span class="token punctuation">.</span>moduleComputed<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 函数组件里获取计算结果</span>
+<span class="token keyword">function</span> <span class="token function">DemoFn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> moduleComputed <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">useConcent</span><span class="token punctuation">(</span><span class="token string">&#x27;counter&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 当前依赖是[&#x27;numSumBigAndHuge&#x27;, &#x27;asyncNumAdd&#x27;]</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> numSumBigAndHuge<span class="token punctuation">,</span> asyncNumAdd <span class="token punctuation">}</span> <span class="token operator">=</span> moduleComputed<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+                    </div>
                     <div class="summaryContent textLeft">
-                      依赖收集机制对模块计算结果依然有效，所有实例在每一轮渲染期间组件读取模块计算结果时，concent将收集到它们对模块状态的依赖列表</div><br />
+                      依赖收集机制对模块计算结果依然有效，所有实例在每一轮渲染期间组件读取模块计算结果时，concent将收集到它们对模块状态的依赖列表，所以如果是按条件来读取数据渲染的，和读取state一样，推荐延迟解构，以便让concent收集到更精确的依赖，减少冗余渲染
+                    </div><br />
                     <div class="gatsby-highlight" data-language="js">
                       <pre
-                        class="language-js"><code class="language-js"><span class="token comment">// 在类组件里读取模块状态</span>
-<span class="token keyword">const</span> <span class="token punctuation">{</span> moduleComputed <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>ctx<span class="token punctuation">;</span>
-<span class="token comment">// 在函数组件里读取模块状态</span>
-<span class="token keyword">const</span> <span class="token punctuation">{</span> moduleComputed <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">useConcent</span><span class="token punctuation">(</span><span class="token string">&#x27;counter&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> <span class="token punctuation">{</span> numx2<span class="token punctuation">,</span> numSumBig <span class="token punctuation">}</span> <span class="token operator">=</span> moduleComputed<span class="token punctuation">;</span><span class="token comment">// 按需解构目标计算结果</span></code></pre>
+                        class="language-js"><code class="language-js"><span class="token comment">// 按需读取目标计算结果</span>
+<span class="token keyword">const</span> targetVal <span class="token operator">=</span> someCondition <span class="token operator">?</span> moduleComputed<span class="token punctuation">.</span>numx2 <span class="token punctuation">:</span> moduleComputed<span class="token punctuation">.</span>numSumBig<span class="token punctuation">;</span></code></pre>
                     </div><br />
                     <h3 class="seeDemoCode textLeft">连接多个模块</h3><br />
                     <div class="summaryContent textLeft">所有concent组件只允许属于某一个模块，如需消费多个模块的数据和调用多个模块的方法时，可使用connect来完成。
@@ -30440,7 +30467,7 @@ ReactDOM<span class="token punctuation">.</span><span class="token function">ren
                     </div><br />
                     <h3 class="seeDemoCode textLeft">全局模块</h3><br />
                     <div class="summaryContent textLeft">
-                      concent内置了一个全局模块$$global，无论组件有没有connect到$$global，都会自动将全局模块的状态注入到实例上下文的globalState里，因为concernt内置的依赖收集机制，实例不读取它的值则不会因全局状态的改变而触发重渲染。
+                      concent内置了一个全局模块<b>$$global</b>，无论组件有没有connect到$$global，都会自动将全局模块的状态注入到实例上下文的globalState里，因为concernt内置的依赖收集机制，实例不读取它的值则不会因全局状态的改变而触发重渲染。
                     </div>
                     <div class="gatsby-highlight" data-language="js">
                       <pre
@@ -30558,6 +30585,9 @@ console<span class="token punctuation">.</span><span class="token function">log<
     <span class="token operator">&lt;</span><span class="token operator">/</span><span class="token operator">&gt;</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+                    </div>
+                    <div class="summaryContent textLeft">
+                      以上代码演示的组件没有定义属于任何模块，则默认属于内置的<b>$$default</b>模块，在setup定义的watch，computed逻辑是实例级别的，当组件属于某个指定的模块时且计算与观察的目标状态是模块状态时，优先考虑定义和使用模块级别的computed与watch，减少因有多个实例存在导致冗余的函数执行次数。
                     </div><br /><a class="seeDemoCode textLeft" rel="noopener" target="blank"
                       href="https://codesandbox.io/s/hello-concent-shared-cu1i9">❤️ 统一<span
                         style="font-weight:600">类组件</span>和<span style="font-weight:600">函数组件</span>生命周期</a>
@@ -30611,7 +30641,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
   <script id="gatsby-script-loader">
     /*<![CDATA[*/
     window.pagePath = "/";
-    window.webpackCompilationHash = "9b07afbf1e0e2b413d20"; /*]]>*/
+    window.webpackCompilationHash = "eb71f147af1f0ae43ec9"; /*]]>*/
   </script>
   <script id="gatsby-chunk-mapping">
     /*<![CDATA[*/
@@ -30625,7 +30655,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
   </script>
   <script src="/concent-doc/component---node-modules-antdsite-src-templates-index-tsx-c3565cbfd75b212b117e.js" async="">
   </script>
-  <script src="/concent-doc/styles-aabe1e11ce0565a7a98f.js" async=""></script>
+  <script src="/concent-doc/styles-317ef64cad0a4e70f1a2.js" async=""></script>
   <script src="/concent-doc/app-d87bc04a6407424adb34.js" async=""></script>
   <script src="/concent-doc/webpack-runtime-e6bcdfdc23a297bd346a.js" async=""></script>
   <script>

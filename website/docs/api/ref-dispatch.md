@@ -112,7 +112,7 @@ export function doSomething(payload, moduleState){
 class Bar extends Component{
   changeName = (e)=>{
     //当前实例属于bar模块，调用doSomething方法修改foo模块的数据
-    this.$$dispatch('foo/doSomething');
+    this.ctx.dispatch('foo/doSomething');
   }
 }
 

@@ -57,6 +57,22 @@ showStar: true
   </div>
 
   <div class="featureWrap">
+    <div class="featureImgBase featureImg8 fibs1"></div>
+    <h2>渲染性能出众</h2>
+    <p class="featureContent">
+      启用Proxy在运行时动态收集每一个组件的最新依赖列表，保证最小粒度更新，同时内置renderKey、lazyDispatch、delayBroadcast等高级特性满足更复杂的更新场景。
+    </p>
+  </div>
+
+  <div class="featureWrap">
+    <div class="featureImgBase featureImg4 fibs4"></div>
+    <h2>数据消费粒度灵活</h2>
+    <p class="featureContent">
+      支持组件跨多个模块消费数据，同时所有组件都自动连接到内置的$$global模块。
+    </p>
+  </div>
+
+  <div class="featureWrap">
     <div class="featureImgBase featureImg2 fibs2"></div>
     <h2>0入侵成本接入</h2>
     <p class="featureContent">
@@ -69,14 +85,6 @@ showStar: true
     <h2>贴心模块配置</h2>
     <p class="featureContent">
       模块提供state、reducer、watch、computed和init 5个选项，支持按需定义，覆盖所有业务场景。
-    </p>
-  </div>
-
-  <div class="featureWrap">
-    <div class="featureImgBase featureImg4 fibs4"></div>
-    <h2>数据消费粒度灵活</h2>
-    <p class="featureContent">
-      支持组件跨多个模块消费数据，定义key级别的变更依赖。
     </p>
   </div>
 
@@ -101,14 +109,6 @@ showStar: true
     <h2>高度一致的编程体验</h2>
     <p class="featureContent">
       hoc、render props和hook 3种方式定义的组件均享有一致的api调用体验，相互切换代价为0。
-    </p>
-  </div>
-
-  <div class="featureWrap">
-    <div class="featureImgBase featureImg8 fibs1"></div>
-    <h2>渲染性能出众</h2>
-    <p class="featureContent">
-      启用Proxy在运行时动态收集每一个组件的最新依赖列表，保证最小粒度更新，同时内置renderKey、lazyDispatch、delayBroadcast等高级特性满足更复杂的更新场景。
     </p>
   </div>
 
@@ -266,7 +266,7 @@ function DemoFn(){
 ```
 
 <div class="summaryContent textLeft">
-如果是有条件判断的读取状态，推荐采用<b>延迟解构</b>的写法，让每一次渲染都锁定最小的依赖列表，获得更好的渲染性能。
+如果是有条件判断的读取状态，推荐采用<b>延迟解构</b>的写法，让每一次渲染都锁定最小的依赖列表，减少冗余渲染，获得更好的性能。
 </div>
 
 ```jsx
@@ -379,14 +379,27 @@ const changeNum = () => mr.inc(20); // or ctx.mr.asynInc(10)
 ```js
 run({
   counter: {
-    state: { num: 1, numBig: 100 },
+    state: { num: 1, numBig: 100, numHuge: 10000 },
+    // 计算函数回调参数从左到右 (newState, oldState, fnCtx)
     computed: {
       numx2: ({num}) => num * 2,
       numSumBig: ({num, numBig}) => num + numBig,
+      // 复用计算结果做二次计算
+      numSumBigAndHuge: ({numHuge}, o, f)=> numHuge + f.cuVal.numSumBig,
+      // 支持异步计算
+      asyncNumAdd: async({num}, o, f)=> {
+        f.setInitialVal(num);// 设置一个初始值，该函数只会被触发执行一次
+        const operand = await api.getOperand();
+        return num + operand;
+      }
     },
   }
 });
 ```
+
+<div class="summaryContent textLeft">
+  更多关于异步计算错误捕捉可查看<a href="https://github.com/concentjs/concent-plugin-async-computed-status">异步函数状态插件</a>，或<a href="https://juejin.im/post/5eda2a0ef265da76fa4b6c03">阅读文章</a>
+</div>
 
 <br />
 <h3 class="seeDemoCode textLeft">
@@ -395,17 +408,36 @@ run({
 <br />
 
 <div class="summaryContent textLeft">
-  依赖收集机制对模块计算结果依然有效，所有实例在每一轮渲染期间组件读取模块计算结果时，concent将收集到它们对模块状态的依赖列表
+  直接从实例上下文ctx.moduleComputed获取即可获取模块计算结果
+</div>
+
+```js
+// 类组件里获取计算结果
+@register('counter')
+class DemoCls extends React.Component{
+  render(){
+    // 当前依赖是['numx2', 'numSumBig']
+    const { numx2, numSumBig } = this.ctx.moduleComputed;
+  }
+}
+
+// 函数组件里获取计算结果
+function DemoFn(){
+  const { moduleComputed } = useConcent('counter');
+  // 当前依赖是['numSumBigAndHuge', 'asyncNumAdd']
+  const { numSumBigAndHuge, asyncNumAdd } = moduleComputed;
+}
+```
+
+
+<div class="summaryContent textLeft">
+  依赖收集机制对模块计算结果依然有效，所有实例在每一轮渲染期间组件读取模块计算结果时，concent将收集到它们对模块状态的依赖列表，所以如果是按条件来读取数据渲染的，和读取state一样，推荐延迟解构，以便让concent收集到更精确的依赖，减少冗余渲染
 </div>
 <br />
 
 ```js
-// 在类组件里读取模块状态
-const { moduleComputed } = this.ctx;
-// 在函数组件里读取模块状态
-const { moduleComputed } = useConcent('counter');
-
-const { numx2, numSumBig } = moduleComputed;// 按需解构目标计算结果
+// 按需读取目标计算结果
+const targetVal = someCondition ? moduleComputed.numx2 : moduleComputed.numSumBig;
 ```
 
 <br />
@@ -449,7 +481,7 @@ function FnComp(){
 <br />
 
 <div class="summaryContent textLeft">
-  concent内置了一个全局模块$$global，无论组件有没有connect到$$global，都会自动将全局模块的状态注入到实例上下文的globalState里，因为concernt内置的依赖收集机制，实例不读取它的值则不会因全局状态的改变而触发重渲染。
+  concent内置了一个全局模块<b>$$global</b>，无论组件有没有connect到$$global，都会自动将全局模块的状态注入到实例上下文的globalState里，因为concernt内置的依赖收集机制，实例不读取它的值则不会因全局状态的改变而触发重渲染。
 </div>
 
 ```js
@@ -521,7 +553,6 @@ import { getState, reducer as ccReducer } from "concent";
 <div class="summaryContent textLeft">
 为了方便用户快速验证开发过程中的一些思路，这些api已绑定到window.cc下，用户可打开浏览器console，输入 cc. 即可开始直接调用这些api，除了cc，还可通过window.sss查看整个状态树，window.cccc查看整个计算结果树。
 </div>
-
 
 <br />
 <h3 class="seeDemoCode textLeft">
@@ -605,6 +636,9 @@ function Counter(){
 }
 ```
 
+<div class="summaryContent textLeft">
+  以上代码演示的组件没有定义属于任何模块，则默认属于内置的<b>$$default</b>模块，在setup定义的watch，computed逻辑是实例级别的，当组件属于某个指定的模块时且计算与观察的目标状态是模块状态时，优先考虑定义和使用模块级别的computed与watch，减少因有多个实例存在导致冗余的函数执行次数。
+</div>
 
 <br /> 
 <a class="seeDemoCode textLeft" rel="noopener" target="blank" href="https://codesandbox.io/s/hello-concent-shared-cu1i9">
