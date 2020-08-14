@@ -30034,7 +30034,7 @@
   <meta data-react-helmet="true" name="twitter:description" content="内置依赖收集，可预测、零入侵、渐进式、高性能的react开发框架" />
   <link as="script" rel="preload" href="/concent-doc/webpack-runtime-e6bcdfdc23a297bd346a.js" />
   <link as="script" rel="preload" href="/concent-doc/app-d87bc04a6407424adb34.js" />
-  <link as="script" rel="preload" href="/concent-doc/styles-317ef64cad0a4e70f1a2.js" />
+  <link as="script" rel="preload" href="/concent-doc/styles-3e0025548bf5b0b19bce.js" />
   <link as="script" rel="preload"
     href="/concent-doc/component---node-modules-antdsite-src-templates-index-tsx-c3565cbfd75b212b117e.js" />
   <link as="fetch" rel="preload" href="/concent-doc/page-data/index/page-data.json" crossorigin="anonymous" />
@@ -30559,7 +30559,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 启动concent</span>
 
 <span class="token keyword">const</span> <span class="token function-variable function">setup</span> <span class="token operator">=</span> <span class="token parameter">ctx</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> <span class="token punctuation">{</span> initState<span class="token punctuation">,</span> computed<span class="token punctuation">,</span> watch<span class="token punctuation">,</span> setState <span class="token punctuation">}</span> <span class="token operator">=</span> ctx<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> initState<span class="token punctuation">,</span> computed<span class="token punctuation">,</span> watch<span class="token punctuation">,</span> setState<span class="token punctuation">,</span> state <span class="token punctuation">}</span> <span class="token operator">=</span> ctx<span class="token punctuation">;</span>
   <span class="token comment">// 初始化实例状态</span>
   <span class="token function">initState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token comment">// 定义计算函数，这里的依赖是count，仅当count变化，触发此函数重新计算</span>
@@ -30568,8 +30568,8 @@ console<span class="token punctuation">.</span><span class="token function">log<
   <span class="token function">watch</span><span class="token punctuation">(</span><span class="token string">&quot;count&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">n<span class="token punctuation">,</span> o</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">alert</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">from </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>o<span class="token punctuation">.</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>n<span class="token punctuation">.</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token comment">// 打包方法返回，将被收集到settings里</span>
   <span class="token keyword">return</span> <span class="token punctuation">{</span>
-    <span class="token function-variable function">inc</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> ctx<span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function-variable function">dec</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> ctx<span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token function-variable function">inc</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">dec</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> state<span class="token punctuation">.</span>count <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
@@ -30641,7 +30641,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
   <script id="gatsby-script-loader">
     /*<![CDATA[*/
     window.pagePath = "/";
-    window.webpackCompilationHash = "eb71f147af1f0ae43ec9"; /*]]>*/
+    window.webpackCompilationHash = "4fc7cfa436e695de77bc"; /*]]>*/
   </script>
   <script id="gatsby-chunk-mapping">
     /*<![CDATA[*/
@@ -30655,7 +30655,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
   </script>
   <script src="/concent-doc/component---node-modules-antdsite-src-templates-index-tsx-c3565cbfd75b212b117e.js" async="">
   </script>
-  <script src="/concent-doc/styles-317ef64cad0a4e70f1a2.js" async=""></script>
+  <script src="/concent-doc/styles-3e0025548bf5b0b19bce.js" async=""></script>
   <script src="/concent-doc/app-d87bc04a6407424adb34.js" async=""></script>
   <script src="/concent-doc/webpack-runtime-e6bcdfdc23a297bd346a.js" async=""></script>
   <script>
@@ -30665,7 +30665,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
       mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
       mta.setAttribute("name", "MTAH5");
       mta.setAttribute("sid", "500698304");
-
+  
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(mta, s);
     })();

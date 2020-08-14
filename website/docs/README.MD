@@ -608,7 +608,7 @@ import { run, useConcent } from "concent";
 run();// 启动concent
 
 const setup = ctx => {
-  const { initState, computed, watch, setState } = ctx;
+  const { initState, computed, watch, setState, state } = ctx;
   // 初始化实例状态
   initState({ count: 0 });
   // 定义计算函数，这里的依赖是count，仅当count变化，触发此函数重新计算
@@ -617,8 +617,8 @@ const setup = ctx => {
   watch("count", (n, o) => alert(`from ${o.count} to ${n.count}`));
   // 打包方法返回，将被收集到settings里
   return {
-    inc: () => setState({ count: ctx.state.count + 1 }),
-    dec: () => setState({ count: ctx.state.count - 1 })
+    inc: () => setState({ count: state.count + 1 }),
+    dec: () => setState({ count: state.count - 1 })
   };
 };
 
