@@ -56,3 +56,7 @@ export default async ()=>{
 
 ![run-module](/concent-doc/img/cc-run-module.png)
 > 当init函数内部有等待时间较长的异步调用时，相关组件实例挂载完毕读取的是最初定义的模块状态，直到init函数执行结束才会被再次刷新，拿到最新的状态。
+
+::: warning-zh | 推荐使用lifecycle替代init
+v2.9 提供了使用体验更佳的lifecycle，从模块和实例两个角度来设计api，满足更多的场景需求。
+:::

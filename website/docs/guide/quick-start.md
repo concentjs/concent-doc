@@ -164,28 +164,10 @@ class FooComp extends Component {
 }
 ```
 
-::: warning-zh | 注意
-this.state依然能取到name与hobbies，但是因为标记了watchedKeys为['age']，所以他们永远是旧值，如果组件渲染里需要用到name，hobbies参与渲染，那么就不该限定FooComp的watchedKeys，表示观察foo模块所有key的值变化，如果渲染里并不需要用到name，hobbies，但是组件的业务逻辑（比如提交表单）需要用到他们，可以通过concent提供的顶层api 或 ctx.moduleState 来获取最新的值。
-:::
-
-```js{7}
-import { getState } from 'concent';
-
-@register({ module: 'foo', watchedKeys: ['age'] })
-class FooComp extends Component {
-  submit() {
-    // 取最新的name和hobbies 值
-    const { name, hobbies } = getState('foo');
-    //or 
-    const { name, hobbies } = this.ctx.moduleState;
-  }
-}
-```
-
 ## 定义reducer
 当我们提交变更数据前有不少的处理过程的时候，组件的代码会越来越臃肿，为了解耦业务逻辑也ui渲染，我们需要合理的剥离相关处理过程过程到`reducer`。   
 在concent里，触发`reducer`特别简单，因为concent为每一个组件实例都构建了一个实例上线文对象`ctx`，该对象上提供了concent为组件能力增强的api，你可以用`js>>>this.ctx.dispatch('reducerFnName', payload)`直接呼叫reducer函数，从而避免各种`map***ToProps`和相关的配套`action`定义。    
-- reducer函数可以是纯函数，可以是`async`函数，也可以是生成器函数
+- reducer函数可以是纯函数，也可以是`async`函数
 - 可以返回一个部分状态，可以调用其他`reducer`函数后再返回一个部分状态，也可以啥都不返回，只是组合其他`reducer`函数来调用。
 
 ```ts
@@ -215,7 +197,7 @@ const foo = {
         ├── reducer.js
         ├── computed.js
         ├── watch.js
-        ├── init.js
+        ├── lifecycle.js
         ├── index.js
     ├── bar
         ├── ...
@@ -276,9 +258,10 @@ export function fullName(newState, oldState, fnCtx){
   return `${newState.firstName}_${newState.lastName}`;
 }
 
+// 更推荐上面的写法，在参数里解构时确定输入的数据依赖
 export const fullName = {
   fn(newState, oldState, fnCtx) {
-
+    // logic code
   },
   depKeys: ['firstName', 'lastName'],//这里定义触发fullName计算的依赖key列表
 }
@@ -321,7 +304,7 @@ class HelloComp extends Component {
 
 ::: tip | 注意
 模块computed的初次计算在启动concent载入模块时就被触发了初次计算，和该模块下有没有相关的组件被实例化没有关系。   
-key对应的应该是primitive类型的（如number, string, boolean），如果是object型，则需要总是返回新的引用才能触发计算，或者设置compare为false，只要对这个key设了值就触发计算
+key对应值的如果是primitive类型的（如number, string, boolean），能够通过浅比较得知有没有发生改变，如果是object型，默认走set语义，即返回了就代表改变了，如果需要严格走immutable语义，可以设置compare为true，表示对Object型值也做浅比较，此时就需要用户总是返回新的对象了
 :::
 
 ```js{13}
@@ -336,19 +319,21 @@ export function hobbies(hobbies, oldVal) {
 export function addHobby(hobby, moduleState){
   const { hobbies } = moduleState;
   hobbies.push(hobby);
-  // return { hobbies };不会触发hobbies的计算函数
-  return { hobbies: [...hobbies] };//正确的写法
+
+  // 以下两种写法均能触发计算函数
+  return { hobbies };
+  return { hobbies: [...hobbies] };
 }
 ```
 
-如果需要`js>>>return { hobbies }`能触发计算，则定义hobbies计算函数时，需要将其`compare`指定为`false`，表示只要设了`hobbies`的值，就触发计算
+如果需要`js>>>return { hobbies }`不触发计算，则定义hobbies计算函数时，需要将其`compare`指定为`true`，表示对object类型的值做浅比较
 
 ```js
 import { defComputed } from 'concent';
 
 export const hobbies = defComputed(
   ({hobbies}) => hobbies.length * 2, 
-  {compare: false},// //不做比较，只要片段状态里对设了`hobbies`的值，就触发计算
+  {compare: true},// 此时reducer里返回hobbies时，必需走immutable写法了
 )
 ```
 
@@ -387,15 +372,71 @@ export function fullName2({firstName, lastName}, oldState, fnCtx){
 }
 ```
 
-## 定义模块init
-当模块的状态需要异步的被初始化的时候，就可以定义init函数，注意，模块`state`还是需要被定义的，只不过里面全是空值，真正的值由`init`函数的返回结果来填充，可以等价为组件`constructor`里定义了一次state，然后在`componentDidMount`阶段再次获取新的`state`值。   
-只不过模块`state`的初始化和组件是否实例化没有关系，如果此时此模块下已经实例化了一些组件，init返回的状态也会同时被分发到各个实例上。
+## 定义模块lifecycle[v2.9+]
+提供`initState`、`initStateDone`、`loaded`、`mounted`、`willUnmount`五个可选的生命周期函数
+
+### initState
+适合做一些异步的初始化状态工作
 ```js
-// code in models/foo/init.js
-export default async()=>{
-  const data = api.getData();
-  //处理data
+// code in models/foo/lifecyle.js
+import * as rd from './reducer';
+
+export async function initState(){
+  const data = await api.fetData();
   return data;
+}
+```
+
+### initStateDone
+`initState`执行结束后的业务逻辑
+```js
+// code in models/foo/lifecyle.js
+import * as rd from './reducer';
+
+export function initStateDone(dispatch, moduleState){
+  dispatch(rd.nextStep);
+}
+```
+
+### loaded
+模块载入完毕时执行的工作，当我们的异步状态初始化工作需要放置到`reducer`内部方便可重用时，推荐使用`loaded`替代`initState`
+```js
+// code in models/foo/lifecyle.js
+import * as rd from './reducer';
+
+export function loaded(dispatch, moduleState){
+  dispatch(rd.initState);//调用reducer里的状态初始化函数
+}
+```
+
+### mounted
+当该模块的第一个组件挂载完毕时需要触发的函数，和`loaded`的最大区别是执行时机不同，`mounted`是由组件实例挂载完毕驱动触发，而`loaded`是模块载入完毕就触发执行。
+
+当你的状态初始化流程是依赖组件实例存在时才开始执行，则可考虑`mounted`替代`loaded`
+
+```js
+// code in models/foo/lifecyle.js
+import * as rd from './reducer';
+
+export function mounted(dispatch, moduleState){
+  dispatch(rd.initState);//调用reducer里的状态初始化函数
+}
+```
+
+`mounted`默认只触发一次，即组件如果销毁再次挂载回来并不会触发，如果需要满足条件时反复执行，则需要返回false
+```js
+export function mounted(dispatch, moduleState){
+  dispatch(rd.initState);
+  return false;
+}
+```
+
+### willUnmount
+当该模块的最后一个组件卸载时需要触发的函数，通常用于清理工作，如果需要满足条件时反复执行，需要返回false
+```js
+export function willUnmount(dispatch, moduleState){
+  dispatch(rd.clearUp);
+  return false;
 }
 ```
 

@@ -72,6 +72,7 @@ module.exports = {
             'concept-module-computed',
             'concept-module-watch',
             'concept-module-init',
+            'concept-module-lifecycle',
             'concept-ref-ctx',
             'concept-ref-setup',
             'concept-ref-computed',

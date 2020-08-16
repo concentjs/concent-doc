@@ -1,6 +1,6 @@
 # 模块
+![cc-module](/concent-doc/img/module-lifecycle.png) 
 
-![cc-module](/concent-doc/img/cc-module.png)
 在concent里，提供一个全局唯一的`store`，而`store`是由多个模块一起组成的，**模块**是一个非常重要的概念，每个模块又分别由`state`、`reducer`、`computed`、`watch`、`init`组成。
 
 ## run，载入配置
@@ -9,7 +9,7 @@
 
 一个典型的concent应用启动流程如下图所示
 
-![cc-run-module](/concent-doc/img/cc-run-module.png)
+![cc-run-module](/concent-doc/img/cc-run-module-v1.png)
 
 伪代码如下
 ```js
@@ -24,7 +24,13 @@ const storeConfig = {
     reducer:{...},//可选
     computed:{...},//可选
     watch:{...},//可选
-    init:async ()=>{...},//可选
+    lifecycle:{
+      initState:async()=>{...},//可选
+      initStateDode:(dispatch, moduleState)=>{...},//可选
+      loaded:(dispatch, moduleState)=>{...},//可选
+      mounted:(dispatch, moduleState)=>{...},//可选
+      willUnmount:(dispatch, moduleState)=>{...},//可选
+    }
   },
   bar:{...},
   otherModule:{...},
@@ -89,7 +95,7 @@ src
       ├─ model.js
       └─ index.js
 ```
-推荐进一步将model.js写为文件夹，在内部定义`state`、`reducer`、`computed`、`watch`、`init`,在导出合成在一起组成一个完整的model定义，这样不仅显得各自的职责分明，防止代码膨胀看变成一个**巨大的`model`对象**，同时`reducer`独立定义后，内部函数相互`dispatch`调用时可以直接基于引用而非字符串了。
+推荐进一步将model.js写为文件夹，在内部定义`state`、`reducer`、`computed`、`watch`、`lifecycle`,在导出合成在一起组成一个完整的model定义，这样不仅显得各自的职责分明，防止代码膨胀看变成一个**巨大的`model`对象**，同时`reducer`独立定义后，内部函数相互`dispatch`调用时可以直接基于引用而非字符串了。
 ```js{5}
 src
 ├─ ...
@@ -100,7 +106,7 @@ src
 │  │  │  ├─ reducer.js
 │  │  │  ├─ computed.js
 │  │  │  ├─ watch.js
-│  │  │  ├─ init.js
+│  │  │  ├─ lifecycle.js
 │  │  │  └─ index.js
 │  │  └─ Login.js
 │  └─ product ...
@@ -160,10 +166,7 @@ const state = { token:'newInitValue' };
 const reducer = {
   login(){ ... }
 };
-const computed = {...};
-const watch = {...};
-const init = async ()=>{...};
-cloneModule('anotherGhostLogin', loginModule, { state, reducer, computed, watch, init });
+cloneModule('anotherGhostLogin', loginModule, { state, reducer });
 
 ```
 
