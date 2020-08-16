@@ -1,7 +1,7 @@
 # 模块
 ![cc-module](/concent-doc/img/module-lifecycle.png) 
 
-在concent里，提供一个全局唯一的`store`，而`store`是由多个模块一起组成的，**模块**是一个非常重要的概念，每个模块又分别由`state`、`reducer`、`computed`、`watch`、`init`组成。
+在concent里，提供一个全局唯一的`store`，而`store`是由多个模块一起组成的，**模块**是一个非常重要的概念，每个模块又分别由`state`、`reducer`、`computed`、`watch`、`lifecycle`组成。
 
 ## run，载入配置
 定义好各个模块后，传递给`run`接口第一位参数作为启动concent的store配置项，concent启动后会维护这一个全局唯一的`ConcentContext`对象，里面负责存储各种配置信息，以及暴露底层api接口。   
@@ -124,9 +124,9 @@ import state from './state.js';
 import * as reducer from './reducer.js'; 
 import * as computed from './computed.js'; 
 import * as watch from './watch.js'; 
-import init from './init.js'; 
+import lifecycle from './lifecycle.js'; 
 
-export const loginModule = {state, reducer, computed, watch, init};
+export const loginModule = {state, reducer, computed, watch, lifecycle};
 
 export const configureLoginModule = ()=>{
   //配置模块，命名为login
@@ -152,7 +152,7 @@ export default class Login extends Component{
 
 ## 模块克隆
 如果想创建一个新模块，并复用某个已有模块的全部配置，可以使用`cloneModule`达到目的。
-> `cloneModule`支持对已存在模块重写`state`、`reducer`、`watch`、`computed`的部分配置，以及替换`init`函数，可以根据你的需要来决定是否重写。
+> `cloneModule`支持对已存在模块重写`state`、`reducer`、`watch`、`computed`的部分配置，以及替换`lifecycle`函数，可以根据你的需要来决定是否重写。
 
 ```js
 import { cloneModule } from 'concent';
