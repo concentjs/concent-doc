@@ -40,7 +40,8 @@ module.exports = {
   nav: {
     cn: [
       { text: '📍指引', link: '/guide/first-sight' },
-      { text: '⚙️Api', link: '/api/explain' },
+      { text: '⚙️Api(常用)', link: '/api-much-used/run' },
+      { text: '⚙️Api(全)', link: '/api/explain' },
       { text: '☘️生态系统', link: '/eco-sys/intro' },
       { text: ' 🖋发布日志', link: '/release-log/intro' },
       { text: ' 🔍实验室', link: '/lab/intro' },
@@ -48,7 +49,8 @@ module.exports = {
     ],
     en: [
       { text: '📍Guide', link: '/guide/first-sight' },
-      { text: '⚙️Api', link: '/api/explain' },
+      { text: '⚙️Api(much used)', link: '/api-much-used/run' },
+      { text: '⚙️Api(whole)', link: '/api/explain' },
       { text: '☘️EcoSys', link: '/eco-sys/intro' },
       { text: ' 🖋ReleaseLog', link: '/release-log/intro' },
       { text: ' 🔍Lab', link: '/lab/intro' },
@@ -94,6 +96,31 @@ module.exports = {
             'demo-show-all-features',
             'demo-1',
             'demo-2',
+          ]
+        },
+      ],
+      '/api-much-used/': [
+        {
+          title: '全局api',
+          collapsable: false,
+          children: [
+            'run',
+            'register',
+            'useConcent',
+          ]
+        },
+        {
+          title: '实例api',
+          collapsable: false,
+          children: [
+            'setState',
+          ]
+        },
+        {
+          title: '代码示范',
+          collapsable: true,
+          children: [
+            'setState',
           ]
         },
       ],
@@ -179,6 +206,31 @@ module.exports = {
             'demo-2',
           ]
         }
+      ],
+      '/api-much-used/': [
+        {
+          title: 'global api',
+          collapsable: false,
+          children: [
+            'run',
+            'register',
+            'useConcent',
+          ]
+        },
+        {
+          title: 'ctx api',
+          collapsable: false,
+          children: [
+            'setState',
+          ]
+        },
+        {
+          title: '代码示范',
+          collapsable: true,
+          children: [
+            'setState',
+          ]
+        },
       ],
       '/api/': [
 
