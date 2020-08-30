@@ -59,10 +59,14 @@ run({
   | |_lifecycle.js
   | |_index.js
   |
+  |_modOther
+  | |_state.js
+  | |_...
+  |
   |_index.js // 导出所有 models
 ```
 
-models/counter/index.js导出counter模块定义
+**models/counter/index.js**导出counter模块定义
 ```js
 import state from "./state";
 import * as reducer from "./reducer";
@@ -75,7 +79,8 @@ export default { state, reducer, computed, watch, lifecycle };
 
 models/index.js导出所有模块
 ```js
-import { default as counter } from './counter';
+export { default as counter } from './counter';
+export { default as modOther } from './modOther';
 ```
 
 runConcent.js里仅需要载入导出模块即可
