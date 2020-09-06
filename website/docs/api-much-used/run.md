@@ -18,7 +18,7 @@ import { run } from 'concent';
 run();
 ```
 
-或使用默认导出
+或从默认导出里调用`run`
 ```js
 import cc from 'concent';
 cc.run();

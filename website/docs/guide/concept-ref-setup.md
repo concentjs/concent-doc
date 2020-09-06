@@ -43,8 +43,8 @@ const setup = ctx => {
 
   //返回结果收集在settings里
   return {
-    inc: () => ctx.setState({ count: ctx.state.count + 1 }),
-    dec: () => ctx.setState({ count: ctx.state.count - 1 }),
+    inc: () => ctx.setState({ count: state.count + 1 }),
+    dec: () => ctx.setState({ count: state.count - 1 }),
   }
 }
 
@@ -74,10 +74,10 @@ const setup = ctx => {
   }, ['count']);
 
   return {
-    inc: () => setCount({ count: ctx.state.count + 1 }),
-    dec: () => setCount({ count: ctx.state.count - 1 }),
-    incStoreCount: () => ctx.setState({ count: ctx.state.storeCount + 1 }),
-    decStoreCount: () => ctx.setState({ count: ctx.state.storeCount - 1 }),
+    inc: () => setCount({ count: state.count + 1 }),
+    dec: () => setCount({ count: state.count - 1 }),
+    incStoreCount: () => ctx.setState({ count: state.storeCount + 1 }),
+    decStoreCount: () => ctx.setState({ count: state.storeCount - 1 }),
     //如果逻辑复杂，抽离到了reducer，也可以写为
     // incStoreCount: () => ctx.dispatch('inc'),
     // decStoreCount: () => ctx.dispatch('dec'),
@@ -121,16 +121,16 @@ const setup = ctx => {
   }, []);
 
   //定义实例computed，因每个实例都可能会触发，优先考虑模块computed
-  ctx.computed('count', (newVal, oldVal, fnCtx)=>{
-    return newVal*2;
+  ctx.computed('count', (newState, oldState, fnCtx)=>{
+    return newState.count*2;
   });
 
  //定义实例watch，区别于effect，执行时机是在组件渲染之前
  //因每个实例都可能会触发，优先考虑模块watch
-  ctx.watch('count', (newVal, oldVal, fnCtx)=>{
+  ctx.watch('count', (newState, oldState, fnCtx)=>{
     //发射事件
-    ctx.emit('countChanged', newVal);
-    api.track(`count changed to ${newVal}`);
+    ctx.emit('countChanged', newState.count);
+    api.track(`count changed to ${newState.count}`);
   });
 
   //定义事件监听，concent会在实例销毁后自动将其off掉
@@ -139,8 +139,8 @@ const setup = ctx => {
   });
 
   return {
-    inc: () => setCount({ count: ctx.state.count + 1 }),
-    dec: () => setCount({ count: ctx.state.count - 1 }),
+    inc: () => setCount({ count: state.count + 1 }),
+    dec: () => setCount({ count: state.count - 1 }),
   };
 }
 
