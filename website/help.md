@@ -15,11 +15,14 @@
 </script>
 ```
 
+## 访问站点
+执行`npm run start`启动成功后，访问 localhost:8000
+
 
 ## 注意事项1
 开发运行的时候，刚启动时首先从 website/static/concent-doc目录拷贝所有资源到 website/public/concent-doc下，
 **在调试过程中**，直接向website/public/concent-doc目录下添加资源即可看到实时效果，但是要注意：
-所以npm run start 和 build 都是先copy website/public/concent-doc目录下正确的所有资源至website/static/concent-doc下做个备份，然后再交给gatsby命令去后面的动作，gatsby会用website/static/concent-doc的文件去做相关构建，这时候资源就是正确的了！
+npm run start 和 build 都是先copy website/public/concent-doc目录下正确的所有资源至website/static/concent-doc下做个备份，然后再交给gatsby命令去后面的动作，gatsby会用website/static/concent-doc的文件去做相关构建，这时候资源就是正确的了！
 
 调试开发启动过程如下:
 - copy website/public/concent-doc/* to website/static/concent-doc

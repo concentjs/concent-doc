@@ -9,9 +9,15 @@ function getLocaleThemeConf(localeKey) {
   return localeThemeConf;
 }
 
-module.exports = {
-  base: '/concent-doc/',
+const base = '/concent-doc/';
 
+let noEndSlashBase = base;
+if (base.length > 2 && base.startsWith('/') && base.endsWith('/')) {
+  noEndSlashBase = base.substr(0, base.length - 1);
+}
+
+module.exports = {
+  base,
   locales: {
     '/': {
       lang: 'zh-CN',
@@ -28,8 +34,8 @@ module.exports = {
   logo: '/favicon.png',
   footer: 'MIT Licensed | Copyright © concentjs (author: fantasticsoul)',
   head: [
-    ['link', { rel: 'icon', href: '/concent-doc/favicon.png' }],
-    ['link', { rel: 'stylesheet', type: 'text/css', href: '/concent-doc/my-style.css' }],
+    ['link', { rel: 'icon', href: `${noEndSlashBase}/favicon.png` }],
+    ['link', { rel: 'stylesheet', type: 'text/css', href: `${noEndSlashBase}/my-style.css` }],
   ],
   themeConfig: {
     logo: '/favicon.png',

@@ -45,7 +45,7 @@ class CounterComp extends Component {
 import { useConcent } from 'concent';
 
 function CounterFnComp() {
-  const { state, setState } = useConcent('concent');
+  const { state, setState } = useConcent('counter');
   return (
     <div>
       count: {state.count}
