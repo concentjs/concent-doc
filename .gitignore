@@ -8,5 +8,7 @@ website/.cache
 website/public/concent-doc/*
 website/public/page-data
 website/public/index.html
+website/package-lock.json
+website/yarn.lock
 
 .help.md
