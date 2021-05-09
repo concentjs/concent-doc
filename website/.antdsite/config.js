@@ -4,7 +4,18 @@ function getLocaleThemeConf(localeKey) {
   const confItemKeys = ['selectText', 'label', 'editLinkText', 'serviceWorker', 'algolia', 'nav', 'sidebar'];
   const localeThemeConf = {};
   confItemKeys.forEach(k => {
-    localeThemeConf[k] = localeSource[k][localeKey]
+    let targetLocaleConf = localeSource[k][localeKey];
+
+    // 如果是sidebar，非cn的文档包配置，要自动加上前缀，以便和 docs/{lang} 一一映射
+    if (k === 'sidebar' && localeKey !== 'cn') {
+      const oriSidebarLocaleConf = localeSource[k][localeKey];
+      targetLocaleConf = {};
+      // 形如 '/guide/'
+      Object.keys(oriSidebarLocaleConf).forEach((key) => {
+        targetLocaleConf[`/${localeKey}${key}`] = oriSidebarLocaleConf[key];
+      });
+    }
+    localeThemeConf[k] = targetLocaleConf;
   });
   return localeThemeConf;
 }
