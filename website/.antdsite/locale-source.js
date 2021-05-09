@@ -8,6 +8,7 @@ const sidebarConf = {
     // '',//对应guide文件夹下的README.md
     {
       title: '核心概念',
+      'title.en': 'Core Concept',
       collapsable: false,
       children: [
         'concept-module',
@@ -97,6 +98,7 @@ const sidebarConf = {
     },
     {
       title: '全局api',
+      'title.en': 'Global api',
       collapsable: false,
       children: [
         'g-run',

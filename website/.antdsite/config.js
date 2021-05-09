@@ -12,7 +12,19 @@ function getLocaleThemeConf(localeKey) {
       targetLocaleConf = {};
       // 形如 '/guide/'
       Object.keys(oriSidebarLocaleConf).forEach((key) => {
-        targetLocaleConf[`/${localeKey}${key}`] = oriSidebarLocaleConf[key];
+        let maybeArr = oriSidebarLocaleConf[key];
+        if (Array.isArray(maybeArr)) {
+          maybeArr = maybeArr.slice();
+          maybeArr.forEach((item, idx) => {
+            if (typeof item === 'object') {
+              const newItem = { ...item };
+              newItem.title = item[`title.${localeKey}`];
+              maybeArr[idx] = newItem;
+            }
+          })
+        }
+
+        targetLocaleConf[`/${localeKey}${key}`] = maybeArr;
       });
     }
     localeThemeConf[k] = targetLocaleConf;
