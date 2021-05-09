@@ -5,6 +5,6 @@ website/.cache
 
 /concent-doc
 
-website/public/concent-doc/*
+# website/public/concent-doc/*
 
 .help.md
