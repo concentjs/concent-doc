@@ -3,8 +3,8 @@
 website/node_modules
 website/.cache
 
-concent-doc
+/concent-doc
 
-# website/public/concent-doc/*
+website/public/concent-doc/*
 
 .help.md
