@@ -7,7 +7,7 @@ function setup(
   ctx: RefCtx
 ): object | undefined
 ```
-`ctx`即是concent为每一个实例构造的上线文对象。
+`ctx`即是concent为每一个实例构造的上下文对象。
 
 ## 如何使用
 类组件和函数组件皆可以使用`setup`，它们获得的`ctx`对象是完全一样的，故两种组件写法不存在差异。

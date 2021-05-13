@@ -43,7 +43,7 @@ concent class组件可以从[实例上下文](/guide/concept-ref-ctx)`ctx`上相
 import { useConcent } from 'concent';
 
 function FuncComp(){
-  const ctx = useConcent('foo');// 返回当前组件的实例上线文对象
+  const ctx = useConcent('foo');// 返回当前组件的实例上下文对象
   const { state, moduleState, globalState, connectedState } = ctx;
 }
 ```

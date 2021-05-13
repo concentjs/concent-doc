@@ -5,10 +5,8 @@ website/.cache
 
 /concent-doc
 
-website/public/concent-doc/*
-website/public/page-data
-website/public/index.html
-website/package-lock.json
-website/yarn.lock
+# website/public/concent-doc/*
+# website/public/page-data
+# website/public/index.html
 
 .help.md

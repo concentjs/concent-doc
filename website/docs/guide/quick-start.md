@@ -166,7 +166,7 @@ class FooComp extends Component {
 
 ## 定义reducer
 当我们提交变更数据前有不少的处理过程的时候，组件的代码会越来越臃肿，为了解耦业务逻辑也ui渲染，我们需要合理的剥离相关处理过程过程到`reducer`。   
-在concent里，触发`reducer`特别简单，因为concent为每一个组件实例都构建了一个实例上线文对象`ctx`，该对象上提供了concent为组件能力增强的api，你可以用`js>>>this.ctx.dispatch('reducerFnName', payload)`直接呼叫reducer函数，从而避免各种`map***ToProps`和相关的配套`action`定义。    
+在concent里，触发`reducer`特别简单，因为concent为每一个组件实例都构建了一个实例上下文对象`ctx`，该对象上提供了concent为组件能力增强的api，你可以用`js>>>this.ctx.dispatch('reducerFnName', payload)`直接呼叫reducer函数，从而避免各种`map***ToProps`和相关的配套`action`定义。    
 - reducer函数可以是纯函数，也可以是`async`函数
 - 可以返回一个部分状态，可以调用其他`reducer`函数后再返回一个部分状态，也可以啥都不返回，只是组合其他`reducer`函数来调用。
 
@@ -474,7 +474,7 @@ class BarComp extends Component {
 
 > 此时组件会被concent指定属于内置模块`$$default`，这是一个空模块，除非你显式地去重定义该模块相关配置项，在没有对`$$default`模块重定义前，组件里的`this.state`和`模块state`将不再有关联，组件的`this.setState`也不再能够触发修改`模块state`的数据，组件自定义的`state`相当于变成完全私有的了。
 
-上述示例中，注册的组件都指定了**属于**`bar`模块，所以实例上线文对象调用`js>>>this.ctx.dispatch('reducerFnName', payload)`时，知道触发的是`bar`模块的`reducer`函数，去修改`bar`模块的数据。
+上述示例中，注册的组件都指定了**属于**`bar`模块，所以实例上下文对象调用`js>>>this.ctx.dispatch('reducerFnName', payload)`时，知道触发的是`bar`模块的`reducer`函数，去修改`bar`模块的数据。
 
 ```js
   this.ctx.dispatch('changeName', 'newName');
@@ -499,7 +499,7 @@ this.ctx.cr.foo.changeName('newName');
 ```
 
 ## 定义setup
-`setup`定义是针对实例的，触发时机是组件构造器函数执行结束后，组件将要首次渲染前，所以只会被执行一次，其返回结果将搜集到`js>>>this.ctx.settings`里，配合上线文对象提供的`effect`api，还可以达到在类里**消灭生命周期函数**的效果  
+`setup`定义是针对实例的，触发时机是组件构造器函数执行结束后，组件将要首次渲染前，所以只会被执行一次，其返回结果将搜集到`js>>>this.ctx.settings`里，配合上下文对象提供的`effect`api，还可以达到在类里**消灭生命周期函数**的效果  
 ```js{3}
 @register('foo')
 class HelloComp extends Component {
