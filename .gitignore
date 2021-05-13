@@ -5,7 +5,8 @@ website/.cache
 
 /concent-doc
 
-# website/public/concent-doc/*
+website/public/concent-doc/*
+website/public/*
 # website/public/page-data
 # website/public/index.html
 
