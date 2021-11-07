@@ -8,8 +8,9 @@ watch触发时机是在渲染前，需要定义retKey，effect触发在渲染后
 ## 函数签名定义
 ```ts
 function effect(
-  cb: (refCtx: RefCtx, isDidMount: boolean)=>void,
+  cb: (refCtx: RefCtx, isFirstCall: boolean)=>void,
   depKeys?: string[],
+  compare?: boolean,
   immediate?: boolean,
 ):void
 ```
@@ -19,6 +20,7 @@ function effect(
 -|-|-|-  
 cb | 回调函数 | | Function
 depKeys | 依赖stateKey列表 | undefined | string[]
+compare | 是否对objet型的值做比较，默认是false，表示只要set了就触发，需注意如果设置为true，需要基于immutable写法去做对象修改 | false | boolean
 immediate | 是否立即执行 | true | Boolean
 
 ## 如何使用

@@ -93,6 +93,7 @@ const sidebarConf = {
         'ref-computed',
         'ref-watch',
         'ref-effect',
+        'ref-effect-props',
         'ref-execute',
       ]
     },
