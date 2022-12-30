@@ -12,6 +12,6 @@
   },
   "devDependencies": {
     "antdsite": "0.12.9",
-    "gatsby": "^2.13.45"
+    "gatsby": "^2.32.13"
   }
 }
